@@ -44,7 +44,7 @@ public class Int_Proveedores extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblProv = new javax.swing.JTable();
+        tblProveedores = new javax.swing.JTable();
         btnAgregar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -57,7 +57,7 @@ public class Int_Proveedores extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("PROVEEDORES");
 
-        tblProv.setModel(new javax.swing.table.DefaultTableModel(
+        tblProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -65,7 +65,7 @@ public class Int_Proveedores extends javax.swing.JFrame {
                 "idProveedor", "NombreProveedores", "DireccciónProveedores", "Código Postal", "Teléfono"
             }
         ));
-        jScrollPane1.setViewportView(tblProv);
+        jScrollPane1.setViewportView(tblProveedores);
 
         btnAgregar.setText("AGREGAR");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -144,7 +144,11 @@ public class Int_Proveedores extends javax.swing.JFrame {
     
     
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int fila = logica.mostrarProveedores().getSelectedRow();
+        int fila = tblProveedores.getSelectedRow();
+        String vlaor = tablaProveedores.getValueAt(fila, 0).toString();
+        if(fila>=0){
+            PreparedStatement pps = 
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -197,7 +201,7 @@ public class Int_Proveedores extends javax.swing.JFrame {
     {
         
         DefaultTableModel modelo = logica.mostrarProveedores();
-        tblProv.setModel(modelo);
+        tblProveedores.setModel(modelo);
         
     }
     
@@ -209,6 +213,6 @@ public class Int_Proveedores extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblProv;
+    private javax.swing.JTable tblProveedores;
     // End of variables declaration//GEN-END:variables
 }
