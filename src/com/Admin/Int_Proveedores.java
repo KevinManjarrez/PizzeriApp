@@ -153,8 +153,6 @@ public class Int_Proveedores extends javax.swing.JFrame {
             JOptionPane.showMessageDialof(null, "Registro Eliminado");
             } catch (SQLException ex){
                 Logger.getLogger(Int_Proveedores.class.getName().log(Level.SEVERE,null,ex));
-            }
-        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
