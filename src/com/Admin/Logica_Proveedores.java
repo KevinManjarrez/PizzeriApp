@@ -22,7 +22,6 @@ public class Logica_Proveedores {
     {
         String []  nombresColumnas = {"id","Proveedor","Direccion","C.P.","Teléfono"};
         String [] registros = new String[5];
-        
         DefaultTableModel modelo = new DefaultTableModel(null,nombresColumnas);
         
         String sql = "SELECT * FROM pizzeriapp.proveedores";

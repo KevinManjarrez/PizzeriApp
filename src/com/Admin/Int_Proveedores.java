@@ -21,7 +21,7 @@ public class Int_Proveedores extends javax.swing.JFrame {
     /**
      * Creates new form Int_Proveedores
      */
-    
+    Connection cn = null;
     Logica_Proveedores logica = new Logica_Proveedores();
     
     public Int_Proveedores() {
@@ -145,9 +145,15 @@ public class Int_Proveedores extends javax.swing.JFrame {
     
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int fila = tblProveedores.getSelectedRow();
-        String vlaor = tablaProveedores.getValueAt(fila, 0).toString();
+        String valor = tblProveedores.getValueAt(fila, 0).toString();
         if(fila>=0){
-            PreparedStatement pps = 
+            try{
+                PreparedStatement pps = cn.prepareStatement("DELETE FROM pizzeriap.proveedores WHERE Id'"+valor+"'");
+                pps.executeUpdate();
+            JOptionPane.showMessageDialof(null, "Registro Eliminado");
+            } catch (SQLException ex){
+                Logger.getLogger(Int_Proveedores.class.getName().log(Level.SEVERE,null,ex));
+            }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
