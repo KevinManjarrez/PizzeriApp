@@ -4,7 +4,7 @@
  */
 package com.Cocinero;
 
-import com.Admin.Conexion;
+import com.LogicasAdmin.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

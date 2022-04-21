@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.Admin;
+import com.LogicasAdmin.Logica_Productos;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 

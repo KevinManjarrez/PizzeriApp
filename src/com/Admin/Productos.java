@@ -1,6 +1,8 @@
 package com.Admin;
 
 
+import com.LogicasAdmin.Agregar_Modificar_Producto;
+import com.LogicasAdmin.Logica_Productos;
 import javax.swing.table.DefaultTableModel;
 
 /*

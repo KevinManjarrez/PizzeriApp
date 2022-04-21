@@ -4,9 +4,6 @@
  */
 package com.Admin;
 
-import static com.Admin.Agregar_o_Modificar_Proveedor.URL;
-import static com.Admin.Agregar_o_Modificar_Proveedor.contraseña;
-import static com.Admin.Agregar_o_Modificar_Proveedor.usuario;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;

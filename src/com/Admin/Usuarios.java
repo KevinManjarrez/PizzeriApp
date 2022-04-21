@@ -1,6 +1,7 @@
 package com.Admin;
 
 
+import com.LogicasAdmin.Logica_Productos;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
