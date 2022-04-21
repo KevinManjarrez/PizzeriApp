@@ -356,11 +356,11 @@ public class CocineroMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_txtAjustesMouseClicked
 
     private void txtAjustesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAjustesMouseEntered
-        // TODO add your handling code here:
+        btnAjustes.setBackground(new Color(255,109,118));
     }//GEN-LAST:event_txtAjustesMouseEntered
 
     private void txtAjustesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAjustesMouseExited
-        // TODO add your handling code here:
+        btnAjustes.setBackground(new Color(255,153,153));
     }//GEN-LAST:event_txtAjustesMouseExited
 
     /**

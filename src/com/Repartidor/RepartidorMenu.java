@@ -4,17 +4,22 @@
  */
 package com.Repartidor;
 
+import com.Admin.Login;
+import java.awt.BorderLayout;
+import java.awt.Color;
+
 /**
  *
  * @author defer
  */
 public class RepartidorMenu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form RepartidorMenu
-     */
+    int xMouse, yMouse;
+    
     public RepartidorMenu() {
         initComponents();
+        
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -26,21 +31,338 @@ public class RepartidorMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        btnOrdenesPendientes = new javax.swing.JPanel();
+        txtOrdP = new javax.swing.JLabel();
+        btnLogout = new javax.swing.JPanel();
+        txtLogout = new javax.swing.JLabel();
+        btnAjustes = new javax.swing.JPanel();
+        txtAjustes = new javax.swing.JLabel();
+        content = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        barraPric = new javax.swing.JPanel();
+        btnSalir = new javax.swing.JPanel();
+        btnSalirtxt = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setBackground(new java.awt.Color(255, 102, 102));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 220, 30));
+
+        jLabel1.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 28)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-pizza-delivery-64.png"))); // NOI18N
+        jLabel1.setText("REPARTIDOR");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 260, -1));
+
+        btnOrdenesPendientes.setBackground(new java.awt.Color(255, 153, 153));
+
+        txtOrdP.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
+        txtOrdP.setForeground(new java.awt.Color(255, 255, 255));
+        txtOrdP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtOrdP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-reminder-50.png"))); // NOI18N
+        txtOrdP.setText("Órdenes Pendientes");
+        txtOrdP.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtOrdP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtOrdPMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtOrdPMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtOrdPMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnOrdenesPendientesLayout = new javax.swing.GroupLayout(btnOrdenesPendientes);
+        btnOrdenesPendientes.setLayout(btnOrdenesPendientesLayout);
+        btnOrdenesPendientesLayout.setHorizontalGroup(
+            btnOrdenesPendientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(txtOrdP, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+        );
+        btnOrdenesPendientesLayout.setVerticalGroup(
+            btnOrdenesPendientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnOrdenesPendientesLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtOrdP, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.add(btnOrdenesPendientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 240, -1));
+
+        btnLogout.setBackground(new java.awt.Color(255, 153, 153));
+
+        txtLogout.setBackground(new java.awt.Color(255, 153, 153));
+        txtLogout.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
+        txtLogout.setForeground(new java.awt.Color(255, 255, 255));
+        txtLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar-sesion (1).png"))); // NOI18N
+        txtLogout.setText("Cerrar Sesión");
+        txtLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtLogoutMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtLogoutMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtLogoutMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnLogoutLayout = new javax.swing.GroupLayout(btnLogout);
+        btnLogout.setLayout(btnLogoutLayout);
+        btnLogoutLayout.setHorizontalGroup(
+            btnLogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnLogoutLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        btnLogoutLayout.setVerticalGroup(
+            btnLogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnLogoutLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 550, 180, 50));
+
+        btnAjustes.setBackground(new java.awt.Color(255, 153, 153));
+
+        txtAjustes.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
+        txtAjustes.setForeground(new java.awt.Color(255, 255, 255));
+        txtAjustes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtAjustes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-configuración-del-administrador-50_1.png"))); // NOI18N
+        txtAjustes.setText("Ajustes de Usuario");
+        txtAjustes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txtAjustes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtAjustesMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtAjustesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtAjustesMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnAjustesLayout = new javax.swing.GroupLayout(btnAjustes);
+        btnAjustes.setLayout(btnAjustesLayout);
+        btnAjustesLayout.setHorizontalGroup(
+            btnAjustesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAjustesLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtAjustes, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        btnAjustesLayout.setVerticalGroup(
+            btnAjustesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAjustesLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(txtAjustes, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.add(btnAjustes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 240, 60));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 630));
+
+        content.setBackground(new java.awt.Color(255, 255, 255));
+        content.setPreferredSize(new java.awt.Dimension(890, 510));
+
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        jLabel2.setText("¡Bienvenido Repartidor!");
+
+        jLabel3.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
+        jLabel3.setText("A tu izquierda selecciona la acción que vas a realizar. En esta ventana verás las interfaces correspondientes.");
+
+        javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
+        content.setLayout(contentLayout);
+        contentLayout.setHorizontalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(322, 322, 322))
+            .addGroup(contentLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel3)
+                .addContainerGap(243, Short.MAX_VALUE))
+        );
+        contentLayout.setVerticalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contentLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addContainerGap(482, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 880, 570));
+
+        barraPric.setBackground(new java.awt.Color(255, 255, 255));
+        barraPric.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                barraPricMouseDragged(evt);
+            }
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                barraPricMouseMoved(evt);
+            }
+        });
+        barraPric.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                barraPricMousePressed(evt);
+            }
+        });
+
+        btnSalir.setBackground(new java.awt.Color(255, 153, 153));
+
+        btnSalirtxt.setBackground(new java.awt.Color(255, 153, 153));
+        btnSalirtxt.setFont(new java.awt.Font("Nirmala UI", 0, 24)); // NOI18N
+        btnSalirtxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnSalirtxt.setText("X");
+        btnSalirtxt.setToolTipText("");
+        btnSalirtxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalirtxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSalirtxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSalirtxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSalirtxtMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnSalirLayout = new javax.swing.GroupLayout(btnSalir);
+        btnSalir.setLayout(btnSalirLayout);
+        btnSalirLayout.setHorizontalGroup(
+            btnSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnSalirtxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+        );
+        btnSalirLayout.setVerticalGroup(
+            btnSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnSalirtxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout barraPricLayout = new javax.swing.GroupLayout(barraPric);
+        barraPric.setLayout(barraPricLayout);
+        barraPricLayout.setHorizontalGroup(
+            barraPricLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(barraPricLayout.createSequentialGroup()
+                .addContainerGap(1115, Short.MAX_VALUE)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        barraPricLayout.setVerticalGroup(
+            barraPricLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(barraPric, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1160, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtOrdPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtOrdPMouseClicked
+        OrdenesR RO = new OrdenesR();
+        RO.setSize(880, 570);
+        RO.setLocation(0, 0);
+
+        content.removeAll();
+        content.add(RO, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
+    }//GEN-LAST:event_txtOrdPMouseClicked
+
+    private void txtOrdPMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtOrdPMouseEntered
+        btnOrdenesPendientes.setBackground(new Color(255,109,118));
+    }//GEN-LAST:event_txtOrdPMouseEntered
+
+    private void txtOrdPMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtOrdPMouseExited
+        btnOrdenesPendientes.setBackground(new Color(255,153,153));
+    }//GEN-LAST:event_txtOrdPMouseExited
+
+    private void txtLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtLogoutMouseClicked
+        this.dispose();
+        Login l = new Login();
+        l.setVisible(true);
+    }//GEN-LAST:event_txtLogoutMouseClicked
+
+    private void txtLogoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtLogoutMouseEntered
+        btnLogout.setBackground(new Color(255,109,118));
+    }//GEN-LAST:event_txtLogoutMouseEntered
+
+    private void txtLogoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtLogoutMouseExited
+        btnLogout.setBackground(new Color(255,153,153));
+    }//GEN-LAST:event_txtLogoutMouseExited
+
+    private void txtAjustesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAjustesMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAjustesMouseClicked
+
+    private void txtAjustesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAjustesMouseEntered
+        btnAjustes.setBackground(new Color(255,109,118));
+    }//GEN-LAST:event_txtAjustesMouseEntered
+
+    private void txtAjustesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAjustesMouseExited
+        btnAjustes.setBackground(new Color(255,153,153));
+    }//GEN-LAST:event_txtAjustesMouseExited
+
+    private void btnSalirtxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirtxtMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirtxtMouseClicked
+
+    private void btnSalirtxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirtxtMouseEntered
+        btnSalir.setBackground(Color.RED);
+        btnSalirtxt.setForeground(Color.WHITE);
+    }//GEN-LAST:event_btnSalirtxtMouseEntered
+
+    private void btnSalirtxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirtxtMouseExited
+        btnSalir.setBackground(new Color(255,153,153));
+        btnSalirtxt.setForeground(Color.BLACK);
+    }//GEN-LAST:event_btnSalirtxtMouseExited
+
+    private void barraPricMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barraPricMouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_barraPricMouseDragged
+
+    private void barraPricMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barraPricMouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_barraPricMouseMoved
+
+    private void barraPricMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barraPricMousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_barraPricMousePressed
 
     /**
      * @param args the command line arguments
@@ -78,5 +400,21 @@ public class RepartidorMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel barraPric;
+    private javax.swing.JPanel btnAjustes;
+    private javax.swing.JPanel btnLogout;
+    private javax.swing.JPanel btnOrdenesPendientes;
+    private javax.swing.JPanel btnSalir;
+    private javax.swing.JLabel btnSalirtxt;
+    private javax.swing.JPanel content;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel txtAjustes;
+    private javax.swing.JLabel txtLogout;
+    private javax.swing.JLabel txtOrdP;
     // End of variables declaration//GEN-END:variables
 }
