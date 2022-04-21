@@ -53,6 +53,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1000, 600));
 
         PanelPrincipal.setBackground(new java.awt.Color(255, 102, 102));
+        PanelPrincipal.setPreferredSize(new java.awt.Dimension(1060, 830));
         PanelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -80,7 +81,6 @@ public class AdministradorMenu extends javax.swing.JFrame {
         jLabel2.setText("Selecciona la opcion a la que desea acceder");
         PanelPrincipal.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, 298, -1));
 
-        jButton7.setBackground(new java.awt.Color(255, 255, 255));
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-cerrar-ventana-30.png"))); // NOI18N
         jButton7.setText("Salir");
         PanelPrincipal.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(716, 804, 125, -1));
@@ -93,7 +93,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
                 btnInventActionPerformed(evt);
             }
         });
-        PanelPrincipal.add(btnInvent, new org.netbeans.lib.awtextra.AbsoluteConstraints(557, 167, 167, 380));
+        PanelPrincipal.add(btnInvent, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, 167, 380));
 
         btnEmpleados.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         btnEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-personal-trainer-skin-type-2-40.png"))); // NOI18N
@@ -123,7 +123,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
                 btnVentasActionPerformed(evt);
             }
         });
-        PanelPrincipal.add(btnVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(734, 167, 167, 380));
+        PanelPrincipal.add(btnVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 170, 167, 380));
 
         btnLogout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar-sesion (1).png"))); // NOI18N
@@ -133,7 +133,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
                 btnLogoutActionPerformed(evt);
             }
         });
-        PanelPrincipal.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 590, 171, 49));
+        PanelPrincipal.add(btnLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 590, 171, 49));
 
         btnCompras.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         btnCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-producto-40.png"))); // NOI18N
@@ -213,7 +213,9 @@ public class AdministradorMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(PanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,7 +262,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprasActionPerformed
-        intCompras compras = new intCompras();
+        int_Compras compras = new int_Compras();
         compras.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnComprasActionPerformed

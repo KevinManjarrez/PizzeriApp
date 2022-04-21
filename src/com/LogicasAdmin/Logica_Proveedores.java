@@ -81,4 +81,6 @@ public class Logica_Proveedores {
         }
          return modelo;
     }
+    
+    
 }

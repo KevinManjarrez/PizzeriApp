@@ -16,15 +16,20 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author defer
  */
-public class intCompras extends javax.swing.JFrame {
+public class int_Compras extends javax.swing.JFrame {
 
     int xMouse, yMouse;
-    public intCompras() {
+    public static final String URL = "jdbc:mysql://localhost:3306/pizzeriapp?autoReconnet=true&useSSL=false";
+    public static final String usuario = "root";
+    public static final String contraseña = "12345";
+    PreparedStatement ps;
+    ResultSet rs; 
+    
+    public int_Compras() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         cargar();
-       
     }
 
     /**
@@ -208,12 +213,6 @@ public class intCompras extends javax.swing.JFrame {
         jLabel8.setText("Cantidad");
         bg.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 340, -1, -1));
         bg.add(txtProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 190, 240, -1));
-
-        txtDescripcion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDescripcionActionPerformed(evt);
-            }
-        });
         bg.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 250, 240, -1));
         bg.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 300, 240, -1));
         bg.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 340, 240, -1));
@@ -297,12 +296,8 @@ public class intCompras extends javax.swing.JFrame {
       cargar();
     }//GEN-LAST:event_botonCargarActionPerformed
 
-    private void txtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDescripcionActionPerformed
-
     private void tblComprasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblComprasMouseClicked
-         PreparedStatement ps = null;
+        PreparedStatement ps = null;
         ResultSet rs = null;
         
         try{
@@ -418,7 +413,7 @@ public class intCompras extends javax.swing.JFrame {
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     void cargar(){
-         DefaultTableModel modeloTabla=new DefaultTableModel();
+        DefaultTableModel modeloTabla=new DefaultTableModel();
         tblCompras.setModel(modeloTabla);
         String campo=txtBuscar.getText();
         String where="";
@@ -462,13 +457,9 @@ public class intCompras extends javax.swing.JFrame {
         }
     }
     
-    public static final String URL = "jdbc:mysql://localhost:3306/pizzeriapp?autoReconnet=true&useSSL=false";
-    public static final String usuario = "root";
-    public static final String contraseña = "12345";
-    PreparedStatement ps;
-    ResultSet rs; 
+
     
-      public java.sql.Connection getConnection(){
+    public java.sql.Connection getConnection(){
         java.sql.Connection conexion=null;
         
         try{
@@ -500,20 +491,21 @@ public class intCompras extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(intCompras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(int_Compras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(intCompras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(int_Compras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(intCompras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(int_Compras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(intCompras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(int_Compras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new intCompras().setVisible(true);
+                new int_Compras().setVisible(true);
             }
         });
     }

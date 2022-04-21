@@ -15,43 +15,31 @@ public class Conexion {
     private static java.sql.Connection con;
     private static boolean conectado = false;
     
+    Connection conexion=null;
+    
     public Connection getConnection(){
         Connection conexion=null;
-        
         try{
             Class.forName("com.mysql.jdbc.Driver");
             conexion = (Connection) DriverManager.getConnection(URL,usuario,contraseña);
-            
         }catch(Exception ex){
             System.err.println("Error, "+ex);
         }
-        
         return conexion;
     }
     
-    public static java.sql.Connection conectar()
-    {
-        
-        try 
-        {
-            
-            if (conectado == false)
-            {               
-                               
+    public static java.sql.Connection conectar(){
+        try {
+            if (conectado == false){                         
                 Class.forName("com.mysql.jdbc.Driver");
-            
                 con = DriverManager.getConnection(URL, usuario, contraseña); 
-             
             }
-
             return con; 
         } 
         catch (ClassNotFoundException | SQLException e) 
         {
             JOptionPane.showMessageDialog(null,"Error al crear la conexión "+e.getMessage());
-            
             throw new RuntimeException("Error al crear la conexión");
         }
-    }
-    
+    }  
 }

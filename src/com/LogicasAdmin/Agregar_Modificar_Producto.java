@@ -211,7 +211,7 @@ public class Agregar_Modificar_Producto extends javax.swing.JFrame {
     }//GEN-LAST:event_BottonCompletarActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
- Connection conexion = null;
+    Connection conexion = null;
         
         try{
             conexion = getConnection();
