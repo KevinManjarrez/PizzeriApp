@@ -1,8 +1,5 @@
 package com.Admin;
 
-import static com.Admin.int_Compras.URL;
-import static com.Admin.int_Compras.contraseña;
-import static com.Admin.int_Compras.usuario;
 import com.LogicasAdmin.Conexion;
 import static com.LogicasAdmin.Conexion.conectar;
 import java.sql.Connection;
@@ -54,6 +51,11 @@ public class Int_Proveedores extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1060, 630));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         lblCamioncito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/truck.png"))); // NOI18N
 
@@ -220,21 +222,23 @@ public class Int_Proveedores extends javax.swing.JFrame {
     
     
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-
-
         try {
             int filaSeleccionada=tblProveedores.getSelectedRow();
-            String sql="delete from proveedores where idProveedores="+tblProveedores.getValueAt(filaSeleccionada, 0);
-            Statement st =con.createStatement();
-            int n=st.executeUpdate(sql);
-            if(n>=0){
-                JOptionPane.showMessageDialog(null,"Usuario Eliminado Satisfactoriamente");
+            if(filaSeleccionada  == -1){
+                JOptionPane.showMessageDialog(null, "Selecciona una fila por favor");
+            }else{
+                String sql="delete from proveedores where idProveedores="+tblProveedores.getValueAt(filaSeleccionada, 0);
+                Statement st =con.createStatement();
+                int n=st.executeUpdate(sql);
+                    if(n>=0){
+                        JOptionPane.showMessageDialog(null,"Usuario Eliminado Satisfactoriamente");
+                    }
+                mostrarProveedores();
             }
-        } catch (SQLException ex) {
+        }catch (SQLException ex) {
             Logger.getLogger(Int_Proveedores.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null,"Usuario Eliminado Satisfactoriamente"+ex.getMessage());
-        }
-        mostrarProveedores();
+}   
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -244,20 +248,71 @@ public class Int_Proveedores extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-
+        try {
+            if(txtNombre.getText().isBlank()||txtDireccion.getText().isBlank()||txtCodigoPostal.getText().isBlank()
+               ||txtTelefono.getText().isBlank()){
+                JOptionPane.showMessageDialog(null, "No se admiten registros nulos");
+            }else{
+                PreparedStatement ps= con.prepareStatement("insert into proveedores (NombreProveedores, DireccionProveedores, cpProveedores, telProveedores) VALUES (?,?,?,?)");
+                ps.setString(1,txtNombre.getText());
+                ps.setString(2, txtDireccion.getText());
+                ps.setString(3, txtCodigoPostal.getText());
+                ps.setString(4, txtTelefono.getText());
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Registro creado");
+                mostrarProveedores();
+                limpiarEntradas();
+            }
+        } catch (SQLException ex) {
+            //JOptionPane.showMessageDialog(null, "Error al ingresar registros");
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void tblProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProveedoresMouseClicked
-        // TODO add your handling code here:
+        btnAgregar.setEnabled(false);
+        btnModificar.setEnabled(true);
+        int fila = tblProveedores.getSelectedRow();
+        txtIdProveedor.setText(tblProveedores.getValueAt(fila,0).toString());
+        txtNombre.setText(tblProveedores.getValueAt(fila,1).toString());
+        txtDireccion.setText(tblProveedores.getValueAt(fila, 2).toString());
+        txtCodigoPostal.setText(tblProveedores.getValueAt(fila, 3).toString());
+        txtTelefono.setText(tblProveedores.getValueAt(fila, 4).toString());
     }//GEN-LAST:event_tblProveedoresMouseClicked
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
+       try {
+            if(txtNombre.getText().isBlank()||txtDireccion.getText().isBlank()||txtCodigoPostal.getText().isBlank()
+               ||txtTelefono.getText().isBlank()){
+                JOptionPane.showMessageDialog(null, "No se admiten registros nulos.");
+            }else{
+                PreparedStatement ps = con.prepareStatement("update proveedores set NombreProveedores='"+txtNombre.getName()+
+                        "',DireccionProveedores='"+txtDireccion.getText()+
+                        "',cpProveedores='"+txtCodigoPostal.getText()+
+                        "',telProveedores='"+txtTelefono.getText()+"'");
+                int indice = ps.executeUpdate();
+                if(indice>0){
+                    JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
+                    mostrarProveedores();
+                    limpiarEntradas();
+                }else{
+                    JOptionPane.showMessageDialog(null, "No ha seleccionado una fila.");
+                }
+                
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar registros");
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        btnAgregar.setEnabled(true);
+        btnModificar.setEnabled(false);
+        limpiarEntradas();
+    }//GEN-LAST:event_formMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -290,6 +345,13 @@ public class Int_Proveedores extends javax.swing.JFrame {
         });
     }
     
+    private void limpiarEntradas(){
+        txtIdProveedor.setText("");
+        txtNombre.setText("");
+        txtDireccion.setText("");
+        txtCodigoPostal.setText("");
+        txtTelefono.setText("");
+    }
     public void mostrarProveedores()
     {
         Logica_Proveedores logica = new Logica_Proveedores();
@@ -297,18 +359,7 @@ public class Int_Proveedores extends javax.swing.JFrame {
         tblProveedores.setModel(modelo);     
     }
 
-    
-    public java.sql.Connection getConnection(){
-        java.sql.Connection conexion=null;
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            conexion = (java.sql.Connection) DriverManager.getConnection(URL,usuario,contraseña);
-            System.err.println("Conectado a la base de datos");  
-        }catch(Exception ex){
-            System.err.println("Error, "+ex);
-        }
-        return conexion;
-    }
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
@@ -331,4 +382,6 @@ public class Int_Proveedores extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
+
+
 }
