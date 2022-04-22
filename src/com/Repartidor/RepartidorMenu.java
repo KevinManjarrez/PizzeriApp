@@ -44,6 +44,8 @@ public class RepartidorMenu extends javax.swing.JFrame {
         content = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         barraPric = new javax.swing.JPanel();
         btnSalir = new javax.swing.JPanel();
         btnSalirtxt = new javax.swing.JLabel();
@@ -66,6 +68,12 @@ public class RepartidorMenu extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-pizza-delivery-64.png"))); // NOI18N
         jLabel1.setText("REPARTIDOR");
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 260, -1));
 
         btnOrdenesPendientes.setBackground(new java.awt.Color(255, 153, 153));
@@ -189,6 +197,19 @@ public class RepartidorMenu extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
         jLabel3.setText("A tu izquierda selecciona la acción que vas a realizar. En esta ventana verás las interfaces correspondientes.");
 
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setBorder(null);
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setBackground(new java.awt.Color(255, 255, 255));
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
+        jTextArea1.setRows(5);
+        jTextArea1.setText("Si es tu primera vez, sugerimos que visites la sección de Ajustes de usuario para realizar tu cambio de contraseña, además podrás hacer cambio de tu\nnombre de usuario si así lo deseas.\n\nEn la sección de ajustes encontrarás las órdenes que aún restan por entregar.");
+        jTextArea1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTextArea1.setFocusable(false);
+        jScrollPane1.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
@@ -201,6 +222,7 @@ public class RepartidorMenu extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(jLabel3)
                 .addContainerGap(243, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,7 +231,9 @@ public class RepartidorMenu extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addContainerGap(482, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(261, Short.MAX_VALUE))
         );
 
         jPanel1.add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 880, 570));
@@ -323,7 +347,14 @@ public class RepartidorMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLogoutMouseExited
 
     private void txtAjustesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAjustesMouseClicked
-        // TODO add your handling code here:
+        AjustesRepartidor AR = new AjustesRepartidor();
+        AR.setSize(880, 570);
+        AR.setLocation(0, 0);
+
+        content.removeAll();
+        content.add(AR, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
     }//GEN-LAST:event_txtAjustesMouseClicked
 
     private void txtAjustesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAjustesMouseEntered
@@ -363,6 +394,11 @@ public class RepartidorMenu extends javax.swing.JFrame {
         xMouse = evt.getX();
         yMouse = evt.getY();
     }//GEN-LAST:event_barraPricMousePressed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        content.removeAll();
+        content.repaint();
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -412,7 +448,9 @@ public class RepartidorMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel txtAjustes;
     private javax.swing.JLabel txtLogout;
     private javax.swing.JLabel txtOrdP;

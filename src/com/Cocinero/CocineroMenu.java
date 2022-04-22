@@ -43,6 +43,9 @@ public class CocineroMenu extends javax.swing.JFrame {
         content = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         barraPric = new javax.swing.JPanel();
         btnSalir = new javax.swing.JPanel();
         btnSalirtxt = new javax.swing.JLabel();
@@ -65,6 +68,12 @@ public class CocineroMenu extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-cocinero-de-sexo-masculino-64.png"))); // NOI18N
         jLabel1.setText("COCINERO");
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 260, -1));
 
         btnOrdenesPendientes.setBackground(new java.awt.Color(255, 153, 153));
@@ -188,6 +197,12 @@ public class CocineroMenu extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
         jLabel3.setText("A tu izquierda selecciona la acción que vas a realizar. En esta ventana verás las interfaces correspondientes.");
 
+        jLabel4.setText("En la seccion de \"órdenes Pendientes\" podrás visualizar las órdenes que están realizadas, pero que están con un estado activo, esperando a que sean cocinadas");
+
+        jLabel5.setText("por lo que es necesario que cuando finalices una orden, presiones el botón de \"Marcar como cocinada\", así mantendrás el flujo de trabajo y los clientes podrán ser ");
+
+        jLabel6.setText("informados cuando su orden esté lista o saber el estado actual de la orden.");
+
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
@@ -198,8 +213,12 @@ public class CocineroMenu extends javax.swing.JFrame {
                 .addGap(322, 322, 322))
             .addGroup(contentLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jLabel3)
-                .addContainerGap(243, Short.MAX_VALUE))
+                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,7 +227,13 @@ public class CocineroMenu extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addContainerGap(482, Short.MAX_VALUE))
+                .addGap(37, 37, 37)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addContainerGap(385, Short.MAX_VALUE))
         );
 
         jPanel1.add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 880, 570));
@@ -352,7 +377,14 @@ public class CocineroMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLogoutMouseExited
 
     private void txtAjustesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAjustesMouseClicked
-        // TODO add your handling code here:
+        AjustesCocinero AC = new AjustesCocinero();
+        AC.setSize(880, 570);
+        AC.setLocation(0, 0);
+        
+        content.removeAll();
+        content.add(AC, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
     }//GEN-LAST:event_txtAjustesMouseClicked
 
     private void txtAjustesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAjustesMouseEntered
@@ -362,6 +394,11 @@ public class CocineroMenu extends javax.swing.JFrame {
     private void txtAjustesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAjustesMouseExited
         btnAjustes.setBackground(new Color(255,153,153));
     }//GEN-LAST:event_txtAjustesMouseExited
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        content.removeAll();
+        content.repaint();
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -409,6 +446,9 @@ public class CocineroMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
