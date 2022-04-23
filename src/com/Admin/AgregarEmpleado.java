@@ -1,6 +1,7 @@
 package com.Admin;
 
 
+import com.LogicasAdmin.Conexion;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,11 +20,8 @@ import javax.swing.JOptionPane;
  * @author NORIS
  */
 public class AgregarEmpleado extends javax.swing.JFrame {
-
-    
-    public static final String URL = "jdbc:mysql://localhost:3306/pizzeriapp?autoReconnet=true&useSSL=false";
-    public static final String usuario = "root";
-    public static final String contraseña = "12345";
+    Conexion cc = new Conexion();
+    Connection con = cc.conectar();
     PreparedStatement ps;
     ResultSet rs; 
     
@@ -33,21 +31,6 @@ public class AgregarEmpleado extends javax.swing.JFrame {
     public AgregarEmpleado() {
         initComponents();
         this.setLocationRelativeTo(null);
-    }
-    
-    public Connection getConnection(){
-        Connection conexion=null;
-        
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            conexion = (Connection) DriverManager.getConnection(URL,usuario,contraseña);
-            JOptionPane.showMessageDialog(null, "Conexion exitosa");
-            
-        }catch(Exception ex){
-            System.err.println("Error, "+ex);
-        }
-        
-        return conexion;
     }
     
     public void limpiarCajas(){
@@ -222,15 +205,15 @@ public class AgregarEmpleado extends javax.swing.JFrame {
 
     
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        Connection conexion = null;
+
+        
         
         String tipoU = "";
         int i = cmbTipo.getSelectedIndex();
         tipoU = i+"";
         
         try{
-            conexion = getConnection();
-            ps = conexion.prepareStatement("insert into usuarios (idUsuarios,Nombre,ApellidoPaterno,ApellidoMaterno,Direccion,CodigoPostal,Contraseña,idTipoUsuario,UsuarioNombre) values(?,?,?,?,?,?,?,?,?)");
+            ps = con.prepareStatement("insert into usuarios (idUsuarios,Nombre,ApellidoPaterno,ApellidoMaterno,Direccion,CodigoPostal,Contraseña,idTipoUsuario,UsuarioNombre) values(?,?,?,?,?,?,?,?,?)");
             ps.setString(1,txtId.getText());
             ps.setString(2,txtNombre.getText());
             ps.setString(3,txtAPaterno.getText());
@@ -251,7 +234,7 @@ public class AgregarEmpleado extends javax.swing.JFrame {
                 limpiarCajas();
             }
             
-            conexion.close(); //Cerramos la conexion
+            con.close(); //Cerramos la conexion
             
         }catch(Exception ex){
             System.err.println("Error, "+ex);

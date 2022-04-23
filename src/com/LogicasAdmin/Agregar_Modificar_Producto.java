@@ -3,7 +3,6 @@ package com.LogicasAdmin;
 
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
@@ -20,29 +19,16 @@ import javax.swing.JOptionPane;
  * @author payop
  */
 public class Agregar_Modificar_Producto extends javax.swing.JFrame {
-    public static final String URL = "jdbc:mysql://localhost:3306/pizzeriapp?autoReconnet=true&useSSL=false";
-    public static final String usuario = "root";
-    public static final String contraseña = "12345";
+
     PreparedStatement ps;
     ResultSet rs; 
+    
+    Conexion cc = new Conexion();
     public Agregar_Modificar_Producto() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-     public Connection getConnection(){
-        Connection conexion=null;
-        
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            conexion = (Connection) DriverManager.getConnection(URL,usuario,contraseña);
-            JOptionPane.showMessageDialog(null, "Conexion exitosa");
-            
-        }catch(Exception ex){
-            System.err.println("Error, "+ex);
-        }
-        
-        return conexion;
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -186,7 +172,7 @@ public class Agregar_Modificar_Producto extends javax.swing.JFrame {
           Connection conexion = null;
         
         try{
-            conexion = getConnection();
+            conexion = cc.conectar();
             ps = conexion.prepareStatement("insert into productos (idproductos,nombreproducto,precio,descripcion) values(?,?,?,?)");
             ps.setString(1,txt_Id.getText());
             ps.setString(2,txtNombre.getText());
@@ -214,7 +200,7 @@ public class Agregar_Modificar_Producto extends javax.swing.JFrame {
     Connection conexion = null;
         
         try{
-            conexion = getConnection();
+            conexion = cc.conectar();
             ps = conexion.prepareStatement("delete from productos where idProductos=?");
             ps.setInt(1, Integer.parseInt(txt_Id.getText()));
             

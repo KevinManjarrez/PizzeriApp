@@ -27,6 +27,7 @@ public class Logica_Productos {
         
         String sql = "SELECT * FROM pizzeriapp.productos";
         
+        Conexion cc = new Conexion();
         Connection cn = null;
         
         PreparedStatement pst = null;
@@ -35,7 +36,7 @@ public class Logica_Productos {
         
         try
         {
-            cn = Conexion.conectar();
+            cn = cc.conectar();
             
             pst = cn.prepareStatement(sql);                        
             
@@ -91,6 +92,7 @@ public class Logica_Productos {
         
         String sql = "SELECT * FROM pizzeriapp.usuarios";
         
+        Conexion cc = new Conexion();
         Connection cn = null;
         
         PreparedStatement pst = null;
@@ -99,7 +101,7 @@ public class Logica_Productos {
         
         try
         {
-            cn = Conexion.conectar();
+            cn = cc.conectar();
             
             pst = cn.prepareStatement(sql);                        
             
@@ -165,6 +167,7 @@ public class Logica_Productos {
         
         String sql = "SELECT * FROM pizzeriapp.compras";
         
+        Conexion cc = new Conexion();
         Connection cn = null;
         
         PreparedStatement pst = null;
@@ -173,7 +176,7 @@ public class Logica_Productos {
         
         try
         {
-            cn = Conexion.conectar();
+            cn = cc.conectar();
             
             pst = cn.prepareStatement(sql);                        
             
@@ -232,6 +235,7 @@ public class Logica_Productos {
         
         String sql = "SELECT * FROM pizzeriapp.insumos";
         
+        Conexion cc = new Conexion();
         Connection cn = null;
         
         PreparedStatement pst = null;
@@ -240,7 +244,7 @@ public class Logica_Productos {
         
         try
         {
-            cn = Conexion.conectar();
+            cn = cc.conectar();
             
             pst = cn.prepareStatement(sql);                        
             

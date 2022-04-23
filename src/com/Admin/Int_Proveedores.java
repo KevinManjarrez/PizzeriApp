@@ -1,23 +1,19 @@
 package com.Admin;
 
 import com.LogicasAdmin.Conexion;
-import static com.LogicasAdmin.Conexion.conectar;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import com.LogicasAdmin.Logica_Proveedores;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 public class Int_Proveedores extends javax.swing.JFrame {
 
     Conexion cc = new Conexion();
-    Connection con = conectar();
+    Connection con = cc.conectar();
     
     public Int_Proveedores() {
         initComponents();
@@ -67,9 +63,11 @@ public class Int_Proveedores extends javax.swing.JFrame {
 
             },
             new String [] {
-                "idProveedor", "NombreProveedores", "DireccciónProveedores", "Código Postal", "Teléfono"
+                "idProveedores", "NombreProveedores", "DireccciónProveedores", "cpProveedores", "telProveedores"
             }
         ));
+        tblProveedores.setEditingColumn(0);
+        tblProveedores.setEditingRow(0);
         tblProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblProveedoresMouseClicked(evt);
@@ -222,23 +220,9 @@ public class Int_Proveedores extends javax.swing.JFrame {
     
     
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        try {
-            int filaSeleccionada=tblProveedores.getSelectedRow();
-            if(filaSeleccionada  == -1){
-                JOptionPane.showMessageDialog(null, "Selecciona una fila por favor");
-            }else{
-                String sql="delete from proveedores where idProveedores="+tblProveedores.getValueAt(filaSeleccionada, 0);
-                Statement st =con.createStatement();
-                int n=st.executeUpdate(sql);
-                    if(n>=0){
-                        JOptionPane.showMessageDialog(null,"Usuario Eliminado Satisfactoriamente");
-                    }
-                mostrarProveedores();
-            }
-        }catch (SQLException ex) {
-            Logger.getLogger(Int_Proveedores.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null,"Usuario Eliminado Satisfactoriamente"+ex.getMessage());
-}   
+        eliminarRegistros();
+        mostrarProveedores();
+        limpiarEntradas();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -248,30 +232,15 @@ public class Int_Proveedores extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        try {
-            if(txtNombre.getText().isBlank()||txtDireccion.getText().isBlank()||txtCodigoPostal.getText().isBlank()
-               ||txtTelefono.getText().isBlank()){
-                JOptionPane.showMessageDialog(null, "No se admiten registros nulos");
-            }else{
-                PreparedStatement ps= con.prepareStatement("insert into proveedores (NombreProveedores, DireccionProveedores, cpProveedores, telProveedores) VALUES (?,?,?,?)");
-                ps.setString(1,txtNombre.getText());
-                ps.setString(2, txtDireccion.getText());
-                ps.setString(3, txtCodigoPostal.getText());
-                ps.setString(4, txtTelefono.getText());
-                ps.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Registro creado");
-                mostrarProveedores();
-                limpiarEntradas();
-            }
-        } catch (SQLException ex) {
-            //JOptionPane.showMessageDialog(null, "Error al ingresar registros");
-        }
+        insertarDatos();
+        mostrarProveedores();
+        limpiarEntradas();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void tblProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProveedoresMouseClicked
         btnAgregar.setEnabled(false);
         btnModificar.setEnabled(true);
-        int fila = tblProveedores.getSelectedRow();
+        int fila = tblProveedores.rowAtPoint(evt.getPoint());
         txtIdProveedor.setText(tblProveedores.getValueAt(fila,0).toString());
         txtNombre.setText(tblProveedores.getValueAt(fila,1).toString());
         txtDireccion.setText(tblProveedores.getValueAt(fila, 2).toString());
@@ -284,28 +253,9 @@ public class Int_Proveedores extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-       try {
-            if(txtNombre.getText().isBlank()||txtDireccion.getText().isBlank()||txtCodigoPostal.getText().isBlank()
-               ||txtTelefono.getText().isBlank()){
-                JOptionPane.showMessageDialog(null, "No se admiten registros nulos.");
-            }else{
-                PreparedStatement ps = con.prepareStatement("update proveedores set NombreProveedores='"+txtNombre.getName()+
-                        "',DireccionProveedores='"+txtDireccion.getText()+
-                        "',cpProveedores='"+txtCodigoPostal.getText()+
-                        "',telProveedores='"+txtTelefono.getText()+"'");
-                int indice = ps.executeUpdate();
-                if(indice>0){
-                    JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
-                    mostrarProveedores();
-                    limpiarEntradas();
-                }else{
-                    JOptionPane.showMessageDialog(null, "No ha seleccionado una fila.");
-                }
-                
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar registros");
-        }
+        actualizarDatos();
+        mostrarProveedores();
+        limpiarEntradas();
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
@@ -352,11 +302,103 @@ public class Int_Proveedores extends javax.swing.JFrame {
         txtCodigoPostal.setText("");
         txtTelefono.setText("");
     }
+    
+    public void insertarDatos(){
+        try{
+            if(txtNombre.getText().isBlank()||txtDireccion.getText().isBlank()||txtCodigoPostal.getText().isBlank()
+               ||txtTelefono.getText().isBlank()){
+                JOptionPane.showMessageDialog(null, "No se admiten registros nulos");
+            }else{
+            String SQL="insert into proveedores (NombreProveedores, DireccionProveedores, cpProveedores, telProveedores) values (?,?,?,?)"; 
+            PreparedStatement pst = con.prepareStatement(SQL);
+            pst.setString(1, txtNombre.getText());
+            pst.setString(2, txtDireccion.getText());
+            pst.setString(3, txtCodigoPostal.getText());
+            pst.setString(4, txtTelefono.getText());
+            
+            pst.execute();
+            
+            JOptionPane.showMessageDialog(null, "Registro Exitoso");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error al guardar los registros");
+        }         
+    }
+    
+    public void actualizarDatos(){
+        try{
+            if(txtNombre.getText().isBlank()||txtDireccion.getText().isBlank()||txtCodigoPostal.getText().isBlank()
+               ||txtTelefono.getText().isBlank()){
+                JOptionPane.showMessageDialog(null, "No se admiten registros nulos");
+            }else{
+            String SQL="update proveedores set NombreProveedores =?, DireccionProveedores=?, cpProveedores=?,  telProveedores=? where idProveedores =?"; 
+            int filaSeleccionada = tblProveedores.getSelectedRow();
+            String dao=(String)tblProveedores.getValueAt(filaSeleccionada, 0);
+            
+            PreparedStatement pst = con.prepareStatement(SQL);
+            pst.setString(1, txtNombre.getText());
+            pst.setString(2, txtDireccion.getText());
+            pst.setString(3, txtCodigoPostal.getText());
+            pst.setString(4, txtTelefono.getText());
+            
+            pst.setString(5,dao);
+            pst.execute();
+            
+            JOptionPane.showMessageDialog(null, "Modificación exitosa");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error al modificar el registros");
+        }         
+    }
+    
+    public void eliminarRegistros(){
+        int r = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar este registro?", "Elimar registro",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+        int filaSeleccionada=tblProveedores.getSelectedRow();
+        try{
+            if(r == JOptionPane.YES_OPTION){
+                if(filaSeleccionada == -1){
+                    JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar");
+                }
+                String SQL ="delete from proveedores where idProveedores="+tblProveedores.getValueAt(filaSeleccionada, 0);
+                Statement st= con.createStatement();
+                int n = st.executeUpdate(SQL);
+
+                if(n>=0){
+                    JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente");
+                }
+        }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error al eliminar registros");
+        }
+    }
+   
     public void mostrarProveedores()
     {
-        Logica_Proveedores logica = new Logica_Proveedores();
-        DefaultTableModel modelo = logica.mostrarProveedores();
-        tblProveedores.setModel(modelo);     
+        String[] proveedores ={"idProveedores", "NombreProveedores", "DireccionProveedores", "cpProveedores", "telProvedores"};
+        String[] registros = new String[5];
+        
+        DefaultTableModel modelo = new DefaultTableModel(null, proveedores);
+        
+        String SQL="select * from proveedores";
+        
+        try{
+            Statement st = con.createStatement();
+            ResultSet rs= st.executeQuery(SQL);
+            while (rs.next()){
+               registros[0]=rs.getString("idProveedores");
+               registros[1]=rs.getString("NombreProveedores");
+               registros[2]=rs.getString("DireccionProveedores");
+               registros[3]=rs.getString("cpProveedores");
+               registros[4]=rs.getString("telProveedores");
+               
+               modelo.addRow(registros);
+               tblProveedores.setModel(modelo);
+            }
+            
+            
+        }catch( SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al mostrar los registros"+ e.getMessage());
+        }
     }
 
 

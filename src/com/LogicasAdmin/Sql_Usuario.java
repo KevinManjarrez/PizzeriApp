@@ -17,12 +17,12 @@ import java.sql.ResultSet;
 public class Sql_Usuario {
       public boolean iniciarSesion(Usuario usuario){
         Conexion con = new Conexion();
+        Connection conexion = con.conectar();
+        
         PreparedStatement ps = null;
         ResultSet rs = null;
         
-        try{
-            Connection conexion=(Connection) con.getConnection();
-            
+        try{   
             ps = conexion.prepareStatement("select idusuario,usuarionombre,contraseña where usuarionombre=?");
             ps.setString(1, usuario.getUsuarioNombre());
             

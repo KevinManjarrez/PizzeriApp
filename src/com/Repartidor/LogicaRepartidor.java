@@ -24,6 +24,7 @@ public class LogicaRepartidor {
         
         String sql = "SELECT idOrdenes, NombreCliente, Orden, estado FROM pizzeriapp.ordenes";
         
+        Conexion cc = new Conexion();
         Connection cn = null;
         
         PreparedStatement pst = null;
@@ -32,7 +33,7 @@ public class LogicaRepartidor {
         
         try
         {
-            cn = Conexion.conectar();
+            cn = cc.conectar();
             
             pst = cn.prepareStatement(sql);                        
             

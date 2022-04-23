@@ -113,7 +113,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
                 btnProvActionPerformed(evt);
             }
         });
-        PanelPrincipal.add(btnProv, new org.netbeans.lib.awtextra.AbsoluteConstraints(911, 167, -1, 380));
+        PanelPrincipal.add(btnProv, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 170, -1, 380));
 
         btnVentas.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         btnVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-caja-registradora-40.png"))); // NOI18N
@@ -123,7 +123,7 @@ public class AdministradorMenu extends javax.swing.JFrame {
                 btnVentasActionPerformed(evt);
             }
         });
-        PanelPrincipal.add(btnVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 170, 167, 380));
+        PanelPrincipal.add(btnVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 170, 167, 380));
 
         btnLogout.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar-sesion (1).png"))); // NOI18N
@@ -217,7 +217,9 @@ public class AdministradorMenu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 666, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(PanelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 672, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
