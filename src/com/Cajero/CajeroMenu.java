@@ -401,21 +401,33 @@ public class CajeroMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLogoutMouseExited
 
     private void txtOrdPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtOrdPMouseClicked
+        Ordenes O = new Ordenes();
+        O.setSize(860, 510);
+        O.setLocation(0, 0);
+        
         content.removeAll();
+        content.add(O);
         content.revalidate();
         content.repaint();
     }//GEN-LAST:event_txtOrdPMouseClicked
 
     private void txtAjustesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAjustesMouseClicked
-        // TODO add your handling code here:
+        AjustesCajero AC = new AjustesCajero();
+        AC.setSize(890, 510);
+        AC.setLocation(0, 0);
+        
+        content.removeAll();
+        content.add(AC);
+        content.revalidate();
+        content.repaint();
     }//GEN-LAST:event_txtAjustesMouseClicked
 
     private void txtAjustesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAjustesMouseEntered
-        // TODO add your handling code here:
+        btnAjustes.setBackground(new Color(255,109,118));
     }//GEN-LAST:event_txtAjustesMouseEntered
 
     private void txtAjustesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAjustesMouseExited
-        // TODO add your handling code here:
+        btnAjustes.setBackground(new Color(255,153,153));
     }//GEN-LAST:event_txtAjustesMouseExited
   
     
