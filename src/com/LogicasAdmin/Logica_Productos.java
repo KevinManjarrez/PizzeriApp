@@ -18,17 +18,15 @@ import javax.swing.table.DefaultTableModel;
  * @author defer
  */
 public class Logica_Productos {
+    Conexion cc = new Conexion();
+    Connection cn = cc.conectar();
+
     public DefaultTableModel mostrarProductos()
     {
         String []  nombresColumnas = {"id","Nombre Producto","Precio","Descripcion"};
         String [] registros = new String[4];
-        
         DefaultTableModel modelo = new DefaultTableModel(null,nombresColumnas);
-        
         String sql = "SELECT * FROM pizzeriapp.productos";
-        
-        Conexion cc = new Conexion();
-        Connection cn = null;
         
         PreparedStatement pst = null;
         
@@ -36,7 +34,6 @@ public class Logica_Productos {
         
         try
         {
-            cn = cc.conectar();
             
             pst = cn.prepareStatement(sql);                        
             
@@ -91,9 +88,6 @@ public class Logica_Productos {
         DefaultTableModel modelo = new DefaultTableModel(null,nombresColumnas);
         
         String sql = "SELECT * FROM pizzeriapp.usuarios";
-        
-        Conexion cc = new Conexion();
-        Connection cn = null;
         
         PreparedStatement pst = null;
         
@@ -167,16 +161,13 @@ public class Logica_Productos {
         
         String sql = "SELECT * FROM pizzeriapp.compras";
         
-        Conexion cc = new Conexion();
-        Connection cn = null;
-        
         PreparedStatement pst = null;
         
         ResultSet rs = null;
         
         try
         {
-            cn = cc.conectar();
+
             
             pst = cn.prepareStatement(sql);                        
             
@@ -234,9 +225,6 @@ public class Logica_Productos {
         DefaultTableModel modelo = new DefaultTableModel(null,nombresColumnas);
         
         String sql = "SELECT * FROM pizzeriapp.insumos";
-        
-        Conexion cc = new Conexion();
-        Connection cn = null;
         
         PreparedStatement pst = null;
         

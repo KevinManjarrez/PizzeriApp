@@ -4,6 +4,7 @@
  */
 package com.Admin;
 
+import com.LogicasAdmin.Conexion;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,12 +21,9 @@ import javax.swing.JOptionPane;
 public class AgregarInsumo extends javax.swing.JFrame {
 
     int xMouse, yMouse;
-    
-    public static final String URL = "jdbc:mysql://localhost:3306/pizzeriapp?autoReconnet=true&useSSL=false";
-    public static final String usuario = "root";
-    public static final String contraseña = "12345";
-    PreparedStatement ps;
-    ResultSet rs;
+    Conexion cc = new Conexion();
+    Connection con = cc.conectar();
+
     
     public AgregarInsumo() {
         initComponents();
@@ -38,20 +36,7 @@ public class AgregarInsumo extends javax.swing.JFrame {
         txtDescripcion.setText(null);
     }
     
-    public Connection getConnection(){
-        Connection conexion=null;
-        
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            conexion = (Connection) DriverManager.getConnection(URL,usuario,contraseña);
-            JOptionPane.showMessageDialog(null, "Conexion exitosa");
-            
-        }catch(Exception ex){
-            System.err.println("Error, "+ex);
-        }
-        
-        return conexion;
-    }
+
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -191,6 +176,8 @@ public class AgregarInsumo extends javax.swing.JFrame {
         );
 
         jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 0, 830, 50));
+
+        txtId.setEditable(false);
         jPanel5.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 150, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -234,15 +221,13 @@ public class AgregarInsumo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarTxtMouseExited
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Connection conexion = null;
-        
+
         try{
-            conexion = getConnection();
-            ps = conexion.prepareStatement("insert into insumos (idInsumos,Nombre,Descripcion,Existencia) values(?,?,?,?)");
-            ps.setString(1,txtId.getText());
-            ps.setString(2,txtNombre.getText());
-            ps.setString(3,txtDescripcion.getText());
-            ps.setString(4,txtExistencia.getText());
+            PreparedStatement ps;
+            ps = con.prepareStatement("insert into insumos (Nombre,Descripcion,Existencia) values(?,?,?)");
+            ps.setString(1,txtNombre.getText());
+            ps.setString(2,txtDescripcion.getText());
+            ps.setString(3,txtExistencia.getText());
             int resultado = ps.executeUpdate(); //Ejecutamos la insercion
             
             if(resultado > 0){ //Se ejecuto correctamente la insercion
@@ -254,14 +239,13 @@ public class AgregarInsumo extends javax.swing.JFrame {
                 limpiarCajas();
             }
             
-            conexion.close(); //Cerramos la conexion
+            con.close(); //Cerramos la conexion
             
         }catch(Exception ex){
             System.err.println("Error, "+ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    
     
     /**
      * @param args the command line arguments

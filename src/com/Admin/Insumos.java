@@ -23,7 +23,6 @@ public class Insumos extends javax.swing.JFrame {
     public Insumos() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
         mostrarInsumos();
     }
 
