@@ -319,7 +319,7 @@ public class int_Compras extends javax.swing.JFrame {
                 txtDescripcion.setText(rs.getString("descripcion"));
                 txtPrecio.setText(String.valueOf(rs.getDouble("precio")));
                 txtCantidad.setText(String.valueOf(rs.getInt("cantidad")));
-                txtIdProveedor.setText(String.valueOf(rs.getInt("idproveedor")));
+              //  txtIdProveedor.setText(String.valueOf(rs.getInt("idproveedor")));
                 
               
             }
