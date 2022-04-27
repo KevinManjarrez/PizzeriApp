@@ -426,27 +426,6 @@ public class Int_Proveedores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error al mostrar los registros"+ e.getMessage());
         }
     }
-    
-    public void listar(){
-        String sql="select * from persona";
-        try{
-            Statement st=con.createStatement();
-            ResultSet rs=st.executeQuery(sql);
-            Object[]persona=new Object[3];
-            DefaultTableModel modelo=(DefaultTableModel)tblProveedores.getModel();
-            while(rs.next()){
-                persona[0]=rs.getString("IdProveedores");
-                persona[1]=rs.getString("NombreProveedores");
-                persona[2]=rs.getString("DireccionProveedores");
-                persona[3]=rs.getString("cpProveedores");
-                persona[4]=rs.getString("telProveedores");
-                modelo.addRow(persona);
-            }
-            tblProveedores.setModel(modelo);
-        }catch(SQLException e){
-            
-        }
-    }
         
     public void filtrarDatos (String valor){
             String[] titulos={"idProveedores", "NombreProveedores","DireccionProveedores", "cpProveedores", "telProveedores"};
