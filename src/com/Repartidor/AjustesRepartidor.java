@@ -4,19 +4,54 @@
  */
 package com.Repartidor;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author defer
  */
 public class AjustesRepartidor extends javax.swing.JPanel {
 
-    /**
-     * Creates new form AjustesRepartidor
-     */
+
+    String passN="", passO="", userN="", userO="";
     public AjustesRepartidor() {
         initComponents();
     }
 
+    
+    void limpiarCajas() {
+        txtNewPass.setText(null);
+        txtOldPass.setText(null);
+        txtUserC.setText(null);
+        txtPass.setText(null);
+        txtOldUser.setText(null);
+        txtNewUser.setText(null);
+    }
+    
+    public static final String URL = "jdbc:mysql://localhost:3306/pizzeriapp?autoReconnet=true&useSSL=false";
+    public static final String usuario = "root";
+    public static final String contraseña = "12345";
+    PreparedStatement ps;
+    ResultSet rs; 
+    
+    public java.sql.Connection getConnection(){
+        java.sql.Connection conexion=null;
+        
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            conexion = (java.sql.Connection) DriverManager.getConnection(URL,usuario,contraseña);
+            System.err.println("Conectado a la base de datos");
+            
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
+        
+        return conexion;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,25 +63,25 @@ public class AjustesRepartidor extends javax.swing.JPanel {
 
         jLabel10 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        jTextField6 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        jTextField4 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        txtUserC = new javax.swing.JTextField();
+        txtOldPass = new javax.swing.JTextField();
+        txtNewPass = new javax.swing.JTextField();
+        txtOldUser = new javax.swing.JTextField();
+        txtNewUser = new javax.swing.JTextField();
+        txtPass = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -58,11 +93,15 @@ public class AjustesRepartidor extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Contraseña Actual");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, -1));
-        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 130, -1));
         add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 860, 10));
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton1.setText("Cambiar Usuario");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(592, 328, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -72,12 +111,10 @@ public class AjustesRepartidor extends javax.swing.JPanel {
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
         add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 30, 410));
-        add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, 130, -1));
 
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Nueva Contraseña");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
-        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 130, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 38)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
@@ -102,13 +139,15 @@ public class AjustesRepartidor extends javax.swing.JPanel {
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Usuario Nuevo");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 230, -1, -1));
-        add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 230, 130, -1));
-        add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 130, -1));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton2.setText("Cambiar Contraseña");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 328, -1, -1));
-        add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 260, 130, -1));
 
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Usuario");
@@ -118,7 +157,63 @@ public class AjustesRepartidor extends javax.swing.JPanel {
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Cambio de Contraseña");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, -1, -1));
+        add(txtUserC, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 130, -1));
+        add(txtOldPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 130, -1));
+        add(txtNewPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 130, -1));
+        add(txtOldUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, 130, -1));
+        add(txtNewUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 230, 130, -1));
+        add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 260, 130, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        PreparedStatement ps = null;
+        passN = txtNewPass.getText();
+        passO = txtOldPass.getText();
+        userO = txtUserC.getText();
+
+        try{
+            Connection conexion = getConnection();
+            
+            ps = conexion.prepareStatement("update usuarios set Contraseña=? where UsuarioNombre=? and Contraseña=?");
+            ps.setString(1, passN);
+            ps.setString(2, userO);
+            ps.setString(3, passO);
+            
+            ps.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Contraseña actualizada correctamente");
+            limpiarCajas();
+            
+
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        PreparedStatement ps = null;
+        passO = txtPass.getText();
+        userO = txtOldUser.getText();
+        userN = txtNewUser.getText();
+
+        try{
+            Connection conexion = getConnection();
+            
+            ps = conexion.prepareStatement("update usuarios set UsuarioNombre=? where UsuarioNombre=? and Contraseña=?");
+            ps.setString(1, userN);
+            ps.setString(2, userO);
+            ps.setString(3, passO);
+            
+            ps.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Nombre de Usuario actualizado correctamente");
+            limpiarCajas();
+            
+
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -137,11 +232,11 @@ public class AjustesRepartidor extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField txtNewPass;
+    private javax.swing.JTextField txtNewUser;
+    private javax.swing.JTextField txtOldPass;
+    private javax.swing.JTextField txtOldUser;
+    private javax.swing.JTextField txtPass;
+    private javax.swing.JTextField txtUserC;
     // End of variables declaration//GEN-END:variables
 }

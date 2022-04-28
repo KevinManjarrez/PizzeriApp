@@ -4,17 +4,30 @@
  */
 package com.Cajero;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author defer
  */
 public class AjustesCajero extends javax.swing.JPanel {
 
-    /**
-     * Creates new form AjustesCajero
-     */
+    String passN="", passO="", userN="", userO="";
     public AjustesCajero() {
         initComponents();
+    }
+    
+    void limpiarCajas() {
+        txtNewPass.setText(null);
+        txtOldPass.setText(null);
+        txtUserC.setText(null);
+        txtPass.setText(null);
+        txtOldUser.setText(null);
+        txtNewUser.setText(null);
     }
 
     /**
@@ -131,13 +144,75 @@ public class AjustesCajero extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPassActionPerformed
-        
+        PreparedStatement ps = null;
+        passN = txtNewPass.getText();
+        passO = txtOldPass.getText();
+        userO = txtUserC.getText();
+
+        try{
+            Connection conexion = getConnection();
+            
+            ps = conexion.prepareStatement("update usuarios set Contraseña=? where UsuarioNombre=? and Contraseña=?");
+            ps.setString(1, passN);
+            ps.setString(2, userO);
+            ps.setString(3, passO);
+            
+            ps.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Contraseña actualizada correctamente");
+            limpiarCajas();
+            
+
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
     }//GEN-LAST:event_btnPassActionPerformed
 
     private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
-        
+        PreparedStatement ps = null;
+        passO = txtPass.getText();
+        userO = txtOldUser.getText();
+        userN = txtNewUser.getText();
+
+        try{
+            Connection conexion = getConnection();
+            
+            ps = conexion.prepareStatement("update usuarios set UsuarioNombre=? where UsuarioNombre=? and Contraseña=?");
+            ps.setString(1, userN);
+            ps.setString(2, userO);
+            ps.setString(3, passO);
+            
+            ps.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Nombre de Usuario actualizado correctamente");
+            limpiarCajas();
+            
+
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
     }//GEN-LAST:event_btnUserActionPerformed
 
+    public static final String URL = "jdbc:mysql://localhost:3306/pizzeriapp?autoReconnet=true&useSSL=false";
+    public static final String usuario = "root";
+    public static final String contraseña = "12345";
+    PreparedStatement ps;
+    ResultSet rs; 
+    
+    public java.sql.Connection getConnection(){
+        java.sql.Connection conexion=null;
+        
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            conexion = (java.sql.Connection) DriverManager.getConnection(URL,usuario,contraseña);
+            System.err.println("Conectado a la base de datos");
+            
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
+        
+        return conexion;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPass;
