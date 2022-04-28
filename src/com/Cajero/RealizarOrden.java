@@ -27,6 +27,26 @@ public class RealizarOrden extends javax.swing.JPanel {
         initComponents();
         
         rbtnSi.setSelected(true);
+        
+        cargar_ComboBox();
+    }
+    
+    void cargar_ComboBox(){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try{
+             Connection conexion=null;
+            conexion=getConnection();
+            
+           ps=conexion.prepareStatement("select NombreProducto from productos");
+           rs=ps.executeQuery();
+           
+           while(rs.next()){
+               cmbProd.addItem(rs.getString("NombreProducto"));
+           }
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
     }
 
     public Connection getConnection(){
@@ -138,7 +158,6 @@ public class RealizarOrden extends javax.swing.JPanel {
         });
         add(btnReiniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 460, -1, -1));
 
-        cmbProd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona un producto", "Combo Pizza personal", "Pizza Familiar Pepperoni", "Pizza Familiar Hawaiana", "Pasta Bolognesa", "Refresco (600ml)" }));
         add(cmbProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 230, -1));
 
         txtOrden.setColumns(20);
@@ -178,57 +197,6 @@ public class RealizarOrden extends javax.swing.JPanel {
         String prod = (String)cmbProd.getSelectedItem();
         
         
-        switch (cmbProd.getSelectedIndex()){
-            case 0:
-                showMessageDialog(null, "¡Selecciona un producto del menú!");
-                break;
-            case 1:
-                orden += prod;
-                orden += " ";
-                orden += "\n";
-                txtOrden.setText(orden);
-                total += 79.99;
-                lblTotal.setText("$"+total);
-                break;
-            case 2:
-                orden += prod;
-                orden += " ";
-                orden += "\n";
-                txtOrden.setText(orden);
-                total += 164.99;
-                lblTotal.setText("$"+total);
-                break;
-            case 3:
-                orden += prod;
-                orden += " ";
-                orden += "\n";
-                txtOrden.setText(orden);
-                total += 149.99;
-                lblTotal.setText("$"+total);
-                break;
-            case 4:
-                orden += prod;
-                orden += " ";
-                orden += "\n";
-                txtOrden.setText(orden);
-                total += 69.99;
-                lblTotal.setText("$"+total);
-                break;
-            case 5:
-                orden += prod;
-                orden += " ";
-                orden += "\n";
-                txtOrden.setText(orden);
-                total += 15.99;
-                lblTotal.setText("$"+total);
-                break;
-        }
-        
-        /*orden += cmbProd.getSelectedItem().toString();
-        orden += "\n";
-        txtOrden.setText(orden);
-        total+=150.00;
-        lblTotal.setText("$"+total);*/
     }//GEN-LAST:event_btnAddActionPerformed
 
     public void limpiarCajas(){
