@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
@@ -25,6 +27,7 @@ public class int_Compras extends javax.swing.JFrame {
     public static final String URL = "jdbc:mysql://localhost:3306/pizzeriapp?autoReconnet=true&useSSL=false";
     public static final String usuario = "root";
     public static final String contraseña = "12345";
+    
     PreparedStatement ps;
     ResultSet rs; 
     
@@ -240,6 +243,12 @@ public class int_Compras extends javax.swing.JFrame {
 
         jLabel10.setText("Codigo");
         bg.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 150, -1, -1));
+
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyTyped(evt);
+            }
+        });
         bg.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 150, 70, -1));
 
         botonEliminar.setText("Eliminar");
@@ -360,36 +369,8 @@ public class int_Compras extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void botonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarActionPerformed
-        PreparedStatement ps = null;
-            int cantidad=Integer.parseInt(txtCantidad.getText());
-            double precio=Double.parseDouble(txtPrecio.getText());
-            String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
-
-        try{
-           
-            Connection conexion =getConnection();
-            
-            ps = conexion.prepareStatement("insert into compras("
-                    + "idproveedor,codigo,nombre,descripcion,precio,cantidad,fecha,total) values "
-                    + "(?,?,?,?,?,?,?,?)");
-            ps.setInt(1, Integer.parseInt(txtIdProveedor.getText()));
-            ps.setString(2, txtCodigo.getText());
-            ps.setString(3,txtProducto.getText());
-            ps.setString(4, txtDescripcion.getText());
-            ps.setDouble(5, Double.parseDouble(txtPrecio.getText()));
-            ps.setInt(6, Integer.parseInt(txtCantidad.getText()));
-            ps.setString(7,timeStamp);
-            ps.setDouble(8,precio*cantidad);
-                    
-   
-            
-            ps.executeUpdate();
-            
-            JOptionPane.showMessageDialog(null, "Registro insertado correctamente");
-            
-        }catch(Exception ex){
-            System.err.println("Error, "+ex);
-        }
+        agregarCompra();
+        cargar();
     }//GEN-LAST:event_botonInsertarActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
@@ -435,6 +416,18 @@ public class int_Compras extends javax.swing.JFrame {
         }
         }
     }//GEN-LAST:event_combo_proveedoresItemStateChanged
+
+    private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
+        int key = evt.getKeyChar();
+        boolean numeros = key >=48 && key <=57;
+        if(!numeros){
+            evt.consume();
+        }
+        
+        if(txtCodigo.getText().trim().length()==4){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCodigoKeyTyped
 
     void cargar(){
         DefaultTableModel modeloTabla=new DefaultTableModel();
@@ -483,13 +476,72 @@ public class int_Compras extends javax.swing.JFrame {
         }
     }
     
+    public void agregarCompra(){
+               PreparedStatement ps = null;
+            int cantidad=Integer.parseInt(txtCantidad.getText());
+            double precio=Double.parseDouble(txtPrecio.getText());
+            String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
 
+        try{
+           
+            Connection conexion =getConnection();
+            
+            ps = conexion.prepareStatement("insert into compras("
+                    + "idproveedor,codigo,nombre,descripcion,precio,cantidad,fecha,total) values "
+                    + "(?,?,?,?,?,?,?,?)");
+            ps.setInt(1, Integer.parseInt(txtIdProveedor.getText()));
+            ps.setString(2, txtCodigo.getText());
+            ps.setString(3,txtProducto.getText());
+            ps.setString(4, txtDescripcion.getText());
+            ps.setDouble(5, Double.parseDouble(txtPrecio.getText()));
+            ps.setInt(6, Integer.parseInt(txtCantidad.getText()));
+            ps.setString(7,timeStamp);
+            ps.setDouble(8,precio*cantidad);
+                    
+   
+            
+            ps.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Registro insertado correctamente");
+            
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
+    }
+    
+    /*
+    public void filtrarDatos (String valor){
+            String[] titulos={"idProveedores", "NombreProveedores","DireccionProveedores", "cpProveedores", "telProveedores"};
+            String[] registros = new String[7];
+            
+            DefaultTableModel modelo = new DefaultTableModel(null, titulos);
+            String SQL = "select * from proveedores where NombreProveedores like '"+valor+"%'";
+            Statement st;
+        try{
+            st = con.createStatement();
+            ResultSet rs= st.executeQuery(SQL);
+            while (rs.next()){
+               registros[0]=rs.getString("idProveedores");
+               registros[1]=rs.getString("NombreProveedores");
+               registros[2]=rs.getString("DireccionProveedores");
+               registros[3]=rs.getString("cpProveedores");
+               registros[4]=rs.getString("telProveedores");
+               
+               modelo.addRow(registros);
+               
+        }
+        tblCompras.setModel(modelo);    
+            
+        }catch( SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al mostrar los registros"+ e.getMessage());
+        }
+    }*/
     
     public java.sql.Connection getConnection(){
         java.sql.Connection conexion=null;
         
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             conexion = (java.sql.Connection) DriverManager.getConnection(URL,usuario,contraseña);
             System.err.println("Conectado a la base de datos");
             
