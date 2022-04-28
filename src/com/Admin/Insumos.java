@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package com.Admin;
+import com.LogicasAdmin.Conexion;
 import com.LogicasAdmin.Logica_Productos;
 import java.awt.Color;
+import java.sql.Connection;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -13,8 +15,9 @@ import javax.swing.table.DefaultTableModel;
  * @author NORIS
  */
 public class Insumos extends javax.swing.JFrame {
-
-     DefaultTableModel tabla = new DefaultTableModel();
+    Conexion cc = new Conexion();
+    Connection con = cc.conectar();
+    DefaultTableModel tabla = new DefaultTableModel();
     
     int xMouse, yMouse;
     /**
@@ -268,7 +271,7 @@ public class Insumos extends javax.swing.JFrame {
         
         this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_jPanel8MouseDragged
-
+    
     public void mostrarInsumos()
     {
         Logica_Productos logica = new Logica_Productos();

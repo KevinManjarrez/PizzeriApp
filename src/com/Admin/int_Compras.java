@@ -328,68 +328,21 @@ public class int_Compras extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCargarActionPerformed
 
     private void tblComprasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblComprasMouseClicked
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        
-        try{
-            Connection conexion=null;
-            conexion=getConnection();
-            
-            int fila = tblCompras.getSelectedRow();
-            String codigo = tblCompras.getValueAt(fila, 0).toString();
-            
-            ps = conexion.prepareStatement("SELECT codigo,nombre,descripcion,precio,cantidad,nombreproveedores,idproveedor FROM"
-                    + " compras inner join proveedores on  compras.idproveedor=proveedores.idProveedores "
-                    + "where compras.codigo=?");
-            ps.setString(1, codigo);
-            rs = ps.executeQuery();
-            
-            while(rs.next()){
-                txtCodigo.setText(rs.getString("codigo"));
-                txtProducto.setText(rs.getString("nombre"));
-                txtDescripcion.setText(rs.getString("descripcion"));
-                txtPrecio.setText(String.valueOf(rs.getDouble("precio")));
-                txtCantidad.setText(String.valueOf(rs.getInt("cantidad")));
-                txtIdProveedor.setText(String.valueOf(rs.getInt("idproveedor")));
-                combo_proveedores.setSelectedItem(rs.getString("nombreproveedores"));              
-              
-            }
-            
-        }catch(Exception ex){
-            System.err.println("Error, "+ex);
-        }
+       cargarDatos();
     }//GEN-LAST:event_tblComprasMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-          txtCodigo.setText("");
-                txtProducto.setText("");
-                txtDescripcion.setText("");
-                txtPrecio.setText("");
-                txtCantidad.setText("");
+        limpiarEntradas();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void botonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarActionPerformed
         agregarCompra();
+        agregarCompraInsumos();
         cargar();
     }//GEN-LAST:event_botonInsertarActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
-        PreparedStatement ps = null;
-        
-        try{
-           
-            Connection conexion = getConnection();
-            
-            ps = conexion.prepareStatement("delete from compras where codigo=?");
-            ps.setString(1, txtCodigo.getText());
-            
-            ps.executeUpdate();
-            
-            JOptionPane.showMessageDialog(null, "Registro eliminado correctamente");
-            
-        }catch(Exception ex){
-            System.err.println("Error, "+ex);
-        }
+        eliminarRegistros();
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void combo_proveedoresItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_proveedoresItemStateChanged
@@ -428,7 +381,25 @@ public class int_Compras extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtCodigoKeyTyped
-
+    
+    public void eliminarRegistros(){
+        PreparedStatement ps = null;
+        
+        try{
+           
+            Connection conexion = getConnection();
+            
+            ps = conexion.prepareStatement("delete from compras where codigo=?");
+            ps.setString(1, txtCodigo.getText());
+            
+            ps.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Registro eliminado correctamente");
+            
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
+    }
     void cargar(){
         DefaultTableModel modeloTabla=new DefaultTableModel();
         tblCompras.setModel(modeloTabla);
@@ -476,6 +447,39 @@ public class int_Compras extends javax.swing.JFrame {
         }
     }
     
+    public void cargarDatos(){
+         PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try{
+            Connection conexion=null;
+            conexion=getConnection();
+            
+            int fila = tblCompras.getSelectedRow();
+            String codigo = tblCompras.getValueAt(fila, 0).toString();
+            
+            ps = conexion.prepareStatement("SELECT codigo,nombre,descripcion,precio,cantidad,nombreproveedores,idproveedor FROM"
+                    + " compras inner join proveedores on  compras.idproveedor=proveedores.idProveedores "
+                    + "where compras.codigo=?");
+            ps.setString(1, codigo);
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                txtCodigo.setText(rs.getString("codigo"));
+                txtProducto.setText(rs.getString("nombre"));
+                txtDescripcion.setText(rs.getString("descripcion"));
+                txtPrecio.setText(String.valueOf(rs.getDouble("precio")));
+                txtCantidad.setText(String.valueOf(rs.getInt("cantidad")));
+                txtIdProveedor.setText(String.valueOf(rs.getInt("idproveedor")));
+                combo_proveedores.setSelectedItem(rs.getString("nombreproveedores"));              
+              
+            }
+            
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
+    }
+    
     public void agregarCompra(){
                PreparedStatement ps = null;
             int cantidad=Integer.parseInt(txtCantidad.getText());
@@ -507,6 +511,35 @@ public class int_Compras extends javax.swing.JFrame {
         }catch(Exception ex){
             System.err.println("Error, "+ex);
         }
+    }
+    
+    
+    public void agregarCompraInsumos(){
+            PreparedStatement ps = null;
+        try{
+           
+            Connection conexion =getConnection();
+            
+            ps = conexion.prepareStatement("insert into insumos (nombre, descripcion, existencia) values (?,?,?)");
+            ps.setString(1,txtProducto.getText());
+            ps.setString(2, txtDescripcion.getText());
+            ps.setInt(3, Integer.parseInt(txtCantidad.getText()));
+                   
+            
+            ps.executeUpdate();
+            
+            
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
+    }
+    
+    public void limpiarEntradas(){
+        txtCodigo.setText("");
+        txtProducto.setText("");
+        txtDescripcion.setText("");
+        txtPrecio.setText("");
+        txtCantidad.setText("");
     }
     
     /*
