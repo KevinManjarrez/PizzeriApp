@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -63,7 +65,6 @@ public class int_Compras extends javax.swing.JFrame {
         txtCodigo = new javax.swing.JTextField();
         botonEliminar = new javax.swing.JButton();
         botonInsertar = new javax.swing.JButton();
-        botonModificar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         txtIdProveedor = new javax.swing.JTextField();
@@ -190,7 +191,7 @@ public class int_Compras extends javax.swing.JFrame {
         bg.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 740, 370));
         bg.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 520, 240, -1));
 
-        jLabel4.setText("Buscar por Proveedor");
+        jLabel4.setText("Buscar por Codigo del Producto");
         bg.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 490, -1, -1));
 
         botonCargar.setText("Cargar Tabla");
@@ -227,7 +228,7 @@ public class int_Compras extends javax.swing.JFrame {
                 botonEliminarActionPerformed(evt);
             }
         });
-        bg.add(botonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 500, -1, -1));
+        bg.add(botonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 470, 90, 50));
 
         botonInsertar.setText("Insertar");
         botonInsertar.addActionListener(new java.awt.event.ActionListener() {
@@ -235,15 +236,7 @@ public class int_Compras extends javax.swing.JFrame {
                 botonInsertarActionPerformed(evt);
             }
         });
-        bg.add(botonInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 500, -1, -1));
-
-        botonModificar.setText("Modificar");
-        botonModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonModificarActionPerformed(evt);
-            }
-        });
-        bg.add(botonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 500, -1, -1));
+        bg.add(botonInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 470, 110, 50));
 
         jButton1.setText("Limpiar Campos");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -308,8 +301,8 @@ public class int_Compras extends javax.swing.JFrame {
             String codigo = tblCompras.getValueAt(fila, 0).toString();
             
             ps = conexion.prepareStatement("SELECT codigo,nombre,descripcion,precio,cantidad,nombreproveedores,idproveedor FROM"
-                    + " productos_proveedor inner join proveedores on  productos_proveedor.idproveedor=proveedores.idProveedores "
-                    + "where productos_proveedor.codigo=?");
+                    + " compras inner join proveedores on  compras.idproveedor=proveedores.idProveedores "
+                    + "where compras.codigo=?");
             ps.setString(1, codigo);
             rs = ps.executeQuery();
             
@@ -319,7 +312,7 @@ public class int_Compras extends javax.swing.JFrame {
                 txtDescripcion.setText(rs.getString("descripcion"));
                 txtPrecio.setText(String.valueOf(rs.getDouble("precio")));
                 txtCantidad.setText(String.valueOf(rs.getInt("cantidad")));
-              //  txtIdProveedor.setText(String.valueOf(rs.getInt("idproveedor")));
+                txtIdProveedor.setText(String.valueOf(rs.getInt("idproveedor")));
                 
               
             }
@@ -339,20 +332,25 @@ public class int_Compras extends javax.swing.JFrame {
 
     private void botonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarActionPerformed
         PreparedStatement ps = null;
-        
+            int cantidad=Integer.parseInt(txtCantidad.getText());
+            double precio=Double.parseDouble(txtPrecio.getText());
+            String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
+
         try{
            
             Connection conexion =getConnection();
             
-            ps = conexion.prepareStatement("insert into productos_proveedor("
-                    + "idproveedor,codigo,nombre,descripcion,precio,cantidad) values "
-                    + "(?,?,?,?,?,?)");
+            ps = conexion.prepareStatement("insert into compras("
+                    + "idproveedor,codigo,nombre,descripcion,precio,cantidad,fecha,total) values "
+                    + "(?,?,?,?,?,?,?,?)");
             ps.setInt(1, Integer.parseInt(txtIdProveedor.getText()));
             ps.setString(2, txtCodigo.getText());
             ps.setString(3,txtProducto.getText());
             ps.setString(4, txtDescripcion.getText());
             ps.setDouble(5, Double.parseDouble(txtPrecio.getText()));
             ps.setInt(6, Integer.parseInt(txtCantidad.getText()));
+            ps.setString(7,timeStamp);
+            ps.setDouble(8,precio*cantidad);
                     
    
             
@@ -365,34 +363,6 @@ public class int_Compras extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonInsertarActionPerformed
 
-    private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
-      PreparedStatement ps = null;
-        
-        try{
-           
-            Connection conexion =getConnection();
-            
-            ps = conexion.prepareStatement("update productos_proveedor set "
-                    + "idproveedor=?,codigo=?,nombre=?,descripcion=?,precio=?,cantidad=? where codigo=? ");
-                    
-            ps.setInt(1, Integer.parseInt(txtIdProveedor.getText()));
-            ps.setString(2, txtCodigo.getText());
-            ps.setString(3,txtProducto.getText());
-            ps.setString(4, txtDescripcion.getText());
-            ps.setDouble(5, Double.parseDouble(txtPrecio.getText()));
-            ps.setInt(6, Integer.parseInt(txtCantidad.getText()));
-            ps.setString(7, txtCodigo.getText());
-   
-            
-            ps.executeUpdate();
-            
-            JOptionPane.showMessageDialog(null, "Registro modificado correctamente");
-            
-        }catch(Exception ex){
-            System.err.println("Error, "+ex);
-        }
-    }//GEN-LAST:event_botonModificarActionPerformed
-
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
         PreparedStatement ps = null;
         
@@ -400,7 +370,7 @@ public class int_Compras extends javax.swing.JFrame {
            
             Connection conexion = getConnection();
             
-            ps = conexion.prepareStatement("delete from productos_proveedor where codigo=?");
+            ps = conexion.prepareStatement("delete from compras where codigo=?");
             ps.setString(1, txtCodigo.getText());
             
             ps.executeUpdate();
@@ -419,7 +389,7 @@ public class int_Compras extends javax.swing.JFrame {
         String where="";
         
         if(!"".equals(campo)){
-            where= "where proveedores.NombreProveedores='"+campo+"'";
+            where= "where compras.codigo='"+campo+"'";
         }
         
         Connection conexion=null;
@@ -430,8 +400,8 @@ public class int_Compras extends javax.swing.JFrame {
            
             conexion = getConnection();
             
-            ps = conexion.prepareStatement("SELECT codigo,nombre,descripcion,precio,cantidad,nombreproveedores,idproveedor FROM"
-                    + " productos_proveedor inner join proveedores on  productos_proveedor.idproveedor=proveedores.idProveedores "+where);
+            ps = conexion.prepareStatement("SELECT codigo,nombre,descripcion,precio,cantidad,nombreproveedores,idproveedor,fecha,total FROM"
+                    + " compras inner join proveedores on  compras.idproveedor=proveedores.idProveedores "+where);
             rs=ps.executeQuery();
             
             modeloTabla.addColumn("codigo");
@@ -441,11 +411,13 @@ public class int_Compras extends javax.swing.JFrame {
             modeloTabla.addColumn("cantidad");
             modeloTabla.addColumn("Nombre Proveedore");
             modeloTabla.addColumn("idProveedor");
+            modeloTabla.addColumn("fecha");
+            modeloTabla.addColumn("total");
             
             
             while(rs.next()){
-                Object fila[]=new Object[7];
-                for (int i = 0; i < 7; i++) {
+                Object fila[]=new Object[9];
+                for (int i = 0; i < 9; i++) {
                    fila[i]=rs.getObject(i+1);
                 }
                 modeloTabla.addRow(fila);
@@ -515,7 +487,6 @@ public class int_Compras extends javax.swing.JFrame {
     private javax.swing.JButton botonCargar;
     private javax.swing.JButton botonEliminar;
     private javax.swing.JButton botonInsertar;
-    private javax.swing.JButton botonModificar;
     private javax.swing.JPanel btnRegresar;
     private javax.swing.JLabel btnRegresarTxt;
     private javax.swing.JButton jButton1;
