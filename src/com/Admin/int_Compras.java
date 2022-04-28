@@ -1,5 +1,6 @@
 package com.Admin;
 import java.awt.Color;
+import java.awt.event.ItemEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -32,8 +33,26 @@ public class int_Compras extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         cargar();
+        cargar_ComboBox();
+        
     }
-
+    void cargar_ComboBox(){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try{
+             Connection conexion=null;
+            conexion=getConnection();
+            
+           ps=conexion.prepareStatement("select idProveedores,NombreProveedores from proveedores");
+           rs=ps.executeQuery();
+           
+           while(rs.next()){
+               combo_proveedores.addItem(rs.getString("NombreProveedores"));
+           }
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,6 +87,7 @@ public class int_Compras extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         txtIdProveedor = new javax.swing.JTextField();
+        combo_proveedores = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -189,7 +209,7 @@ public class int_Compras extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblCompras);
 
         bg.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 740, 370));
-        bg.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 520, 240, -1));
+        bg.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 510, 240, -1));
 
         jLabel4.setText("Buscar por Codigo del Producto");
         bg.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 490, -1, -1));
@@ -248,7 +268,16 @@ public class int_Compras extends javax.swing.JFrame {
 
         jLabel9.setText("idProveedor");
         bg.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 380, -1, -1));
+
+        txtIdProveedor.setEnabled(false);
         bg.add(txtIdProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 380, 50, -1));
+
+        combo_proveedores.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                combo_proveedoresItemStateChanged(evt);
+            }
+        });
+        bg.add(combo_proveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 410, 110, -1));
 
         getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 620));
 
@@ -313,7 +342,7 @@ public class int_Compras extends javax.swing.JFrame {
                 txtPrecio.setText(String.valueOf(rs.getDouble("precio")));
                 txtCantidad.setText(String.valueOf(rs.getInt("cantidad")));
                 txtIdProveedor.setText(String.valueOf(rs.getInt("idproveedor")));
-                
+                combo_proveedores.setSelectedItem(rs.getString("nombreproveedores"));              
               
             }
             
@@ -381,6 +410,31 @@ public class int_Compras extends javax.swing.JFrame {
             System.err.println("Error, "+ex);
         }
     }//GEN-LAST:event_botonEliminarActionPerformed
+
+    private void combo_proveedoresItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_proveedoresItemStateChanged
+        if (evt.getStateChange()==ItemEvent.SELECTED) {
+            
+        String elemento = (String) combo_proveedores.getSelectedItem();
+           
+        Connection conexion=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null; 
+        
+        try{
+           
+            conexion = getConnection();
+            
+            ps = conexion.prepareStatement("SELECT idProveedores from proveedores where NombreProveedores = '"+elemento+"'");
+            rs=ps.executeQuery();          
+            while(rs.next()){
+            txtIdProveedor.setText(rs.getString("idProveedores"));
+            }
+            
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
+        }
+    }//GEN-LAST:event_combo_proveedoresItemStateChanged
 
     void cargar(){
         DefaultTableModel modeloTabla=new DefaultTableModel();
@@ -489,6 +543,7 @@ public class int_Compras extends javax.swing.JFrame {
     private javax.swing.JButton botonInsertar;
     private javax.swing.JPanel btnRegresar;
     private javax.swing.JLabel btnRegresarTxt;
+    private javax.swing.JComboBox<String> combo_proveedores;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
