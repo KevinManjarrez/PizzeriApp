@@ -18,9 +18,8 @@ import java.sql.DriverManager;
  */
 public class OrdenesR extends javax.swing.JPanel {
 
-    /**
-     * Creates new form OrdenesR
-     */
+    String codigo;
+    
     public OrdenesR() {
         initComponents();
         
@@ -47,10 +46,13 @@ public class OrdenesR extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblOrdenes = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnEntregada = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtCodigo1 = new javax.swing.JTextField();
+        btnEnruta = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(880, 560));
@@ -73,14 +75,14 @@ public class OrdenesR extends javax.swing.JPanel {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 760, 380));
 
-        jButton1.setFont(new java.awt.Font("Tw Cen MT", 1, 24)); // NOI18N
-        jButton1.setText("Cocinada");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnEntregada.setFont(new java.awt.Font("Tw Cen MT", 1, 24)); // NOI18N
+        btnEntregada.setText("Entregada");
+        btnEntregada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnEntregadaActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 480, 160, 70));
+        add(btnEntregada, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 480, 160, 70));
 
         jLabel1.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -90,45 +92,85 @@ public class OrdenesR extends javax.swing.JPanel {
         jLabel2.setText("Código/ID:");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 70, -1, -1));
         add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 70, 70, -1));
+
+        jLabel3.setText("Código/ID:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 70, -1, -1));
+        add(txtCodigo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 70, 70, -1));
+
+        btnEnruta.setFont(new java.awt.Font("Tw Cen MT", 1, 24)); // NOI18N
+        btnEnruta.setText("En ruta");
+        btnEnruta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnrutaActionPerformed(evt);
+            }
+        });
+        add(btnEnruta, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 480, 160, 70));
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblOrdenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOrdenesMouseClicked
         PreparedStatement ps = null;
         ResultSet rs = null;
-
+        
         try{
             Connection conexion=null;
             conexion=getConnection();
-
+            
             int fila = tblOrdenes.getSelectedRow();
             String codigo = tblOrdenes.getValueAt(fila, 0).toString();
-
-            ps = conexion.prepareStatement("SELECT codigo,nombre,descripcion,precio,cantidad,nombreproveedores,idproveedor FROM"
-                + " productos_proveedor inner join proveedores on  productos_proveedor.idproveedor=proveedores.idProveedores "
-                + "where productos_proveedor.codigo=?");
+            
+            ps = conexion.prepareStatement("SELECT idOrdenes FROM ordenes where idOrdenes=?");
             ps.setString(1, codigo);
             rs = ps.executeQuery();
-
+            
             while(rs.next()){
-                codigo= (rs.getString("codigo"));
+                codigo= (rs.getString("idOrdenes"));
+                txtCodigo.setText(codigo);
             }
-
+            
         }catch(Exception ex){
             System.err.println("Error, "+ex);
         }
     }//GEN-LAST:event_tblOrdenesMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnEntregadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntregadaActionPerformed
         PreparedStatement ps = null;
 
         try{
-
+            Connection conexion = getConnection();
+            
+            ps = conexion.prepareStatement("update ordenes set estado='Finalizada' where idOrdenes=?");
+            ps.setString(1, txtCodigo.getText());
+            
+            ps.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Orden actualizada correctamente");
+            mostrarOrdenes();
             
 
         }catch(Exception ex){
             System.err.println("Error, "+ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnEntregadaActionPerformed
+
+    private void btnEnrutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnrutaActionPerformed
+        PreparedStatement ps = null;
+
+        try{
+            Connection conexion = getConnection();
+            
+            ps = conexion.prepareStatement("update ordenes set estado='En ruta' where idOrdenes=?");
+            ps.setString(1, txtCodigo.getText());
+            
+            ps.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Orden actualizada correctamente");
+            mostrarOrdenes();
+            
+
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
+    }//GEN-LAST:event_btnEnrutaActionPerformed
 
     public static final String URL = "jdbc:mysql://localhost:3306/pizzeriapp?autoReconnet=true&useSSL=false";
     public static final String usuario = "root";
@@ -153,11 +195,14 @@ public class OrdenesR extends javax.swing.JPanel {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnEnruta;
+    private javax.swing.JButton btnEntregada;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblOrdenes;
     private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtCodigo1;
     // End of variables declaration//GEN-END:variables
 }

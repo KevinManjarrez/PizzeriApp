@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.Repartidor;
+package com.Cajero;
 
 import com.LogicasAdmin.Conexion;
 import java.sql.Connection;
@@ -16,14 +16,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author defer
  */
-public class LogicaRepartidor {
+public class LogicaCajero {
     public DefaultTableModel mostrarOrdenes(){
-        String [] nombresColumnas = {"id","Nombre de Cliente","Orden","Estado"};
+        String []  nombresColumnas = {"id","Nombre de Cliente","Orden","Estado"};
         String [] registros = new String[4];
         
         DefaultTableModel modelo = new DefaultTableModel(null,nombresColumnas);
         
-        String sql = "SELECT idOrdenes, NombreCliente, Orden, estado FROM pizzeriapp.ordenes where estado='Cocinada' or estado='En ruta'";
+        String sql = "SELECT idOrdenes, NombreCliente, Orden, estado FROM pizzeriapp.ordenes";
         
         Conexion cc = new Conexion();
         Connection cn = null;

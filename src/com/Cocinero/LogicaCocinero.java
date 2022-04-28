@@ -23,7 +23,7 @@ public class LogicaCocinero {
         
         DefaultTableModel modelo = new DefaultTableModel(null,nombresColumnas);
         
-        String sql = "SELECT idOrdenes, NombreCliente, Orden, estado FROM pizzeriapp.ordenes";
+        String sql = "SELECT idOrdenes, NombreCliente, Orden, estado FROM pizzeriapp.ordenes where estado='Activo' or estado='En Preparacion'";
         
         Conexion cc = new Conexion();
         Connection cn = null;

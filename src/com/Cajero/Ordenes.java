@@ -4,6 +4,13 @@
  */
 package com.Cajero;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author defer
@@ -15,6 +22,16 @@ public class Ordenes extends javax.swing.JPanel {
      */
     public Ordenes() {
         initComponents();
+        
+        mostrarOrdenes();
+    }
+    
+    public void mostrarOrdenes(){
+        LogicaCajero logica = new LogicaCajero();
+        
+        DefaultTableModel modelo = logica.mostrarOrdenes();
+        
+        tblOrdenes.setModel(modelo);
     }
 
     /**
@@ -27,13 +44,16 @@ public class Ordenes extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblOrdenes = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblOrdenes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -41,20 +61,107 @@ public class Ordenes extends javax.swing.JPanel {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblOrdenes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblOrdenesMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblOrdenes);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 780, 350));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 840, 370));
 
         jLabel1.setFont(new java.awt.Font("Tw Cen MT", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("ÓRDENES REALIZADAS");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, -1, -1));
+
+        jButton1.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        jButton1.setText("Marcar como Finalizada");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 470, -1, -1));
+
+        jLabel3.setText("Código/ID:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 70, -1, -1));
+        add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 70, 70, -1));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tblOrdenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOrdenesMouseClicked
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try{
+            Connection conexion=null;
+            conexion=getConnection();
+            
+            int fila = tblOrdenes.getSelectedRow();
+            String codigo = tblOrdenes.getValueAt(fila, 0).toString();
+            
+            ps = conexion.prepareStatement("SELECT idOrdenes FROM ordenes where idOrdenes=?");
+            ps.setString(1, codigo);
+            rs = ps.executeQuery();
+            
+            while(rs.next()){
+                codigo= (rs.getString("idOrdenes"));
+                txtCodigo.setText(codigo);
+            }
+            
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
+    }//GEN-LAST:event_tblOrdenesMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        PreparedStatement ps = null;
+
+        try{
+            Connection conexion = getConnection();
+            
+            ps = conexion.prepareStatement("update ordenes set estado='Finalizada' where idOrdenes=?");
+            ps.setString(1, txtCodigo.getText());
+            
+            ps.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Orden actualizada correctamente");
+            mostrarOrdenes();
+            
+
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    
+    public static final String URL = "jdbc:mysql://localhost:3306/pizzeriapp?autoReconnet=true&useSSL=false";
+    public static final String usuario = "root";
+    public static final String contraseña = "12345";
+    PreparedStatement ps;
+    ResultSet rs; 
+    
+    public java.sql.Connection getConnection(){
+        java.sql.Connection conexion=null;
+        
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            conexion = (java.sql.Connection) DriverManager.getConnection(URL,usuario,contraseña);
+            System.err.println("Conectado a la base de datos");
+            
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
+        
+        return conexion;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblOrdenes;
+    private javax.swing.JTextField txtCodigo;
     // End of variables declaration//GEN-END:variables
 }

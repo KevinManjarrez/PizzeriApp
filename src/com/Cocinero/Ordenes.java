@@ -50,6 +50,7 @@ public class Ordenes extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -78,7 +79,7 @@ public class Ordenes extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 490, 160, 70));
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 490, 160, 70));
 
         jLabel1.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -88,6 +89,15 @@ public class Ordenes extends javax.swing.JPanel {
         jLabel2.setText("Código/ID:");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 70, -1, -1));
         add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 70, 70, -1));
+
+        jButton2.setFont(new java.awt.Font("Tw Cen MT", 1, 24)); // NOI18N
+        jButton2.setText("En Preparación");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 490, 190, 70));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -97,12 +107,13 @@ public class Ordenes extends javax.swing.JPanel {
            
             Connection conexion = getConnection();
             
-            ps = conexion.prepareStatement("delete from productos_proveedor where codigo=?");
+            ps = conexion.prepareStatement("update ordenes set estado='Cocinada' where idOrdenes=?");
             ps.setString(1, txtCodigo.getText());
             
             ps.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Registro eliminado correctamente");
+            JOptionPane.showMessageDialog(null, "Orden actualizada correctamente");
+            mostrarOrdenes();
             
         }catch(Exception ex){
             System.err.println("Error, "+ex);
@@ -120,20 +131,39 @@ public class Ordenes extends javax.swing.JPanel {
             int fila = tblOrdenes.getSelectedRow();
             String codigo = tblOrdenes.getValueAt(fila, 0).toString();
             
-            ps = conexion.prepareStatement("SELECT codigo,nombre,descripcion,precio,cantidad,nombreproveedores,idproveedor FROM"
-                    + " productos_proveedor inner join proveedores on  productos_proveedor.idproveedor=proveedores.idProveedores "
-                    + "where productos_proveedor.codigo=?");
+            ps = conexion.prepareStatement("SELECT idOrdenes FROM ordenes where idOrdenes=?");
             ps.setString(1, codigo);
             rs = ps.executeQuery();
             
             while(rs.next()){
-                codigo= (rs.getString("codigo"));
+                codigo= (rs.getString("idOrdenes"));
+                txtCodigo.setText(codigo);
             }
             
         }catch(Exception ex){
             System.err.println("Error, "+ex);
         }
     }//GEN-LAST:event_tblOrdenesMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        PreparedStatement ps = null;
+        
+        try{
+           
+            Connection conexion = getConnection();
+            
+            ps = conexion.prepareStatement("update ordenes set estado='En Preparacion' where idOrdenes=?");
+            ps.setString(1, txtCodigo.getText());
+            
+            ps.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Orden actualizada correctamente");
+            mostrarOrdenes();
+            
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public static final String URL = "jdbc:mysql://localhost:3306/pizzeriapp?autoReconnet=true&useSSL=false";
     public static final String usuario = "root";
@@ -158,6 +188,7 @@ public class Ordenes extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
