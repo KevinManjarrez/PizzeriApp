@@ -286,6 +286,11 @@ public class int_Compras extends javax.swing.JFrame {
                 combo_proveedoresItemStateChanged(evt);
             }
         });
+        combo_proveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_proveedoresActionPerformed(evt);
+            }
+        });
         bg.add(combo_proveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 410, 110, -1));
 
         getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 620));
@@ -381,6 +386,10 @@ public class int_Compras extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void combo_proveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_proveedoresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combo_proveedoresActionPerformed
     
     public void eliminarRegistros(){
         PreparedStatement ps = null;

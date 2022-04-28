@@ -195,8 +195,24 @@ public class RealizarOrden extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         String prod = (String)cmbProd.getSelectedItem();
+        orden+= prod+"\n";
+        txtOrden.setText(orden);
         
-        
+         PreparedStatement ps = null;
+        ResultSet rs = null;
+        try{
+             Connection conexion=null;
+            conexion=getConnection();
+            
+           ps=conexion.prepareStatement("select precio from productos");
+           rs=ps.executeQuery();
+           
+           while(rs.next()){
+               lblTotal.setText(rs.getInt("precio"));
+           }
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     public void limpiarCajas(){
