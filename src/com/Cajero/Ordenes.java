@@ -53,6 +53,7 @@ public class Ordenes extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tblOrdenes.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
         tblOrdenes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

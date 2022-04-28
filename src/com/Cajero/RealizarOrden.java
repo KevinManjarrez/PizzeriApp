@@ -28,6 +28,8 @@ public class RealizarOrden extends javax.swing.JPanel {
         
         rbtnSi.setSelected(true);
         
+        
+        
         cargar_ComboBox();
     }
     
@@ -55,7 +57,7 @@ public class RealizarOrden extends javax.swing.JPanel {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             conexion = (Connection) DriverManager.getConnection(URL,usuario,contraseña);
-            JOptionPane.showMessageDialog(null, "Conexion exitosa");
+            System.out.println("Conexion exitosa");
             
         }catch(Exception ex){
             System.err.println("Error, "+ex);
@@ -94,6 +96,7 @@ public class RealizarOrden extends javax.swing.JPanel {
         txtOrden = new javax.swing.JTextArea();
         jLabel10 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(890, 510));
@@ -105,43 +108,63 @@ public class RealizarOrden extends javax.swing.JPanel {
         jLabel1.setText("REALIZAR ORDEN");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 890, -1));
 
+        jLabel2.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
         jLabel2.setText("Nombre:");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
         add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, 180, -1));
         add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 180, -1));
 
+        jLabel4.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
         jLabel4.setText("¿Pedido a domicilio?");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
 
         rbtnSi.setBackground(new java.awt.Color(255, 255, 255));
         btngrpDomic.add(rbtnSi);
+        rbtnSi.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
         rbtnSi.setText("Sí");
+        rbtnSi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnSiActionPerformed(evt);
+            }
+        });
         add(rbtnSi, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, -1, -1));
 
         rbtnNo.setBackground(new java.awt.Color(255, 255, 255));
         btngrpDomic.add(rbtnNo);
+        rbtnNo.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
         rbtnNo.setText("No");
+        rbtnNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnNoActionPerformed(evt);
+            }
+        });
         add(rbtnNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, -1, -1));
 
+        jLabel5.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
         jLabel5.setText("TOTAL:");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 350, -1, -1));
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 390, -1, -1));
 
         lblTotal.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblTotal.setText("$00.00");
-        add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 340, -1, -1));
+        add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 380, -1, -1));
 
+        jLabel7.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
         jLabel7.setText("Productos:");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
         add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, 180, -1));
 
+        jLabel8.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
         jLabel8.setText("Dirección:");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
 
+        jLabel9.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
         jLabel9.setText("Teléfono:");
         add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, -1, -1));
 
+        btnRealizar.setBackground(new java.awt.Color(255, 204, 204));
         btnRealizar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnRealizar.setText("Realizar Orden");
+        btnRealizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRealizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRealizarActionPerformed(evt);
@@ -149,36 +172,49 @@ public class RealizarOrden extends javax.swing.JPanel {
         });
         add(btnRealizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 460, -1, -1));
 
+        btnReiniciar.setBackground(new java.awt.Color(255, 204, 204));
         btnReiniciar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         btnReiniciar.setText("Reiniciar");
+        btnReiniciar.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        btnReiniciar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnReiniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReiniciarActionPerformed(evt);
             }
         });
-        add(btnReiniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 460, -1, -1));
+        add(btnReiniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 460, 130, 40));
 
+        cmbProd.setBackground(new java.awt.Color(255, 153, 153));
+        cmbProd.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
+        cmbProd.setForeground(new java.awt.Color(0, 0, 0));
         add(cmbProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 230, -1));
 
+        txtOrden.setBackground(new java.awt.Color(255, 255, 255));
         txtOrden.setColumns(20);
-        txtOrden.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        txtOrden.setFont(new java.awt.Font("Tw Cen MT", 2, 18)); // NOI18N
         txtOrden.setRows(5);
-        txtOrden.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        txtOrden.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         txtOrden.setEnabled(false);
         jScrollPane1.setViewportView(txtOrden);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 110, 270, 220));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 110, 380, 260));
 
+        jLabel10.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
         jLabel10.setText("Orden:");
-        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 110, -1, -1));
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 90, -1, -1));
 
+        btnAdd.setBackground(new java.awt.Color(255, 204, 204));
+        btnAdd.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(0, 0, 0));
         btnAdd.setText("Añadir a orden");
+        btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
             }
         });
         add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, -1, -1));
+        add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 470, 10));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
@@ -204,11 +240,13 @@ public class RealizarOrden extends javax.swing.JPanel {
              Connection conexion=null;
             conexion=getConnection();
             
-           ps=conexion.prepareStatement("select precio from productos");
+           ps=conexion.prepareStatement("select Precio from productos where NombreProducto=?");
+           ps.setString(1, prod);
            rs=ps.executeQuery();
            
            while(rs.next()){
-               lblTotal.setText(rs.getInt("precio"));
+               total+=rs.getInt("Precio");
+               lblTotal.setText("$"+total);
            }
         }catch(Exception ex){
             System.out.println(ex);
@@ -258,6 +296,20 @@ public class RealizarOrden extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnRealizarActionPerformed
 
+    private void rbtnSiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnSiActionPerformed
+        txtDireccion.setEnabled(true);
+        txtTelefono.setEnabled(true);
+        txtDireccion.setText("");
+        txtTelefono.setText("");
+    }//GEN-LAST:event_rbtnSiActionPerformed
+
+    private void rbtnNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnNoActionPerformed
+        txtDireccion.setEnabled(false);
+        txtTelefono.setEnabled(false);
+        txtDireccion.setText("NA");
+        txtTelefono.setText("NA");
+    }//GEN-LAST:event_rbtnNoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -274,6 +326,7 @@ public class RealizarOrden extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JRadioButton rbtnNo;
     private javax.swing.JRadioButton rbtnSi;
