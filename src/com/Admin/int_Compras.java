@@ -344,8 +344,10 @@ public class int_Compras extends javax.swing.JFrame {
     private void botonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarActionPerformed
         agregarCompra();
         if(estaEnInsumos()==false){
+            System.err.println("no esta");
         agregarCompraInsumos();
         }else actualizarCantidadInsumo();
+        System.err.println("si esta");
         cargar();
     }//GEN-LAST:event_botonInsertarActionPerformed
 
@@ -460,19 +462,21 @@ public class int_Compras extends javax.swing.JFrame {
     }
     public boolean estaEnInsumos(){
         Connection conexion =null;
-        
+       
         try{
             conexion=getConnection();
-            ps=conexion.prepareStatement("select "+txtCodigo.getText()+" from insumos;");
+            ps=conexion.prepareStatement("select * from insumos where idCodigoCompra='"+txtCodigo.getText()+"';");
             rs=ps.executeQuery();
             
-            if(rs.next())return true;
-                
+           
+            if(rs.next()){return true;}         
+             
             
         }catch(Exception ex){
             System.out.println("error "+ex);
         }
-        return false;
+            
+             return false;
         
     }
     public void cargarDatos(){
