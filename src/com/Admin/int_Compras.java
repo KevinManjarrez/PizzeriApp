@@ -1,4 +1,5 @@
 package com.Admin;
+import com.LogicasAdmin.Conexion;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.sql.Connection;
@@ -30,7 +31,7 @@ public class int_Compras extends javax.swing.JFrame {
     
     PreparedStatement ps;
     ResultSet rs; 
-    
+    Conexion conexion;
     public int_Compras() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -342,7 +343,9 @@ public class int_Compras extends javax.swing.JFrame {
 
     private void botonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarActionPerformed
         agregarCompra();
+        if(estaEnInsumos()==false){
         agregarCompraInsumos();
+        }else actualizarCantidadInsumo();
         cargar();
     }//GEN-LAST:event_botonInsertarActionPerformed
 
@@ -355,7 +358,7 @@ public class int_Compras extends javax.swing.JFrame {
             
         String elemento = (String) combo_proveedores.getSelectedItem();
            
-        Connection conexion=null;
+        Connection conexion=null;                                   
         PreparedStatement ps=null;
         ResultSet rs=null; 
         
@@ -455,7 +458,23 @@ public class int_Compras extends javax.swing.JFrame {
             System.err.println("Error, "+ex);
         }
     }
-    
+    public boolean estaEnInsumos(){
+        Connection conexion =null;
+        
+        try{
+            conexion=getConnection();
+            ps=conexion.prepareStatement("select "+txtCodigo.getText()+" from insumos;");
+            rs=ps.executeQuery();
+            
+            if(rs.next())return true;
+                
+            
+        }catch(Exception ex){
+            System.out.println("error "+ex);
+        }
+        return false;
+        
+    }
     public void cargarDatos(){
          PreparedStatement ps = null;
         ResultSet rs = null;
@@ -529,11 +548,11 @@ public class int_Compras extends javax.swing.JFrame {
            
             Connection conexion =getConnection();
             
-            ps = conexion.prepareStatement("insert into insumos (nombre, descripcion, existencia) values (?,?,?)");
+            ps = conexion.prepareStatement("insert into insumos (nombre, descripcion, existencia,idcodigocompra) values (?,?,?,?)");
             ps.setString(1,txtProducto.getText());
             ps.setString(2, txtDescripcion.getText());
             ps.setInt(3, Integer.parseInt(txtCantidad.getText()));
-                   
+            ps.setString(4, txtCodigo.getText());      
             
             ps.executeUpdate();
             
@@ -543,6 +562,19 @@ public class int_Compras extends javax.swing.JFrame {
         }
     }
     
+    public void actualizarCantidadInsumo(){
+      Connection conexion=null;
+      try{
+          conexion=getConnection();
+          ps=conexion.prepareStatement("UPDATE insumos SET Existencia=(Existencia+"+Integer.parseInt(txtCantidad.getText())+") where idCodigoCompra=?");
+          ps.setString(1,txtCodigo.getText());
+          
+          int resultado=ps.executeUpdate();
+          
+          }catch(Exception e){
+          System.out.print("error "+ e);
+      }
+    }
     public void limpiarEntradas(){
         txtCodigo.setText("");
         txtProducto.setText("");
@@ -550,35 +582,7 @@ public class int_Compras extends javax.swing.JFrame {
         txtPrecio.setText("");
         txtCantidad.setText("");
     }
-    
-    /*
-    public void filtrarDatos (String valor){
-            String[] titulos={"idProveedores", "NombreProveedores","DireccionProveedores", "cpProveedores", "telProveedores"};
-            String[] registros = new String[7];
-            
-            DefaultTableModel modelo = new DefaultTableModel(null, titulos);
-            String SQL = "select * from proveedores where NombreProveedores like '"+valor+"%'";
-            Statement st;
-        try{
-            st = con.createStatement();
-            ResultSet rs= st.executeQuery(SQL);
-            while (rs.next()){
-               registros[0]=rs.getString("idProveedores");
-               registros[1]=rs.getString("NombreProveedores");
-               registros[2]=rs.getString("DireccionProveedores");
-               registros[3]=rs.getString("cpProveedores");
-               registros[4]=rs.getString("telProveedores");
-               
-               modelo.addRow(registros);
-               
-        }
-        tblCompras.setModel(modelo);    
-            
-        }catch( SQLException e){
-            JOptionPane.showMessageDialog(null, "Error al mostrar los registros"+ e.getMessage());
-        }
-    }*/
-    
+
     public java.sql.Connection getConnection(){
         java.sql.Connection conexion=null;
         
