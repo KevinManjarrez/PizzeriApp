@@ -194,7 +194,7 @@ public class AgregarProducto extends javax.swing.JFrame {
             System.out.println(ex);
         }
     }
-     
+     //as
      
       public java.sql.Connection getConnection(){
         java.sql.Connection conexion=null;
