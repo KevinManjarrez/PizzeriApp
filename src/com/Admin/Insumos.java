@@ -79,7 +79,7 @@ public class Insumos extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 900, 240));
 
-        jPanel8.setBackground(new java.awt.Color(255, 102, 102));
+        jPanel8.setBackground(new java.awt.Color(204, 204, 204));
         jPanel8.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jPanel8MouseDragged(evt);
@@ -91,7 +91,7 @@ public class Insumos extends javax.swing.JFrame {
             }
         });
 
-        btnRegresar.setBackground(new java.awt.Color(255, 51, 51));
+        btnRegresar.setBackground(new java.awt.Color(204, 204, 204));
 
         btnRegresarTxt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnRegresarTxt.setText("Regresar al menú");
@@ -138,7 +138,7 @@ public class Insumos extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 40));
+        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 920, 40));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));

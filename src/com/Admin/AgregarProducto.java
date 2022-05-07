@@ -9,6 +9,7 @@ import static com.Admin.int_Compras.contraseña;
 import static com.Admin.int_Compras.usuario;
 import com.LogicasAdmin.Conexion;
 import com.sun.jdi.connect.spi.Connection;
+import java.awt.Color;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,6 +28,8 @@ public class AgregarProducto extends javax.swing.JFrame {
     PreparedStatement ps;
     ResultSet rs; 
     Conexion conexion;
+    
+    int xMouse, yMouse;
     
     public AgregarProducto() {
         initComponents();
@@ -48,7 +51,6 @@ public class AgregarProducto extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         combo_Insumos = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
         combo_eliminarInsumo = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -64,74 +66,72 @@ public class AgregarProducto extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        btnRegresar = new javax.swing.JPanel();
+        btnRegresarTxt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("cantidad");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 120, 20));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 120, 20));
 
         jLabel2.setText("eliminar insumo");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 110, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 110, -1));
 
         jButton1.setText("agregar");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, -1, 20));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, -1, 20));
 
         combo_Insumos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Producto" }));
-        jPanel1.add(combo_Insumos, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 240, -1));
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, 240, -1));
+        jPanel1.add(combo_Insumos, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, 240, -1));
 
         combo_eliminarInsumo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona producto" }));
-        jPanel1.add(combo_eliminarInsumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, 240, -1));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 90, -1));
+        jPanel1.add(combo_eliminarInsumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, 240, -1));
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 90, -1));
 
         jLabel4.setText("Busqueda de insumo");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 120, 20));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 120, 20));
 
         jLabel3.setText("Nombre");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, -1, -1));
-        jPanel1.add(txt_Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 260, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
+        jPanel1.add(txt_Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 260, -1));
 
         jLabel5.setText("Precio");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, -1, -1));
-        jPanel1.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 260, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+        jPanel1.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 260, -1));
 
         jLabel6.setText("Tamaño");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
 
         GrupoCheck.add(tamMega);
         tamMega.setText("mega power");
-        jPanel1.add(tamMega, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, -1, -1));
+        jPanel1.add(tamMega, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 170, -1, -1));
 
         GrupoCheck.add(tamChica);
         tamChica.setText("chica");
-        jPanel1.add(tamChica, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 310, -1, -1));
+        jPanel1.add(tamChica, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, -1, -1));
 
         GrupoCheck.add(tamMediana);
         tamMediana.setText("mediana");
-        jPanel1.add(tamMediana, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, -1, -1));
+        jPanel1.add(tamMediana, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, -1, -1));
 
         GrupoCheck.add(tamGrande);
         tamGrande.setText("grande");
-        jPanel1.add(tamGrande, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 310, -1, -1));
+        jPanel1.add(tamGrande, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, -1, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 70, 270, 370));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 140, 330, 310));
 
         jButton2.setText("Crear Producto");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -139,23 +139,90 @@ public class AgregarProducto extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 380, 120, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 120, -1));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel2MouseDragged(evt);
+            }
+        });
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel2MousePressed(evt);
+            }
+        });
+
+        btnRegresar.setBackground(new java.awt.Color(255, 255, 255));
+        btnRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRegresarMouseEntered(evt);
+            }
+        });
+
+        btnRegresarTxt.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        btnRegresarTxt.setText("Regresar al Menú");
+        btnRegresarTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegresarTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegresarTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRegresarTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRegresarTxtMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnRegresarLayout = new javax.swing.GroupLayout(btnRegresar);
+        btnRegresar.setLayout(btnRegresarLayout);
+        btnRegresarLayout.setHorizontalGroup(
+            btnRegresarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 172, Short.MAX_VALUE)
+            .addGroup(btnRegresarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(btnRegresarLayout.createSequentialGroup()
+                    .addGap(26, 26, 26)
+                    .addComponent(btnRegresarTxt)
+                    .addContainerGap(27, Short.MAX_VALUE)))
+        );
+        btnRegresarLayout.setVerticalGroup(
+            btnRegresarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 41, Short.MAX_VALUE)
+            .addGroup(btnRegresarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(btnRegresarLayout.createSequentialGroup()
+                    .addGap(10, 10, 10)
+                    .addComponent(btnRegresarTxt)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 828, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
         );
 
         pack();
@@ -172,6 +239,36 @@ public class AgregarProducto extends javax.swing.JFrame {
             String tamaño = tamMega.getText().toString();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnRegresarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarTxtMouseClicked
+        AdministradorMenu admM = new AdministradorMenu();
+        admM.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnRegresarTxtMouseClicked
+
+    private void btnRegresarTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarTxtMouseEntered
+        btnRegresar.setBackground(Color.LIGHT_GRAY);
+    }//GEN-LAST:event_btnRegresarTxtMouseEntered
+
+    private void btnRegresarTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarTxtMouseExited
+        btnRegresar.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnRegresarTxtMouseExited
+
+    private void btnRegresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseEntered
+
+    }//GEN-LAST:event_btnRegresarMouseEntered
+
+    private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+
+        this.setLocation(x - xMouse, y - yMouse);
+    }//GEN-LAST:event_jPanel2MouseDragged
+
+    private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
+        xMouse = evt.getX();
+        yMouse = evt.getY();
+    }//GEN-LAST:event_jPanel2MousePressed
 
     /**
      * @param args the command line arguments
@@ -265,11 +362,12 @@ public class AgregarProducto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup GrupoCheck;
+    private javax.swing.JPanel btnRegresar;
+    private javax.swing.JLabel btnRegresarTxt;
     private javax.swing.JComboBox<String> combo_Insumos;
     private javax.swing.JComboBox<String> combo_eliminarInsumo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -277,6 +375,7 @@ public class AgregarProducto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
