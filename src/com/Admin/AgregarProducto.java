@@ -158,14 +158,13 @@ public class AgregarProducto extends javax.swing.JFrame {
     public void Insertar_producto(){
         PreparedStatement ps = null;
         try{
-            int cantidadTotal=Integer.parseInt(txtCantidad.getText());
-            double medidaDelaPorcion=Double.parseDouble(txtGramos.getText());
+           
             java.sql.Connection conexion =getConnection();
             
             ps = conexion.prepareStatement("insert into productos (NombreProducto, precio,tamaño) values (?,?,?)");
             ps.setString(1,txt_Nombre.getText());
             ps.setDouble(2, Double.parseDouble(txtPrecio.getText()));
-            ps.setString(3, );      
+           
           
             
             ps.executeUpdate();
