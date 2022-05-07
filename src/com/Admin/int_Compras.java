@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  */
 
 /**
- *
+ *41
  * @author defer
  */
 public class int_Compras extends javax.swing.JFrame {
