@@ -16,6 +16,7 @@ import java.awt.Color;
 public class CajeroMenu extends javax.swing.JFrame {
 
     int xMouse, yMouse;
+    int n;
     
     public CajeroMenu() {
         initComponents();
