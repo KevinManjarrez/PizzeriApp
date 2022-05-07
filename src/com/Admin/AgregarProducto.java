@@ -33,7 +33,62 @@ public class AgregarProducto extends javax.swing.JFrame {
     
     public AgregarProducto() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        
         cargar_ComboBox();
+    }
+    
+    public String checkSeleccionado(){
+        if(check_Chica.isSelected()){
+           return "chica";
+        }if(check_mediana.isSelected()){
+           return "mediana";
+        }if(check_grande.isSelected()){
+           return "grande";
+        }if(check_mega.isSelected()){
+           return "mega super";
+        }return null;
+    }
+    
+    public void Insertar_producto(){
+        PreparedStatement ps = null;
+        try{
+
+            java.sql.Connection conexion =getConnection();
+
+            ps = conexion.prepareStatement("insert into productos (NombreProducto, precio,tamaño) values (?,?,?)");
+            ps.setString(1,txt_Nombre.getText());
+            ps.setDouble(2, Double.parseDouble(txtPrecio.getText()));
+            ps.setString(3, checkSeleccionado());
+
+
+            ps.executeUpdate();
+
+
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
+    }
+
+    void cargar_ComboBox(){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try{
+             java.sql.Connection conexion=null;
+            conexion=getConnection();
+
+           ps=conexion.prepareStatement("SELECT * FROM pizzeriapp.insumos;");
+           rs=ps.executeQuery();
+
+           while(rs.next()){
+               combo_Insumos.addItem(rs.getString("Nombre"));
+
+
+
+           }
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
     }
 
     /**
@@ -59,10 +114,10 @@ public class AgregarProducto extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtPrecio = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        tamMega = new javax.swing.JCheckBox();
-        tamChica = new javax.swing.JCheckBox();
-        tamMediana = new javax.swing.JCheckBox();
-        tamGrande = new javax.swing.JCheckBox();
+        check_mega = new javax.swing.JCheckBox();
+        check_Chica = new javax.swing.JCheckBox();
+        check_mediana = new javax.swing.JCheckBox();
+        check_grande = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
@@ -71,6 +126,7 @@ public class AgregarProducto extends javax.swing.JFrame {
         btnRegresarTxt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -105,21 +161,21 @@ public class AgregarProducto extends javax.swing.JFrame {
         jLabel6.setText("Tamaño");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
 
-        GrupoCheck.add(tamMega);
-        tamMega.setText("mega power");
-        jPanel1.add(tamMega, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 170, -1, -1));
+        GrupoCheck.add(check_mega);
+        check_mega.setText("mega power");
+        jPanel1.add(check_mega, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 170, -1, -1));
 
-        GrupoCheck.add(tamChica);
-        tamChica.setText("chica");
-        jPanel1.add(tamChica, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, -1, -1));
+        GrupoCheck.add(check_Chica);
+        check_Chica.setText("chica");
+        jPanel1.add(check_Chica, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, -1, -1));
 
-        GrupoCheck.add(tamMediana);
-        tamMediana.setText("mediana");
-        jPanel1.add(tamMediana, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, -1, -1));
+        GrupoCheck.add(check_mediana);
+        check_mediana.setText("mediana");
+        jPanel1.add(check_mediana, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, -1, -1));
 
-        GrupoCheck.add(tamGrande);
-        tamGrande.setText("grande");
-        jPanel1.add(tamGrande, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, -1, -1));
+        GrupoCheck.add(check_grande);
+        check_grande.setText("grande");
+        jPanel1.add(check_grande, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, -1, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -229,15 +285,7 @@ public class AgregarProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (tamChica.isSelected()) {
-            String tamaño = tamChica.getText().toString();
-        } else if (tamMediana.isSelected()) {
-            String tamaño = tamMediana.getText().toString();
-        } else if (tamGrande.isSelected()) {
-            String tamaño = tamGrande.getText().toString();
-        } else if (tamMega.isSelected()) {
-            String tamaño = tamMega.getText().toString();
-        }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnRegresarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarTxtMouseClicked
@@ -273,46 +321,7 @@ public class AgregarProducto extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public void Insertar_producto(){
-        PreparedStatement ps = null;
-        try{
-           
-            java.sql.Connection conexion =getConnection();
-            
-            ps = conexion.prepareStatement("insert into productos (NombreProducto, precio,tamaño) values (?,?,?)");
-            ps.setString(1,txt_Nombre.getText());
-            ps.setDouble(2, Double.parseDouble(txtPrecio.getText()));
-           
-          
-            
-            ps.executeUpdate();
-            
-            
-        }catch(Exception ex){
-            System.err.println("Error, "+ex);
-        }
-    }
-    
-    void cargar_ComboBox(){
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try{
-             java.sql.Connection conexion=null;
-            conexion=getConnection();
-            
-           ps=conexion.prepareStatement("SELECT * FROM pizzeriapp.insumos;");
-           rs=ps.executeQuery();
-           
-           while(rs.next()){
-               combo_Insumos.addItem(rs.getString("Nombre"));
-               combo_eliminarInsumo.addItem(rs.getString("Nombre"));
-               
-           }
-        }catch(Exception ex){
-            System.out.println(ex);
-        }
-    }
-     //as
+   
      
       public java.sql.Connection getConnection(){
         java.sql.Connection conexion=null;
@@ -364,6 +373,10 @@ public class AgregarProducto extends javax.swing.JFrame {
     private javax.swing.ButtonGroup GrupoCheck;
     private javax.swing.JPanel btnRegresar;
     private javax.swing.JLabel btnRegresarTxt;
+    private javax.swing.JCheckBox check_Chica;
+    private javax.swing.JCheckBox check_grande;
+    private javax.swing.JCheckBox check_mediana;
+    private javax.swing.JCheckBox check_mega;
     private javax.swing.JComboBox<String> combo_Insumos;
     private javax.swing.JComboBox<String> combo_eliminarInsumo;
     private javax.swing.JButton jButton1;
@@ -379,10 +392,6 @@ public class AgregarProducto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JCheckBox tamChica;
-    private javax.swing.JCheckBox tamGrande;
-    private javax.swing.JCheckBox tamMediana;
-    private javax.swing.JCheckBox tamMega;
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txt_Nombre;
     // End of variables declaration//GEN-END:variables
