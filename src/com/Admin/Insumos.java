@@ -8,6 +8,10 @@ import com.LogicasAdmin.Conexion;
 import com.LogicasAdmin.Logica_Productos;
 import java.awt.Color;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -45,11 +49,14 @@ public class Insumos extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JPanel();
         btnRegresarTxt = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        btnEliminar = new javax.swing.JButton();
+        lblBusqueda = new javax.swing.JLabel();
+        txtBusqueda = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(255, 102, 102));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblInsumos.setModel(new javax.swing.table.DefaultTableModel(
@@ -57,11 +64,11 @@ public class Insumos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "NOMBRE", "DESCRIPCIÓN", "EXISTENCIA"
+                "idInsumos", "Nombre", "Gramo", "idCodigoCompra"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, true, false
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -70,7 +77,7 @@ public class Insumos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblInsumos);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 900, 380));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 900, 240));
 
         jPanel8.setBackground(new java.awt.Color(255, 102, 102));
         jPanel8.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -122,7 +129,7 @@ public class Insumos extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(860, Short.MAX_VALUE))
+                .addContainerGap(220, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,12 +138,30 @@ public class Insumos extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(2, 0, 980, 40));
+        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 40));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("INSUMOS");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, -1, -1));
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 450, -1, -1));
+
+        lblBusqueda.setText("Busqueda por nombre:");
+        jPanel1.add(lblBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 100, -1, -1));
+
+        txtBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBusquedaKeyReleased(evt);
+            }
+        });
+        jPanel1.add(txtBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 100, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,20 +177,6 @@ public class Insumos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegresarTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarTxtMouseEntered
-       btnRegresar.setBackground(new Color(255,204,204));
-    }//GEN-LAST:event_btnRegresarTxtMouseEntered
-
-    private void btnRegresarTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarTxtMouseExited
-        btnRegresar.setBackground(new Color(255,153,153));
-    }//GEN-LAST:event_btnRegresarTxtMouseExited
-
-    private void btnRegresarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarTxtMouseClicked
-       AdministradorMenu admM = new AdministradorMenu();
-        admM.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnRegresarTxtMouseClicked
-
     private void jPanel8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MousePressed
         xMouse = evt.getX();
         yMouse = evt.getY();
@@ -174,10 +185,75 @@ public class Insumos extends javax.swing.JFrame {
     private void jPanel8MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel8MouseDragged
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-        
+
         this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_jPanel8MouseDragged
-    
+
+    private void btnRegresarTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarTxtMouseExited
+        btnRegresar.setBackground(new Color(255,153,153));
+    }//GEN-LAST:event_btnRegresarTxtMouseExited
+
+    private void btnRegresarTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarTxtMouseEntered
+        btnRegresar.setBackground(new Color(255,204,204));
+    }//GEN-LAST:event_btnRegresarTxtMouseEntered
+
+    private void btnRegresarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarTxtMouseClicked
+        AdministradorMenu admM = new AdministradorMenu();
+        admM.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnRegresarTxtMouseClicked
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        eliminarRegistros();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txtBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusquedaKeyReleased
+        filtrarDatos(txtBusqueda.getText());
+    }//GEN-LAST:event_txtBusquedaKeyReleased
+     public void eliminarRegistros(){
+        int r = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar este registro?", "Eliminar registro",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+        int filaSeleccionada=tblInsumos.getSelectedRow();
+        try{
+            if(r == JOptionPane.YES_OPTION){
+                if(filaSeleccionada == -1){
+                    JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar");
+                }
+                String SQL ="delete from insumos where idInsumos="+tblInsumos.getValueAt(filaSeleccionada, 0);
+                Statement st=con.createStatement();
+                int n = st.executeUpdate(SQL);
+                if(n>=0){
+                    JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente");
+                }
+            }//if.
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error al eliminar registros"+e.getMessage());
+        }
+    }
+     
+        public void filtrarDatos (String valor){
+            String[] titulos={"idInsumos", "Nombre","gramos", "idCodigoCompra"};
+            String[] registros = new String[4];
+            
+            DefaultTableModel modelo = new DefaultTableModel(null, titulos);
+            String SQL = "select * from proveedores where NombreProveedores like '"+valor+"%'";
+            Statement st;
+        try{
+            st = con.createStatement();
+            ResultSet rs= st.executeQuery(SQL);
+            while (rs.next()){
+               registros[0]=rs.getString("idInsumos");
+               registros[1]=rs.getString("Nombre");
+               registros[2]=rs.getString("gramos");
+               registros[3]=rs.getString("idCodigoCompra");               
+               modelo.addRow(registros);
+               
+        }
+        tblInsumos.setModel(modelo);    
+            
+        }catch( SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al mostrar los registros"+ e.getMessage());
+        }
+    }
     public void mostrarInsumos()
     {
         Logica_Productos logica = new Logica_Productos();
@@ -225,12 +301,15 @@ public class Insumos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JPanel btnRegresar;
     private javax.swing.JLabel btnRegresarTxt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblBusqueda;
     private javax.swing.JTable tblInsumos;
+    private javax.swing.JTextField txtBusqueda;
     // End of variables declaration//GEN-END:variables
 }
