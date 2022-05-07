@@ -57,12 +57,13 @@ public class AgregarProducto extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtPrecio = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
+        tamMega = new javax.swing.JCheckBox();
+        tamChica = new javax.swing.JCheckBox();
+        tamMediana = new javax.swing.JCheckBox();
+        tamGrande = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,21 +102,21 @@ public class AgregarProducto extends javax.swing.JFrame {
         jLabel6.setText("Tamaño");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, -1, -1));
 
-        GrupoCheck.add(jCheckBox1);
-        jCheckBox1.setText("mega power");
-        jPanel1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, -1, -1));
+        GrupoCheck.add(tamMega);
+        tamMega.setText("mega power");
+        jPanel1.add(tamMega, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, -1, -1));
 
-        GrupoCheck.add(jCheckBox2);
-        jCheckBox2.setText("chica");
-        jPanel1.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 310, -1, -1));
+        GrupoCheck.add(tamChica);
+        tamChica.setText("chica");
+        jPanel1.add(tamChica, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 310, -1, -1));
 
-        GrupoCheck.add(jCheckBox3);
-        jCheckBox3.setText("mediana");
-        jPanel1.add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, -1, -1));
+        GrupoCheck.add(tamMediana);
+        tamMediana.setText("mediana");
+        jPanel1.add(tamMediana, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, -1, -1));
 
-        GrupoCheck.add(jCheckBox4);
-        jCheckBox4.setText("grande");
-        jPanel1.add(jCheckBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 310, -1, -1));
+        GrupoCheck.add(tamGrande);
+        tamGrande.setText("grande");
+        jPanel1.add(tamGrande, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 310, -1, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -131,6 +132,14 @@ public class AgregarProducto extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 70, 270, 370));
+
+        jButton2.setText("Crear Producto");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 380, 120, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,6 +160,18 @@ public class AgregarProducto extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (tamChica.isSelected()) {
+            String tamaño = tamChica.getText().toString();
+        } else if (tamMediana.isSelected()) {
+            String tamaño = tamMediana.getText().toString();
+        } else if (tamGrande.isSelected()) {
+            String tamaño = tamGrande.getText().toString();
+        } else if (tamMega.isSelected()) {
+            String tamaño = tamMega.getText().toString();
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -247,10 +268,7 @@ public class AgregarProducto extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> combo_Insumos;
     private javax.swing.JComboBox<String> combo_eliminarInsumo;
     private javax.swing.JButton jButton1;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
+    private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -262,6 +280,10 @@ public class AgregarProducto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JCheckBox tamChica;
+    private javax.swing.JCheckBox tamGrande;
+    private javax.swing.JCheckBox tamMediana;
+    private javax.swing.JCheckBox tamMega;
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txt_Nombre;
     // End of variables declaration//GEN-END:variables

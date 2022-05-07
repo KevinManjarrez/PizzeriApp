@@ -219,12 +219,12 @@ public class Logica_Productos {
     
     public DefaultTableModel mostrarInsumos()
     {
-        String []  nombresColumnas = {"id","Nombre de Insumo","Descripcion","Existencia"};
+        String []  nombresColumnas = {"id","Nombre","gramos","idCodigoCompra"};
         String [] registros = new String[4];
         
         DefaultTableModel modelo = new DefaultTableModel(null,nombresColumnas);
         
-        String sql = "SELECT * FROM pizzeriapp.insumos";
+        String sql = "SELECT * FROM insumos";
         
         PreparedStatement pst = null;
         
@@ -240,13 +240,13 @@ public class Logica_Productos {
             
             while(rs.next())
             {
-                registros[0] = rs.getString("idInsumo");
+                registros[0] = rs.getString("idInsumos");
                 
                 registros[1] = rs.getString("Nombre");
                 
-                registros[2] = rs.getString("Descripcion");
+                registros[2] = rs.getString("gramos");
                 
-                registros[3] = rs.getString("Existencia");
+                registros[3] = rs.getString("idCodigoCompra");
                 modelo.addRow(registros);
                 
             }
