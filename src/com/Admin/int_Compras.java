@@ -81,7 +81,7 @@ public class int_Compras extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtProducto = new javax.swing.JTextField();
-        txtDescripcion = new javax.swing.JTextField();
+        txtGramos = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
         txtCantidad = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
@@ -227,20 +227,20 @@ public class int_Compras extends javax.swing.JFrame {
         bg.add(botonCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 510, -1, 45));
 
         jLabel5.setText("Producto");
-        bg.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 200, -1, -1));
+        bg.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 230, -1, -1));
 
-        jLabel6.setText("Descripcion");
-        bg.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 250, -1, -1));
+        jLabel6.setText("Cantidad(gr o ml)");
+        bg.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 280, 110, -1));
 
         jLabel7.setText("Precio");
-        bg.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 300, -1, -1));
+        bg.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 320, -1, -1));
 
         jLabel8.setText("Cantidad");
-        bg.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 340, -1, -1));
-        bg.add(txtProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 190, 240, -1));
-        bg.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 250, 240, -1));
-        bg.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 300, 240, -1));
-        bg.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 340, 240, -1));
+        bg.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 360, -1, -1));
+        bg.add(txtProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 230, 240, -1));
+        bg.add(txtGramos, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 270, 240, -1));
+        bg.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 320, 240, -1));
+        bg.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 360, 240, -1));
 
         jLabel10.setText("Codigo");
         bg.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 150, -1, -1));
@@ -258,7 +258,7 @@ public class int_Compras extends javax.swing.JFrame {
                 botonEliminarActionPerformed(evt);
             }
         });
-        bg.add(botonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 470, 90, 50));
+        bg.add(botonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 490, 90, 50));
 
         botonInsertar.setText("Insertar");
         botonInsertar.addActionListener(new java.awt.event.ActionListener() {
@@ -266,7 +266,7 @@ public class int_Compras extends javax.swing.JFrame {
                 botonInsertarActionPerformed(evt);
             }
         });
-        bg.add(botonInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 470, 110, 50));
+        bg.add(botonInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 490, 110, 50));
 
         jButton1.setText("Limpiar Campos");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -274,13 +274,13 @@ public class int_Compras extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        bg.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 410, -1, -1));
+        bg.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 430, -1, -1));
 
         jLabel9.setText("idProveedor");
-        bg.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 380, -1, -1));
+        bg.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 400, -1, -1));
 
         txtIdProveedor.setEnabled(false);
-        bg.add(txtIdProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 380, 50, -1));
+        bg.add(txtIdProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 400, 50, -1));
 
         combo_proveedores.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -292,7 +292,7 @@ public class int_Compras extends javax.swing.JFrame {
                 combo_proveedoresActionPerformed(evt);
             }
         });
-        bg.add(combo_proveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 410, 110, -1));
+        bg.add(combo_proveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 430, 110, -1));
 
         getContentPane().add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 620));
 
@@ -432,13 +432,13 @@ public class int_Compras extends javax.swing.JFrame {
            
             conexion = getConnection();
             
-            ps = conexion.prepareStatement("SELECT codigo,nombre,descripcion,precio,cantidad,nombreproveedores,idproveedor,fecha,total FROM"
+            ps = conexion.prepareStatement("SELECT codigo,nombre,gramos,precio,cantidad,nombreproveedores,idproveedor,fecha,total FROM"
                     + " compras inner join proveedores on  compras.idproveedor=proveedores.idProveedores "+where);
             rs=ps.executeQuery();
             
             modeloTabla.addColumn("codigo");
             modeloTabla.addColumn("Nombre");
-            modeloTabla.addColumn("descipcion");
+            modeloTabla.addColumn("gr / ml");
             modeloTabla.addColumn("precio");
             modeloTabla.addColumn("cantidad");
             modeloTabla.addColumn("Nombre Proveedore");
@@ -490,7 +490,7 @@ public class int_Compras extends javax.swing.JFrame {
             int fila = tblCompras.getSelectedRow();
             String codigo = tblCompras.getValueAt(fila, 0).toString();
             
-            ps = conexion.prepareStatement("SELECT codigo,nombre,descripcion,precio,cantidad,nombreproveedores,idproveedor FROM"
+            ps = conexion.prepareStatement("SELECT codigo,nombre,gramos,precio,cantidad,nombreproveedores,idproveedor FROM"
                     + " compras inner join proveedores on  compras.idproveedor=proveedores.idProveedores "
                     + "where compras.codigo=?");
             ps.setString(1, codigo);
@@ -499,7 +499,7 @@ public class int_Compras extends javax.swing.JFrame {
             while(rs.next()){
                 txtCodigo.setText(rs.getString("codigo"));
                 txtProducto.setText(rs.getString("nombre"));
-                txtDescripcion.setText(rs.getString("descripcion"));
+                txtGramos.setText(rs.getString("gramos"));
                 txtPrecio.setText(String.valueOf(rs.getDouble("precio")));
                 txtCantidad.setText(String.valueOf(rs.getInt("cantidad")));
                 txtIdProveedor.setText(String.valueOf(rs.getInt("idproveedor")));
@@ -513,7 +513,8 @@ public class int_Compras extends javax.swing.JFrame {
     }
     
     public void agregarCompra(){
-               PreparedStatement ps = null;
+            
+        PreparedStatement ps = null;
             int cantidad=Integer.parseInt(txtCantidad.getText());
             double precio=Double.parseDouble(txtPrecio.getText());
             String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
@@ -523,12 +524,12 @@ public class int_Compras extends javax.swing.JFrame {
             Connection conexion =getConnection();
             
             ps = conexion.prepareStatement("insert into compras("
-                    + "idproveedor,codigo,nombre,descripcion,precio,cantidad,fecha,total) values "
+                    + "idproveedor,codigo,nombre,gramos,precio,cantidad,fecha,total) values "
                     + "(?,?,?,?,?,?,?,?)");
             ps.setInt(1, Integer.parseInt(txtIdProveedor.getText()));
             ps.setString(2, txtCodigo.getText());
             ps.setString(3,txtProducto.getText());
-            ps.setString(4, txtDescripcion.getText());
+            ps.setDouble(4, Double.parseDouble(txtGramos.getText()));
             ps.setDouble(5, Double.parseDouble(txtPrecio.getText()));
             ps.setInt(6, Integer.parseInt(txtCantidad.getText()));
             ps.setString(7,timeStamp);
@@ -549,14 +550,15 @@ public class int_Compras extends javax.swing.JFrame {
     public void agregarCompraInsumos(){
             PreparedStatement ps = null;
         try{
-           
+             int cantidadTotal=Integer.parseInt(txtCantidad.getText());
+            double medidaDelaPorcion=Double.parseDouble(txtGramos.getText());
             Connection conexion =getConnection();
             
-            ps = conexion.prepareStatement("insert into insumos (nombre, descripcion, existencia,idcodigocompra) values (?,?,?,?)");
+            ps = conexion.prepareStatement("insert into insumos (nombre, gramos,idcodigocompra) values (?,?,?)");
             ps.setString(1,txtProducto.getText());
-            ps.setString(2, txtDescripcion.getText());
-            ps.setInt(3, Integer.parseInt(txtCantidad.getText()));
-            ps.setString(4, txtCodigo.getText());      
+            ps.setDouble(2, cantidadTotal*medidaDelaPorcion);
+            ps.setString(3, txtCodigo.getText());      
+          
             
             ps.executeUpdate();
             
@@ -568,9 +570,13 @@ public class int_Compras extends javax.swing.JFrame {
     
     public void actualizarCantidadInsumo(){
       Connection conexion=null;
+       int cantidadTotal=Integer.parseInt(txtCantidad.getText());       
+       double medidaDelaPorcion=Double.parseDouble(txtGramos.getText());
+       double total=cantidadTotal*medidaDelaPorcion;
       try{
+           
           conexion=getConnection();
-          ps=conexion.prepareStatement("UPDATE insumos SET Existencia=(Existencia+"+Integer.parseInt(txtCantidad.getText())+") where idCodigoCompra=?");
+          ps=conexion.prepareStatement("UPDATE insumos SET gramos=(gramos+"+total+") where idCodigoCompra=?");
           ps.setString(1,txtCodigo.getText());
           
           int resultado=ps.executeUpdate();
@@ -582,7 +588,7 @@ public class int_Compras extends javax.swing.JFrame {
     public void limpiarEntradas(){
         txtCodigo.setText("");
         txtProducto.setText("");
-        txtDescripcion.setText("");
+        txtGramos.setText("");
         txtPrecio.setText("");
         txtCantidad.setText("");
     }
@@ -661,7 +667,7 @@ public class int_Compras extends javax.swing.JFrame {
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextField txtGramos;
     private javax.swing.JTextField txtIdProveedor;
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtProducto;
