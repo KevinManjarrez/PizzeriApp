@@ -16,7 +16,7 @@ import java.sql.ResultSet;
 
 /**
  *
- * @author USER12
+ * @author defer
  */
 public class AgregarProducto extends javax.swing.JFrame {
 
