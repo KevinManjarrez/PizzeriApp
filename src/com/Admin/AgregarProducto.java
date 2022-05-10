@@ -10,10 +10,12 @@ import static com.Admin.int_Compras.usuario;
 import com.LogicasAdmin.Conexion;
 import com.sun.jdi.connect.spi.Connection;
 import java.awt.Color;
+import java.awt.event.ItemEvent;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -30,15 +32,20 @@ public class AgregarProducto extends javax.swing.JFrame {
     ResultSet rs; 
     Conexion conexion;
     
+    DefaultTableModel modelo= new DefaultTableModel();
+    
     int xMouse, yMouse;
     
     ArrayList<ArrayList<String>> Ingredientes = new ArrayList<ArrayList<String>>();
     ArrayList<String> ingrediente = new ArrayList<String>();
-    String id="";
+    String idProducto="";
+    int idInsumo;
+ 
     
     public AgregarProducto() {
         initComponents();
         this.setLocationRelativeTo(null);
+        Insertar_producto();
         
         cargar_ComboBox();
     }
@@ -68,7 +75,14 @@ public class AgregarProducto extends javax.swing.JFrame {
 
 
             ps.executeUpdate();
-
+           
+           
+           ps=conexion.prepareStatement("SELECT idProductos FROM pizzeriapp.productos where NombreProducto='"+txt_Nombre.getText()+"'");
+           rs=ps.executeQuery();
+           
+            while(rs.next()){
+               idProducto = rs.getInt("idProductos") + "";
+           }
 
         }catch(Exception ex){
             System.err.println("Error, "+ex);
@@ -86,7 +100,7 @@ public class AgregarProducto extends javax.swing.JFrame {
            rs=ps.executeQuery();
 
            while(rs.next()){
-               id = rs.getInt("idInsumos") + "";
+           
                combo_Insumos.addItem(rs.getString("Nombre"));
            }
         }catch(Exception ex){
@@ -122,7 +136,7 @@ public class AgregarProducto extends javax.swing.JFrame {
         check_mediana = new javax.swing.JCheckBox();
         check_grande = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblIngredientes = new javax.swing.JTable();
         btnCrear = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JPanel();
@@ -149,6 +163,11 @@ public class AgregarProducto extends javax.swing.JFrame {
         jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, -1, 20));
 
         combo_Insumos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Producto" }));
+        combo_Insumos.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                combo_InsumosItemStateChanged(evt);
+            }
+        });
         jPanel1.add(combo_Insumos, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, 240, -1));
 
         combo_eliminarInsumo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona producto" }));
@@ -185,7 +204,7 @@ public class AgregarProducto extends javax.swing.JFrame {
         check_grande.setText("grande");
         jPanel1.add(check_grande, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblIngredientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -193,7 +212,7 @@ public class AgregarProducto extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblIngredientes);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 140, 330, 310));
 
@@ -293,7 +312,10 @@ public class AgregarProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        
+       Insertar_producto();
+       System.err.println(idProducto);
+   
+      
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnRegresarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarTxtMouseClicked
@@ -327,16 +349,76 @@ public class AgregarProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel2MousePressed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        ingrediente.add(combo_Insumos.getSelectedItem().toString());
-        ingrediente.add(id);
+        ingrediente.add(idProducto);
+        ingrediente.add(idInsumo+"");
         ingrediente.add(txtCantidad.getText());
-        Ingredientes.add(ingrediente);
+      
+        
+        insertarIngredientes(ingrediente);
+      
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-   
+    private void combo_InsumosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_InsumosItemStateChanged
+      if (evt.getStateChange()==ItemEvent.SELECTED) {
+            
+        String elemento = (String) combo_Insumos.getSelectedItem();
+           
+        java.sql.Connection conexion=null;                                   
+        PreparedStatement ps=null;
+        ResultSet rs=null; 
+        
+        try{
+           
+            conexion = getConnection();
+            
+            ps = conexion.prepareStatement("SELECT idInsumos from insumos where Nombre ='"+elemento+"'");
+            rs=ps.executeQuery();          
+            while(rs.next()){
+                idInsumo=Integer.parseInt(rs.getString("idInsumos"));
+            }
+            
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
+        }
+    }//GEN-LAST:event_combo_InsumosItemStateChanged
+    
+    public void insertarIngredientes(ArrayList<String> ingredientes){
+         PreparedStatement ps = null;
+        try{
+
+            java.sql.Connection conexion =getConnection();
+
+            ps = conexion.prepareStatement("insert into productosinsumos (idProducto, idInsumo,cantidad) values (?,?,?)");
+            ps.setInt(1,Integer.parseInt(ingredientes.get(0)));
+            ps.setInt(2, Integer.parseInt(ingredientes.get(1)));
+            ps.setInt(3, Integer.parseInt(ingredientes.get(2)));
+
+
+            ps.executeUpdate();
+           
+         
+
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
+    }
+    
+    
+    
+    
+    public void CargarTabla(ArrayList<String> ingrediente){
+       DefaultTableModel modeloTabla=new DefaultTableModel();
+        tblIngredientes.setModel(modeloTabla);
+            modeloTabla.addColumn("ID del productos");
+            modeloTabla.addColumn("Nombre");
+            modeloTabla.addColumn("cantidad");
+            
+            
+           
+     
+    }
      
       public java.sql.Connection getConnection(){
         java.sql.Connection conexion=null;
@@ -405,7 +487,7 @@ public class AgregarProducto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblIngredientes;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txt_Nombre;
