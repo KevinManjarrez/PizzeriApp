@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -30,6 +31,10 @@ public class AgregarProducto extends javax.swing.JFrame {
     Conexion conexion;
     
     int xMouse, yMouse;
+    
+    ArrayList<ArrayList<String>> Ingredientes = new ArrayList<ArrayList<String>>();
+    ArrayList<String> ingrediente = new ArrayList<String>();
+    String id="";
     
     public AgregarProducto() {
         initComponents();
@@ -81,10 +86,8 @@ public class AgregarProducto extends javax.swing.JFrame {
            rs=ps.executeQuery();
 
            while(rs.next()){
+               id = rs.getInt("idInsumos") + "";
                combo_Insumos.addItem(rs.getString("Nombre"));
-
-
-
            }
         }catch(Exception ex){
             System.out.println(ex);
@@ -104,10 +107,10 @@ public class AgregarProducto extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
         combo_Insumos = new javax.swing.JComboBox<>();
         combo_eliminarInsumo = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        txtCantidad = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txt_Nombre = new javax.swing.JTextField();
@@ -120,7 +123,7 @@ public class AgregarProducto extends javax.swing.JFrame {
         check_grande = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        btnCrear = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JPanel();
         btnRegresarTxt = new javax.swing.JLabel();
@@ -137,15 +140,20 @@ public class AgregarProducto extends javax.swing.JFrame {
         jLabel2.setText("eliminar insumo");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 110, -1));
 
-        jButton1.setText("agregar");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, -1, 20));
+        btnAgregar.setText("agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, -1, 20));
 
         combo_Insumos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Producto" }));
         jPanel1.add(combo_Insumos, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, 240, -1));
 
         combo_eliminarInsumo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona producto" }));
         jPanel1.add(combo_eliminarInsumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, 240, -1));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 90, -1));
+        jPanel1.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 90, -1));
 
         jLabel4.setText("Busqueda de insumo");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 120, 20));
@@ -189,13 +197,13 @@ public class AgregarProducto extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 140, 330, 310));
 
-        jButton2.setText("Crear Producto");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCrear.setText("Crear Producto");
+        btnCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCrearActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 120, -1));
+        jPanel1.add(btnCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 120, -1));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -284,9 +292,9 @@ public class AgregarProducto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnRegresarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarTxtMouseClicked
         AdministradorMenu admM = new AdministradorMenu();
@@ -317,6 +325,13 @@ public class AgregarProducto extends javax.swing.JFrame {
         xMouse = evt.getX();
         yMouse = evt.getY();
     }//GEN-LAST:event_jPanel2MousePressed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        ingrediente.add(combo_Insumos.getSelectedItem().toString());
+        ingrediente.add(id);
+        ingrediente.add(txtCantidad.getText());
+        Ingredientes.add(ingrediente);
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -371,6 +386,8 @@ public class AgregarProducto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup GrupoCheck;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnCrear;
     private javax.swing.JPanel btnRegresar;
     private javax.swing.JLabel btnRegresarTxt;
     private javax.swing.JCheckBox check_Chica;
@@ -379,8 +396,6 @@ public class AgregarProducto extends javax.swing.JFrame {
     private javax.swing.JCheckBox check_mega;
     private javax.swing.JComboBox<String> combo_Insumos;
     private javax.swing.JComboBox<String> combo_eliminarInsumo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -391,7 +406,7 @@ public class AgregarProducto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txt_Nombre;
     // End of variables declaration//GEN-END:variables
