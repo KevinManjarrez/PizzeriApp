@@ -394,7 +394,7 @@ public class AgregarProducto extends javax.swing.JFrame {
             ps.setInt(1,Integer.parseInt(ingredientes.get(0)));
             ps.setInt(2, Integer.parseInt(ingredientes.get(1)));
             ps.setInt(3, Integer.parseInt(ingredientes.get(2)));
-
+//
 
             ps.executeUpdate();
            
