@@ -23,7 +23,7 @@ public class Logica_Productos {
 
     public DefaultTableModel mostrarProductos()
     {
-        String []  nombresColumnas = {"id","Nombre Producto","Precio","Descripcion"};
+        String []  nombresColumnas = {"id","Nombre Producto","Precio","Tamaño"};
         String [] registros = new String[4];
         DefaultTableModel modelo = new DefaultTableModel(null,nombresColumnas);
         String sql = "SELECT * FROM pizzeriapp.productos";
@@ -47,7 +47,7 @@ public class Logica_Productos {
                 
                 registros[2] = rs.getString("Precio");
                 
-                registros[3] = rs.getString("Descripcion");
+                registros[3] = rs.getString("Tamaño");
                 
                 modelo.addRow(registros);
                 
