@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class Login extends javax.swing.JFrame {
-     public static final String URL = "jdbc:mysql://localhost:3306/pizzeriapp?autoReconnet=true&useSSL=false";
+    public static final String URL = "jdbc:mysql://localhost:3306/pizzeriapp?autoReconnet=true&useSSL=false";
     public static final String usuario = "root";
     public static final String contraseña = "12345";
     PreparedStatement ps;
@@ -58,7 +58,7 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnIniciarSesion = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -66,7 +66,7 @@ public class Login extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtPass = new javax.swing.JPasswordField();
+        txtContraseña = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
         btnSalir = new javax.swing.JPanel();
         btnSalirtxt = new javax.swing.JLabel();
@@ -79,17 +79,17 @@ public class Login extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 102, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setBackground(new java.awt.Color(255, 102, 102));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-accede-redondeado-derecho-32.png"))); // NOI18N
-        jButton1.setText("Iniciar Sesion");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnIniciarSesion.setBackground(new java.awt.Color(255, 102, 102));
+        btnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnIniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnIniciarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-accede-redondeado-derecho-32.png"))); // NOI18N
+        btnIniciarSesion.setText("Iniciar Sesion");
+        btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnIniciarSesionActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, -1, 40));
+        jPanel1.add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, -1, 40));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -113,20 +113,20 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("PIZZERIAPP");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, 149, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 149, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/porcion-de-pizza (1).png"))); // NOI18N
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 46, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 46, -1));
 
-        txtPass.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtContraseña.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtPassKeyPressed(evt);
+                txtContraseñaKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPassKeyReleased(evt);
+                txtContraseñaKeyReleased(evt);
             }
         });
-        jPanel1.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(157, 177, 220, -1));
+        jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(157, 177, 220, -1));
 
         jPanel2.setBackground(new java.awt.Color(255, 102, 102));
         jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -141,6 +141,7 @@ public class Login extends javax.swing.JFrame {
         });
 
         btnSalir.setBackground(new java.awt.Color(255, 153, 153));
+        btnSalir.setPreferredSize(new java.awt.Dimension(50, 30));
 
         btnSalirtxt.setBackground(new java.awt.Color(255, 153, 153));
         btnSalirtxt.setFont(new java.awt.Font("Nirmala UI", 0, 24)); // NOI18N
@@ -148,6 +149,7 @@ public class Login extends javax.swing.JFrame {
         btnSalirtxt.setText("X");
         btnSalirtxt.setToolTipText("");
         btnSalirtxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalirtxt.setPreferredSize(new java.awt.Dimension(50, 30));
         btnSalirtxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnSalirtxtMouseClicked(evt);
@@ -164,13 +166,13 @@ public class Login extends javax.swing.JFrame {
         btnSalir.setLayout(btnSalirLayout);
         btnSalirLayout.setHorizontalGroup(
             btnSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnSalirLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnSalirtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(btnSalirtxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         btnSalirLayout.setVerticalGroup(
             btnSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnSalirtxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnSalirLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnSalirtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -178,7 +180,7 @@ public class Login extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 455, Short.MAX_VALUE)
+                .addGap(0, 450, Short.MAX_VALUE)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -188,15 +190,15 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 320));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 310));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
        Connection conexion = null;
             
-            String pass = new String(txtPass.getPassword());
+            String pass = new String(txtContraseña.getPassword());
         
             try{
                 conexion = getConnection();
@@ -251,19 +253,19 @@ public class Login extends javax.swing.JFrame {
             }catch(Exception ex){
                 System.err.println("Error, "+ex);
             }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
-    private void txtPassKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassKeyReleased
+    private void txtContraseñaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraseñaKeyReleased
 //        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
 //      // Enter was pressed. Your code goes here.
 //        }
-    }//GEN-LAST:event_txtPassKeyReleased
+    }//GEN-LAST:event_txtContraseñaKeyReleased
 
-    private void txtPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassKeyPressed
+    private void txtContraseñaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraseñaKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
             Connection conexion = null;
             
-            String pass = new String(txtPass.getPassword());
+            String pass = new String(txtContraseña.getPassword());
         
             try{
                 conexion = getConnection();
@@ -320,7 +322,7 @@ public class Login extends javax.swing.JFrame {
             }
 
         }
-    }//GEN-LAST:event_txtPassKeyPressed
+    }//GEN-LAST:event_txtContraseñaKeyPressed
 
     private void btnSalirtxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirtxtMouseClicked
         System.exit(0);
@@ -385,9 +387,9 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JPanel btnSalir;
     private javax.swing.JLabel btnSalirtxt;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -396,7 +398,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField txtPass;
+    private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

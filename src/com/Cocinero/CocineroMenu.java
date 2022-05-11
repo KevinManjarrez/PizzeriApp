@@ -137,8 +137,9 @@ public class CocineroMenu extends javax.swing.JFrame {
         btnLogoutLayout.setHorizontalGroup(
             btnLogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnLogoutLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(txtLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         btnLogoutLayout.setVerticalGroup(
             btnLogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,6 +255,7 @@ public class CocineroMenu extends javax.swing.JFrame {
         });
 
         btnSalir.setBackground(new java.awt.Color(255, 153, 153));
+        btnSalir.setPreferredSize(new java.awt.Dimension(50, 30));
 
         btnSalirtxt.setBackground(new java.awt.Color(255, 153, 153));
         btnSalirtxt.setFont(new java.awt.Font("Nirmala UI", 0, 24)); // NOI18N
@@ -277,7 +279,10 @@ public class CocineroMenu extends javax.swing.JFrame {
         btnSalir.setLayout(btnSalirLayout);
         btnSalirLayout.setHorizontalGroup(
             btnSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnSalirtxt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+            .addGroup(btnSalirLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnSalirtxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                .addGap(4, 4, 4))
         );
         btnSalirLayout.setVerticalGroup(
             btnSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,12 +294,12 @@ public class CocineroMenu extends javax.swing.JFrame {
         barraPricLayout.setHorizontalGroup(
             barraPricLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(barraPricLayout.createSequentialGroup()
-                .addContainerGap(1115, Short.MAX_VALUE)
+                .addContainerGap(1110, Short.MAX_VALUE)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         barraPricLayout.setVerticalGroup(
             barraPricLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
         );
 
         jPanel1.add(barraPric, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1160, 30));
