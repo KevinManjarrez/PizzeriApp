@@ -46,7 +46,7 @@ public class AgregarProducto extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         Insertar_producto();
-        
+        cargar();
         cargar_ComboBox();
     }
     
@@ -214,7 +214,7 @@ public class AgregarProducto extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblIngredientes);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 140, 330, 310));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 40, 330, 410));
 
         btnCrear.setText("Crear Producto");
         btnCrear.addActionListener(new java.awt.event.ActionListener() {
@@ -349,13 +349,16 @@ public class AgregarProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel2MousePressed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+
+
         ingrediente.add(idProducto);
         ingrediente.add(idInsumo+"");
         ingrediente.add(txtCantidad.getText());
       
         
         insertarIngredientes(ingrediente);
-      
+        cargar();
+        ingrediente.clear();
         
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -434,6 +437,43 @@ public class AgregarProducto extends javax.swing.JFrame {
         
         return conexion;
     }//
+      
+       void cargar(){
+        DefaultTableModel modeloTabla=new DefaultTableModel();
+        tblIngredientes.setModel(modeloTabla);
+       
+        
+     
+        java.sql.Connection conexion=null;
+        PreparedStatement ps=null;
+        ResultSet rs=null; 
+        
+        try{
+           
+            conexion = getConnection();
+            
+            ps = conexion.prepareStatement("SELECT idProducto,i.Nombre,cantidad FROM pizzeriapp.productosinsumos pi inner join insumos i on pi.idInsumo=i.idInsumos where pi.idProducto="+Integer.parseInt(idProducto));
+            rs=ps.executeQuery();
+            
+            modeloTabla.addColumn("IdProducto");
+            modeloTabla.addColumn("IdInsumo");
+            modeloTabla.addColumn("Cantidad gr/ml");
+           
+            
+            
+            while(rs.next()){
+                Object fila[]=new Object[3];
+                for (int i = 0; i < 3; i++) {
+                   fila[i]=rs.getObject(i+1);
+                }
+                modeloTabla.addRow(fila);
+            }
+            
+            
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
