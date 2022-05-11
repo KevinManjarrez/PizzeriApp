@@ -145,9 +145,9 @@ public class Productos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        Agregar_Modificar_Producto agg = new Agregar_Modificar_Producto();
+        AgregarProducto agg = new AgregarProducto();
         agg.setVisible(true);
-        
+        this.dispose();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     /**

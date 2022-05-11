@@ -245,7 +245,8 @@ public class AgregarProducto extends javax.swing.JFrame {
         });
 
         btnRegresarTxt.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
-        btnRegresarTxt.setText("Regresar al Menú");
+        btnRegresarTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnRegresarTxt.setText("Regresar");
         btnRegresarTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegresarTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -263,21 +264,15 @@ public class AgregarProducto extends javax.swing.JFrame {
         btnRegresar.setLayout(btnRegresarLayout);
         btnRegresarLayout.setHorizontalGroup(
             btnRegresarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 172, Short.MAX_VALUE)
+            .addGap(0, 92, Short.MAX_VALUE)
             .addGroup(btnRegresarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(btnRegresarLayout.createSequentialGroup()
-                    .addGap(26, 26, 26)
-                    .addComponent(btnRegresarTxt)
-                    .addContainerGap(27, Short.MAX_VALUE)))
+                .addComponent(btnRegresarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
         );
         btnRegresarLayout.setVerticalGroup(
             btnRegresarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 41, Short.MAX_VALUE)
             .addGroup(btnRegresarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(btnRegresarLayout.createSequentialGroup()
-                    .addGap(10, 10, 10)
-                    .addComponent(btnRegresarTxt)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(btnRegresarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -286,7 +281,7 @@ public class AgregarProducto extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 828, Short.MAX_VALUE))
+                .addGap(0, 908, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,7 +314,7 @@ public class AgregarProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnRegresarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarTxtMouseClicked
-        AdministradorMenu admM = new AdministradorMenu();
+        Productos admM = new Productos();
         admM.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnRegresarTxtMouseClicked
