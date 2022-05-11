@@ -43,6 +43,7 @@ public class Int_Proveedores extends javax.swing.JFrame {
         txtBuscar = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JFormattedTextField();
         lblBusqueda = new javax.swing.JLabel();
+        btnRegresarTxt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -141,6 +142,22 @@ public class Int_Proveedores extends javax.swing.JFrame {
 
         lblBusqueda.setText("Busqueda");
 
+        btnRegresarTxt.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        btnRegresarTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnRegresarTxt.setText("Regresar");
+        btnRegresarTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegresarTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegresarTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnRegresarTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnRegresarTxtMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -160,11 +177,12 @@ public class Int_Proveedores extends javax.swing.JFrame {
                 .addComponent(jScrollPane1)
                 .addGap(86, 86, 86))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(btnRegresarTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(102, 102, 102)
                 .addComponent(lblCamioncito)
-                .addGap(70, 70, 70)
+                .addGap(18, 18, 18)
                 .addComponent(lblProveedores)
-                .addGap(0, 392, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,8 +217,9 @@ public class Int_Proveedores extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(lblCamioncito))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(lblProveedores)))
+                        .addGap(44, 44, 44)
+                        .addComponent(lblProveedores))
+                    .addComponent(btnRegresarTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -302,6 +321,18 @@ public class Int_Proveedores extends javax.swing.JFrame {
     private void txtCodigoPostalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoPostalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoPostalActionPerformed
+
+    private void btnRegresarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarTxtMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegresarTxtMouseClicked
+
+    private void btnRegresarTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarTxtMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegresarTxtMouseEntered
+
+    private void btnRegresarTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarTxtMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegresarTxtMouseExited
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -476,6 +507,7 @@ public class Int_Proveedores extends javax.swing.JFrame {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JLabel btnRegresarTxt;
     private javax.swing.JButton btnSalir;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBusqueda;
