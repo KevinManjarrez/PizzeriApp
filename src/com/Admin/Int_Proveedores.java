@@ -169,12 +169,12 @@ public class Int_Proveedores extends javax.swing.JFrame {
                 .addComponent(btnEliminar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnModificar)
-                .addGap(92, 92, 92)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSalir)
-                .addContainerGap(182, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
                 .addGap(86, 86, 86))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(btnRegresarTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -422,22 +422,23 @@ public class Int_Proveedores extends javax.swing.JFrame {
     }
     
     public void eliminarRegistros(){
-        int r = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar este registro?", "Elimar registro",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
         int filaSeleccionada=tblProveedores.getSelectedRow();
         try{
-            if(r == JOptionPane.YES_OPTION){
-                if(filaSeleccionada == -1){
-                    JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar");
-                }
-                String SQL ="delete from proveedores where idProveedores="+tblProveedores.getValueAt(filaSeleccionada, 0);
-                Statement st=con.createStatement();
-                int n = st.executeUpdate(SQL);
-                if(n>=0){
-                    JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente");
-                }
-            }//if.
+            if(filaSeleccionada != -1){
+                int r = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar este registro?", "Eliminar registro",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+                    if(r == JOptionPane.YES_OPTION){
+                        String SQL ="delete from proveedores where idProveedores="+tblProveedores.getValueAt(filaSeleccionada, 0);
+                        Statement st=con.createStatement();
+                        int n = st.executeUpdate(SQL);
+                            if(n>=0){
+                               JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente");
+                            }
+                    }//if.
+            }else{
+                 JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar");
+            }
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Error al eliminar registros"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al eliminar registro: "+e.getMessage());
         }
     }
    

@@ -48,7 +48,7 @@ public class Insumos extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JPanel();
         btnRegresarTxt = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblInsumos = new javax.swing.JLabel();
         btnEliminar = new javax.swing.JButton();
         lblBusqueda = new javax.swing.JLabel();
         txtBusqueda = new javax.swing.JTextField();
@@ -56,9 +56,9 @@ public class Insumos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        tblInsumos.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tblInsumos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -77,9 +77,7 @@ public class Insumos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblInsumos);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 900, 240));
-
-        jPanel8.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
         jPanel8.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jPanel8MouseDragged(evt);
@@ -129,7 +127,7 @@ public class Insumos extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(824, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,30 +136,68 @@ public class Insumos extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 920, 40));
+        lblInsumos.setBackground(new java.awt.Color(255, 255, 255));
+        lblInsumos.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        lblInsumos.setText("INSUMOS");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("INSUMOS");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, -1, -1));
-
+        btnEliminar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 450, -1, -1));
 
+        lblBusqueda.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblBusqueda.setText("Busqueda por nombre:");
-        jPanel1.add(lblBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, -1, -1));
 
         txtBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBusquedaKeyReleased(evt);
             }
         });
-        jPanel1.add(txtBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 100, 350, -1));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(390, 390, 390)
+                                .addComponent(lblInsumos))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(390, 390, 390)
+                                .addComponent(lblBusqueda)
+                                .addGap(10, 10, 10)
+                                .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(10, 10, 10))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnEliminar)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(lblInsumos)
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblBusqueda)
+                    .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
+                .addComponent(btnEliminar)
+                .addGap(66, 66, 66))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,6 +215,7 @@ public class Insumos extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         eliminarRegistros();
+        mostrarInsumos();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusquedaKeyReleased
@@ -210,23 +247,25 @@ public class Insumos extends javax.swing.JFrame {
         admM.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnRegresarTxtMouseClicked
-     public void eliminarRegistros(){
-        int r = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar este registro?", "Eliminar registro",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+    
+    public void eliminarRegistros(){
         int filaSeleccionada=tblInsumos.getSelectedRow();
         try{
-            if(r == JOptionPane.YES_OPTION){
-                if(filaSeleccionada == -1){
-                    JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar");
-                }
-                String SQL ="delete from insumos where idInsumos="+tblInsumos.getValueAt(filaSeleccionada, 0);
-                Statement st=con.createStatement();
-                int n = st.executeUpdate(SQL);
-                if(n>=0){
-                    JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente");
-                }
-            }//if.
+            if(filaSeleccionada != -1){
+                int r = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar este registro?", "Eliminar registro",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+                    if(r == JOptionPane.YES_OPTION){
+                        String SQL ="delete from insumos where idInsumos="+tblInsumos.getValueAt(filaSeleccionada, 0);
+                        Statement st=con.createStatement();
+                        int n = st.executeUpdate(SQL);
+                            if(n>=0){
+                               JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente");
+                            }
+                    }//if.
+            }else{
+                 JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar");
+            }
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Error al eliminar registros"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al eliminar registro: "+e.getMessage());
         }
     }
      
@@ -304,11 +343,11 @@ public class Insumos extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JPanel btnRegresar;
     private javax.swing.JLabel btnRegresarTxt;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBusqueda;
+    private javax.swing.JLabel lblInsumos;
     private javax.swing.JTable tblInsumos;
     private javax.swing.JTextField txtBusqueda;
     // End of variables declaration//GEN-END:variables
