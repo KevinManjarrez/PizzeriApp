@@ -1,8 +1,11 @@
 package com.Admin;
 
-
+import java.sql.Connection;
+import com.LogicasAdmin.Conexion;
 import com.LogicasAdmin.Logica_Productos;
 import java.awt.Color;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -15,7 +18,8 @@ import javax.swing.table.DefaultTableModel;
  * @author USER
  */
 public class Productos extends javax.swing.JFrame {
-
+    Conexion cc = new Conexion();
+    Connection cn = cc.conectar();
     int xMouse,yMouse;
     
     public Productos() {
@@ -64,7 +68,6 @@ public class Productos extends javax.swing.JFrame {
         tblProductos.setBackground(new java.awt.Color(255, 255, 204));
         tblProductos.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         tblProductos.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
-        tblProductos.setForeground(new java.awt.Color(0, 0, 0));
         tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -93,7 +96,7 @@ public class Productos extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MenuIcon.png"))); // NOI18N
         jLabel1.setText("PRODUCTOS");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 920, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 920, 100));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -169,7 +172,8 @@ public class Productos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-     
+        eliminarRegistros();
+        mostrarProductos();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
@@ -179,9 +183,10 @@ public class Productos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnRegresarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarTxtMouseClicked
-        Productos admM = new Productos();
+        AdministradorMenu admM = new AdministradorMenu();
         admM.setVisible(true);
         dispose();
+        
     }//GEN-LAST:event_btnRegresarTxtMouseClicked
 
     private void btnRegresarTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarTxtMouseEntered
@@ -241,6 +246,26 @@ public class Productos extends javax.swing.JFrame {
                 new Productos().setVisible(true);
             }
         });
+    }
+    
+        public void eliminarRegistros(){
+        int r = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar este registro?", "Elimar registro",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+        int filaSeleccionada=tblProductos.getSelectedRow();
+        try{
+            if(r == JOptionPane.YES_OPTION){
+                if(filaSeleccionada == -1){
+                    JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar");
+                }
+                String SQL ="delete from productos where idProductos="+tblProductos.getValueAt(filaSeleccionada, 0);
+                Statement st=cn.createStatement();
+                int n = st.executeUpdate(SQL);
+                if(n>=0){
+                    JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente");
+                }
+            }//if.
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error al eliminar registros"+e.getMessage());
+        }
     }
     
     public void mostrarProductos()
