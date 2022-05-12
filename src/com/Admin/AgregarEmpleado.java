@@ -314,12 +314,14 @@ public class AgregarEmpleado extends javax.swing.JFrame {
 
     
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        agregarUsuario();
+        
          if(txtNombre.getText().isEmpty() || txtAPaterno.getText().isEmpty() || txtAMaterno.getText().isEmpty() ||
                  txtDireccion.getText().isEmpty() || txtCP.getText().isEmpty() || txtPass.getText().isEmpty() ||
                  cmbTipo.getSelectedItem().toString().isEmpty() || txtUsuarioN.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "No dejar campos vacíos", "ERROR!", JOptionPane.ERROR_MESSAGE);
-        }
+        }else {
+             agregarUsuario();
+         }
          
  
           

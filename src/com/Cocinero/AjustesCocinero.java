@@ -179,7 +179,14 @@ public class AjustesCocinero extends javax.swing.JPanel {
             
             ps.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Contraseña actualizada correctamente");
+             if(txtUserC.getText().isBlank() || txtOldPass.getText().isBlank() || txtNewPass.getText().isBlank()){
+           JOptionPane.showMessageDialog(this, "No dejar campos vacíos", "ERROR!", JOptionPane.ERROR_MESSAGE);
+            }
+            
+              else{
+                  JOptionPane.showMessageDialog(null, "Contraseña actualizada correctamente");
+              }
+            
             limpiarCajas();
             
 
@@ -204,7 +211,13 @@ public class AjustesCocinero extends javax.swing.JPanel {
             
             ps.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Nombre de Usuario actualizado correctamente");
+             if(txtOldUser.getText().isBlank() || txtPass.getText().isBlank() || txtNewUser.getText().isBlank()){
+           JOptionPane.showMessageDialog(this, "No dejar campos vacíos", "ERROR!", JOptionPane.ERROR_MESSAGE);
+            }
+            
+              else{
+                  JOptionPane.showMessageDialog(null, "Nombre de Usuario actualizado correctamente");
+              }
             limpiarCajas();
             
 

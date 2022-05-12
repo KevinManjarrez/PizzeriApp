@@ -170,6 +170,7 @@ public class AjustesRepartidor extends javax.swing.JPanel {
         passN = txtNewPass.getText();
         passO = txtOldPass.getText();
         userO = txtUserC.getText();
+        
 
         try{
             Connection conexion = getConnection();
@@ -180,8 +181,13 @@ public class AjustesRepartidor extends javax.swing.JPanel {
             ps.setString(3, passO);
             
             ps.executeUpdate();
+              if(txtUserC.getText().isBlank() || txtOldPass.getText().isBlank() || txtNewPass.getText().isBlank()){
+           JOptionPane.showMessageDialog(this, "No dejar campos vacíos", "ERROR!", JOptionPane.ERROR_MESSAGE);
+            }
             
-            JOptionPane.showMessageDialog(null, "Contraseña actualizada correctamente");
+              else{
+                  JOptionPane.showMessageDialog(null, "Contraseña actualizada correctamente");
+              }
             limpiarCajas();
             
 
@@ -195,6 +201,9 @@ public class AjustesRepartidor extends javax.swing.JPanel {
         passO = txtPass.getText();
         userO = txtOldUser.getText();
         userN = txtNewUser.getText();
+        
+        
+
 
         try{
             Connection conexion = getConnection();
@@ -206,7 +215,13 @@ public class AjustesRepartidor extends javax.swing.JPanel {
             
             ps.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Nombre de Usuario actualizado correctamente");
+              if(txtOldUser.getText().isBlank() || txtPass.getText().isBlank() || txtNewUser.getText().isBlank()){
+           JOptionPane.showMessageDialog(this, "No dejar campos vacíos", "ERROR!", JOptionPane.ERROR_MESSAGE);
+             }   
+            
+              else{
+                  JOptionPane.showMessageDialog(null, "Nombre de Usuario actualizado correctamente");
+              }
             limpiarCajas();
             
 

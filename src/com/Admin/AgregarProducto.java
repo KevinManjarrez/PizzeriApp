@@ -339,7 +339,7 @@ public class AgregarProducto extends javax.swing.JFrame {
        Insertar_producto();
        System.err.println(idProducto);
        
-       if(txt_Nombre.getText().isEmpty() || txtPrecio.getText().isEmpty()){
+       if(txt_Nombre.getText().isBlank() || txtPrecio.getText().isBlank()){
            JOptionPane.showMessageDialog(this, "No dejar campos vacíos", "ERROR!", JOptionPane.ERROR_MESSAGE);
        }
    
@@ -394,7 +394,7 @@ public class AgregarProducto extends javax.swing.JFrame {
         cargar();
         ingrediente.clear();
         
-        if((txtCantidad != null) && (!txtCantidad.equals(""))){
+        if(txtCantidad.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "Campo de cantidad vacía, ingrese cantidad", "ERROR!", JOptionPane.ERROR_MESSAGE);
         }
        
