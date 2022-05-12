@@ -4,10 +4,12 @@
  */
 package com.Cajero;
 
+import java.awt.event.ItemEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -22,7 +24,12 @@ public class RealizarOrden extends javax.swing.JPanel {
     public static final String contraseña = "12345";
     PreparedStatement ps;
     ResultSet rs; 
+    String idProducto="";
+    String idInsumo="";
     
+     ArrayList<String> arrayidProducto = new ArrayList<String>();
+     ArrayList<String> arrayidInsumo = new ArrayList<String>();
+     
     public RealizarOrden() {
         initComponents();
         
@@ -187,6 +194,11 @@ public class RealizarOrden extends javax.swing.JPanel {
         cmbProd.setBackground(new java.awt.Color(255, 153, 153));
         cmbProd.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
         cmbProd.setForeground(new java.awt.Color(0, 0, 0));
+        cmbProd.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbProdItemStateChanged(evt);
+            }
+        });
         add(cmbProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 230, -1));
 
         txtOrden.setBackground(new java.awt.Color(255, 255, 255));
@@ -227,9 +239,20 @@ public class RealizarOrden extends javax.swing.JPanel {
         
         total = 0;
         orden = "";
+      
+        arrayidInsumo.clear();
+        arrayidProducto.clear();
+        
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        agregartxtArea();
+        optenerInsumos();
+        
+        System.err.println(arrayidInsumo.size());
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    public void agregartxtArea(){
         String prod = (String)cmbProd.getSelectedItem();
         orden+= prod+"\n";
         txtOrden.setText(orden);
@@ -240,19 +263,19 @@ public class RealizarOrden extends javax.swing.JPanel {
              Connection conexion=null;
             conexion=getConnection();
             
-           ps=conexion.prepareStatement("select Precio from productos where NombreProducto=?");
+           ps=conexion.prepareStatement("select Precio from productos where NombreProducto=?;");
            ps.setString(1, prod);
            rs=ps.executeQuery();
            
            while(rs.next()){
                total+=rs.getInt("Precio");
                lblTotal.setText("$"+total);
+               //insumosxproducto.add(total+"");
            }
         }catch(Exception ex){
             System.out.println(ex);
         }
-    }//GEN-LAST:event_btnAddActionPerformed
-
+    }
     public void limpiarCajas(){
         txtNombre.setText(null);
         txtDireccion.setText(null);
@@ -262,6 +285,56 @@ public class RealizarOrden extends javax.swing.JPanel {
         lblTotal.setText("$0.00");
     }
     
+ 
+    public void optenerInsumos(){
+        java.sql.Connection conexion=null;                                   
+        PreparedStatement ps=null;
+        ResultSet rs=null; 
+        
+        try{
+           
+            conexion = getConnection();
+            
+            System.err.println("entro");
+         //   int producto=Integer.parseInt(idProducto);
+            ps = conexion.prepareStatement("SELECT idProducto,i.idInsumos,cantidad FROM pizzeriapp.productosinsumos pi inner join insumos i on pi.idInsumo=i.idInsumos where pi.idProducto="+Integer.parseInt(idProducto));
+          //  ps.setInt(1, Integer.parseInt(idProducto));
+            rs=ps.executeQuery();          
+            
+            while(rs.next()){
+                idInsumo=rs.getString("i.idInsumos")+"";
+                arrayidProducto.add(idProducto);
+                arrayidInsumo.add(idInsumo);
+               System.err.println("entro chido");
+            }
+            System.err.println(idProducto);
+            
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
+        
+}
+    void restarInsumos(){
+        for (int i = 0; i < arrayidInsumo.size(); i++) {
+        Connection conexion=null;
+        int idpro=Integer.parseInt(arrayidProducto.get(i));
+        int idins=Integer.parseInt(arrayidInsumo.get(i));
+        
+      try{
+           
+          conexion=getConnection();
+          ps=conexion.prepareStatement("update insumos\n" +
+"set gramos = gramos - (SELECT cantidad FROM (SELECT cantidad FROM productosinsumos pi \n" +
+"inner join insumos i on pi.idInsumo=i.idInsumos\n" +
+" where pi.idProducto="+idpro+" and pi.idInsumo="+idins+") as cantidad) where idInsumos="+idInsumo);
+                   
+          int resultado=ps.executeUpdate();
+          
+          }catch(Exception e){
+          System.out.print("error "+ e);
+      }
+       }
+    }
     private void btnRealizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarActionPerformed
         //String t = (String) total;
         
@@ -294,6 +367,8 @@ public class RealizarOrden extends javax.swing.JPanel {
         }catch(Exception ex){
             System.err.println("Error, "+ex);
         }
+        
+        restarInsumos();
     }//GEN-LAST:event_btnRealizarActionPerformed
 
     private void rbtnSiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnSiActionPerformed
@@ -309,6 +384,32 @@ public class RealizarOrden extends javax.swing.JPanel {
         txtDireccion.setText("NA");
         txtTelefono.setText("NA");
     }//GEN-LAST:event_rbtnNoActionPerformed
+
+    private void cmbProdItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbProdItemStateChanged
+              if (evt.getStateChange()==ItemEvent.SELECTED) {
+            
+        String elemento = (String) cmbProd.getSelectedItem();
+           
+        java.sql.Connection conexion=null;                                   
+        PreparedStatement ps=null;
+        ResultSet rs=null; 
+        
+        try{
+           
+            conexion = getConnection();
+            
+            ps = conexion.prepareStatement("SELECT idproductos from productos where NombreProducto ='"+elemento+"'");
+            rs=ps.executeQuery();          
+            while(rs.next()){
+                idProducto=rs.getInt("idproductos")+"";
+            }
+            System.err.println(idProducto);
+            
+        }catch(Exception ex){
+            System.err.println("Error, "+ex);
+        }
+        }
+    }//GEN-LAST:event_cmbProdItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
