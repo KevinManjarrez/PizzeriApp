@@ -306,19 +306,21 @@ public class RealizarOrden extends javax.swing.JPanel {
                 arrayidProducto.add(idProducto);
                 arrayidInsumo.add(idInsumo);
                System.err.println("entro chido");
+               System.err.println(idProducto);
+                System.err.println(idInsumo);
             }
-            System.err.println(idProducto);
+            
             
         }catch(Exception ex){
             System.err.println("Error, "+ex);
         }
         
 }
-    void restarInsumos(){
-        for (int i = 0; i < arrayidInsumo.size(); i++) {
+    void restarInsumos(int idpro,int idins){
+       
+        
         Connection conexion=null;
-        int idpro=Integer.parseInt(arrayidProducto.get(i));
-        int idins=Integer.parseInt(arrayidInsumo.get(i));
+      
         
       try{
            
@@ -333,7 +335,7 @@ public class RealizarOrden extends javax.swing.JPanel {
           }catch(Exception e){
           System.out.print("error "+ e);
       }
-       }
+       
     }
     private void btnRealizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarActionPerformed
         //String t = (String) total;
@@ -368,7 +370,8 @@ public class RealizarOrden extends javax.swing.JPanel {
             System.err.println("Error, "+ex);
         }
         
-        restarInsumos();
+     
+        imprimirArray();
     }//GEN-LAST:event_btnRealizarActionPerformed
 
     private void rbtnSiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnSiActionPerformed
@@ -385,6 +388,21 @@ public class RealizarOrden extends javax.swing.JPanel {
         txtTelefono.setText("NA");
     }//GEN-LAST:event_rbtnNoActionPerformed
 
+    
+    void imprimirArray(){
+          for (int i = 0; i < arrayidInsumo.size(); i++) {
+                System.out.print(arrayidProducto.get(i) );
+                System.out.print(arrayidInsumo.get(i) );
+                
+                restarInsumos(
+                Integer.parseInt(arrayidProducto.get(i)),
+                Integer.parseInt(arrayidInsumo.get(i))
+                );
+                
+            System.out.println();
+        }
+    }
+    
     private void cmbProdItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbProdItemStateChanged
               if (evt.getStateChange()==ItemEvent.SELECTED) {
             
