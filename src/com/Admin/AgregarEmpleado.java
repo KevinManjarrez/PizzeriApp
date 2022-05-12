@@ -4,7 +4,6 @@ package com.Admin;
 import com.LogicasAdmin.Conexion;
 import java.awt.Color;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
@@ -34,7 +33,6 @@ public class AgregarEmpleado extends javax.swing.JFrame {
     }
     
     public void limpiarCajas(){
-        txtId.setText(null);
         txtNombre.setText(null);
         txtDireccion.setText(null);
         txtCP.setText(null);
@@ -68,8 +66,6 @@ public class AgregarEmpleado extends javax.swing.JFrame {
         txtCP = new javax.swing.JTextField();
         txtUsuarioN = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
         txtPass = new javax.swing.JTextField();
         btnRegresarbg = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JLabel();
@@ -146,11 +142,6 @@ public class AgregarEmpleado extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel10.setText("ID");
-
-        txtId.setEditable(false);
-
         btnRegresarbg.setBackground(new java.awt.Color(255, 255, 255));
 
         btnRegresar.setBackground(new java.awt.Color(255, 255, 255));
@@ -201,13 +192,9 @@ public class AgregarEmpleado extends javax.swing.JFrame {
                         .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel2))
+                                .addComponent(jLabel2)
                                 .addGap(78, 78, 78)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -249,11 +236,7 @@ public class AgregarEmpleado extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnRegresarbg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(4, 4, 4)
+                        .addGap(78, 78, 78)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -468,7 +451,6 @@ public class AgregarEmpleado extends javax.swing.JFrame {
     private javax.swing.JPanel btnRegresarbg;
     private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -482,7 +464,6 @@ public class AgregarEmpleado extends javax.swing.JFrame {
     private javax.swing.JTextField txtAPaterno;
     private javax.swing.JTextField txtCP;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPass;
     private javax.swing.JTextField txtUsuarioN;
