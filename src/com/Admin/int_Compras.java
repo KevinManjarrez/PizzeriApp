@@ -350,7 +350,12 @@ public class int_Compras extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void botonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInsertarActionPerformed
-        agregarCompra();
+
+        if(txtCodigo.getText().isBlank() || txtProducto.getText().isBlank() || txtCantidad.getText().isBlank() || txtPrecio.getText().isBlank() ||
+                txtGramos.getText().isBlank() || cmbProveedores.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(this, "No dejar campos vacíos", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }else{
+          agregarCompra();
         if(estaEnInsumos()==false){
             System.err.println("no esta");
         agregarCompraInsumos();
@@ -358,6 +363,7 @@ public class int_Compras extends javax.swing.JFrame {
         System.err.println("si esta");
         cargar();
         limpiarEntradas();
+       }
     }//GEN-LAST:event_botonInsertarActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
