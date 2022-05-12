@@ -198,8 +198,16 @@ public class Login extends javax.swing.JFrame {
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
        Connection conexion = null;
             
-            String pass = new String(txtContraseña.getPassword());
         
+            String pass = new String(txtContraseña.getPassword());
+            String user = txtUsuario.getText();
+        
+            if (pass.isEmpty() || user.isEmpty()) {
+             showMessageDialog(null, "¡INGRESA UNA CONTRASEÑA Y UN USUARIO! \n ¡NO DEJES ESPACIOS EN BLANCO!");
+        } else if (pass.isEmpty()) {
+             showMessageDialog(null, "¡INGRESA UNA CONTRASEÑA!");
+        } else {
+            
             try{
                 conexion = getConnection();
                 ps = conexion.prepareStatement("select UsuarioNombre, Contraseña, idTipoUsuario from Usuarios where UsuarioNombre=?");
@@ -256,6 +264,7 @@ public class Login extends javax.swing.JFrame {
             }catch(Exception ex){
                 System.err.println("Error, "+ex);
             }
+        }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void txtContraseñaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraseñaKeyReleased
