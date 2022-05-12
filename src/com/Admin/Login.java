@@ -203,7 +203,7 @@ public class Login extends javax.swing.JFrame {
             String user = txtUsuario.getText();
         
             if (pass.isEmpty() || user.isEmpty()) {
-             showMessageDialog(null, "¡INGRESA UNA CONTRASEÑA Y UN USUARIO! \n ¡NO DEJES ESPACIOS EN BLANCO!");
+             showMessageDialog(null, "¡INGRESA UNA CONTRASEÑA Y UN USUARIO! \n ¡NO DEJES ESPACIOS EN BLANCO!", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else if (pass.isEmpty()) {
              showMessageDialog(null, "¡INGRESA UNA CONTRASEÑA!");
         } else {
