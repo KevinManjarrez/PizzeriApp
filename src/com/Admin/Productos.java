@@ -248,23 +248,24 @@ public class Productos extends javax.swing.JFrame {
         });
     }
     
-        public void eliminarRegistros(){
-        int r = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar este registro?", "Elimar registro",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+    public void eliminarRegistros(){
         int filaSeleccionada=tblProductos.getSelectedRow();
         try{
-            if(r == JOptionPane.YES_OPTION){
-                if(filaSeleccionada == -1){
-                    JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar");
-                }
-                String SQL ="delete from productos where idProductos="+tblProductos.getValueAt(filaSeleccionada, 0);
-                Statement st=cn.createStatement();
-                int n = st.executeUpdate(SQL);
-                if(n>=0){
-                    JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente");
-                }
-            }//if.
+            if(filaSeleccionada != -1){
+                int r = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar este registro?", "Eliminar registro",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+                    if(r == JOptionPane.YES_OPTION){
+                        String SQL ="delete from proveedores where idProveedores="+tblProductos.getValueAt(filaSeleccionada, 0);
+                        Statement st=cn.createStatement();
+                        int n = st.executeUpdate(SQL);
+                            if(n>=0){
+                               JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente");
+                            }
+                    }//if.
+            }else{
+                 JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar");
+            }
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Error al eliminar registros"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al eliminar registro: "+e.getMessage());
         }
     }
     
