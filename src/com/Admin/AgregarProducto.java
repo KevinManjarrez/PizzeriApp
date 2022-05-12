@@ -7,9 +7,11 @@ package com.Admin;
 import com.LogicasAdmin.Conexion;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -28,6 +30,9 @@ public class AgregarProducto extends javax.swing.JFrame {
     PreparedStatement ps;
     ResultSet rs; 
     Conexion conexion;
+    
+    Conexion cc = new Conexion();
+    Connection con = cc.conectar();
     
     DefaultTableModel modelo= new DefaultTableModel();
     
@@ -117,10 +122,8 @@ public class AgregarProducto extends javax.swing.JFrame {
         GrupoCheck = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JButton();
         cmbInsumos = new javax.swing.JComboBox<>();
-        combo_eliminarInsumo = new javax.swing.JComboBox<>();
         txtCantidad = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -138,6 +141,8 @@ public class AgregarProducto extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JPanel();
         btnRegresarTxt = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        btnEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -146,42 +151,39 @@ public class AgregarProducto extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("cantidad");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 120, 20));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 120, 20));
 
-        jLabel2.setText("eliminar insumo");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 110, -1));
-
-        btnAgregar.setText("agregar");
+        btnAgregar.setBackground(new java.awt.Color(153, 255, 153));
+        btnAgregar.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        btnAgregar.setText("Agregar");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, -1, 20));
+        jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 390, -1, 20));
 
+        cmbInsumos.setBackground(new java.awt.Color(255, 204, 204));
         cmbInsumos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Insumos" }));
         cmbInsumos.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbInsumosItemStateChanged(evt);
             }
         });
-        jPanel1.add(cmbInsumos, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, 240, -1));
-
-        combo_eliminarInsumo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona producto" }));
-        jPanel1.add(combo_eliminarInsumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, 240, -1));
+        jPanel1.add(cmbInsumos, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 360, 240, -1));
 
         txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCantidadKeyTyped(evt);
             }
         });
-        jPanel1.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 90, -1));
+        jPanel1.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 390, 90, -1));
 
         jLabel4.setText("Busqueda de insumo");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 120, 20));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 120, 20));
 
         jLabel3.setText("Nombre");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
         txt_Nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -193,10 +195,10 @@ public class AgregarProducto extends javax.swing.JFrame {
                 txt_NombreKeyTyped(evt);
             }
         });
-        jPanel1.add(txt_Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 260, -1));
+        jPanel1.add(txt_Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 260, -1));
 
         jLabel5.setText("Precio");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, -1));
 
         txtPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,26 +210,26 @@ public class AgregarProducto extends javax.swing.JFrame {
                 txtPrecioKeyTyped(evt);
             }
         });
-        jPanel1.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 260, -1));
+        jPanel1.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 260, -1));
 
         jLabel6.setText("Tamaño");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
 
         GrupoCheck.add(check_mega);
         check_mega.setText("mega power");
-        jPanel1.add(check_mega, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 170, -1, -1));
+        jPanel1.add(check_mega, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 250, -1, -1));
 
         GrupoCheck.add(check_Chica);
         check_Chica.setText("chica");
-        jPanel1.add(check_Chica, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, -1, -1));
+        jPanel1.add(check_Chica, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, -1, -1));
 
         GrupoCheck.add(check_mediana);
         check_mediana.setText("mediana");
-        jPanel1.add(check_mediana, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, -1, -1));
+        jPanel1.add(check_mediana, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, -1, -1));
 
         GrupoCheck.add(check_grande);
         check_grande.setText("grande");
-        jPanel1.add(check_grande, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, -1, -1));
+        jPanel1.add(check_grande, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 250, -1, -1));
 
         tblIngredientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -241,13 +243,15 @@ public class AgregarProducto extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 40, 330, 410));
 
+        btnCrear.setBackground(new java.awt.Color(153, 255, 153));
+        btnCrear.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         btnCrear.setText("Crear Producto");
         btnCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCrearActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 120, -1));
+        jPanel1.add(btnCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 120, -1));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -316,6 +320,23 @@ public class AgregarProducto extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 40));
+
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-nuevo-50.png"))); // NOI18N
+        jLabel7.setText("Nuevo Producto");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, -1, -1));
+
+        btnEliminar.setBackground(new java.awt.Color(255, 0, 0));
+        btnEliminar.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
+        btnEliminar.setForeground(new java.awt.Color(0, 0, 0));
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 430, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -450,6 +471,31 @@ public class AgregarProducto extends javax.swing.JFrame {
     private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
          
     }//GEN-LAST:event_txtPrecioActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+    
+    public void eliminarRegistros(){
+        int filaSeleccionada=tblIngredientes.getSelectedRow();
+        try{
+            if(filaSeleccionada != -1){
+                int r = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar este registro?", "Eliminar registro",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+                    if(r == JOptionPane.YES_OPTION){
+                        String SQL ="delete from productosinsumos where idProducto="+tblIngredientes.getValueAt(filaSeleccionada, 0) +"and idInsumo=" +tblIngredientes.getValueAt(filaSeleccionada, 1);
+                        Statement st=con.createStatement();
+                        int n = st.executeUpdate(SQL);
+                            if(n>=0){
+                               JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente");
+                            }
+                    }//if.
+            }else{
+                 JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error al eliminar registro: "+e.getMessage());
+        }
+    }
     
     public void insertarIngredientes(ArrayList<String> ingredientes){
          PreparedStatement ps = null;
@@ -574,6 +620,7 @@ public class AgregarProducto extends javax.swing.JFrame {
     private javax.swing.ButtonGroup GrupoCheck;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCrear;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JPanel btnRegresar;
     private javax.swing.JLabel btnRegresarTxt;
     private javax.swing.JCheckBox check_Chica;
@@ -581,13 +628,12 @@ public class AgregarProducto extends javax.swing.JFrame {
     private javax.swing.JCheckBox check_mediana;
     private javax.swing.JCheckBox check_mega;
     private javax.swing.JComboBox<String> cmbInsumos;
-    private javax.swing.JComboBox<String> combo_eliminarInsumo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
