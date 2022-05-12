@@ -417,16 +417,15 @@ public class AgregarEmpleado extends javax.swing.JFrame {
         tipoU = i+"";
         
         try{
-            ps = con.prepareStatement("insert into usuarios (idUsuarios,Nombre,ApellidoPaterno,ApellidoMaterno,Direccion,CodigoPostal,Contraseña,idTipoUsuario,UsuarioNombre) values(?,?,?,?,?,?,?,?,?)");
-            ps.setString(1,txtId.getText());
-            ps.setString(2,txtNombre.getText());
-            ps.setString(3,txtAPaterno.getText());
-            ps.setString(4,txtAMaterno.getText());
-            ps.setString(5,txtDireccion.getText());
-            ps.setString(6,txtCP.getText());
-            ps.setString(7,txtPass.getText());
-            ps.setString(8,tipoU);
-            ps.setString(9,txtUsuarioN.getText());
+            ps = con.prepareStatement("insert into usuarios (Nombre,ApellidoPaterno,ApellidoMaterno,Direccion,CodigoPostal,Contraseña,idTipoUsuario,UsuarioNombre) values(?,?,?,?,?,?,?,?)");
+            ps.setString(1,txtNombre.getText());
+            ps.setString(2,txtAPaterno.getText());
+            ps.setString(3,txtAMaterno.getText());
+            ps.setString(4,txtDireccion.getText());
+            ps.setString(5,txtCP.getText());
+            ps.setString(6,txtPass.getText());
+            ps.setString(7,tipoU);
+            ps.setString(8,txtUsuarioN.getText());
             int resultado = ps.executeUpdate(); //Ejecutamos la insercion
             
             if(resultado > 0){ //Se ejecuto correctamente la insercion
