@@ -254,7 +254,7 @@ public class Productos extends javax.swing.JFrame {
             if(filaSeleccionada != -1){
                 int r = JOptionPane.showConfirmDialog(null, "¿Seguro que quiere eliminar este registro?", "Eliminar registro",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
                     if(r == JOptionPane.YES_OPTION){
-                        String SQL ="delete from proveedores where idProveedores="+tblProductos.getValueAt(filaSeleccionada, 0);
+                        String SQL ="delete from productos where idproductos="+tblProductos.getValueAt(filaSeleccionada, 0);
                         Statement st=cn.createStatement();
                         int n = st.executeUpdate(SQL);
                             if(n>=0){

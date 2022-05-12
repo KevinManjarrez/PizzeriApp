@@ -306,9 +306,7 @@ public class RealizarOrden extends javax.swing.JPanel {
                 arrayidProducto.add(idProducto);
                 arrayidInsumo.add(idInsumo);
                System.err.println("entro chido");
-               System.err.println(idProducto);
-                System.err.println(idInsumo);
-            }
+              }
             
             
         }catch(Exception ex){
@@ -328,7 +326,7 @@ public class RealizarOrden extends javax.swing.JPanel {
           ps=conexion.prepareStatement("update insumos\n" +
 "set gramos = gramos - (SELECT cantidad FROM (SELECT cantidad FROM productosinsumos pi \n" +
 "inner join insumos i on pi.idInsumo=i.idInsumos\n" +
-" where pi.idProducto="+idpro+" and pi.idInsumo="+idins+") as cantidad) where idInsumos="+idInsumo);
+" where pi.idProducto="+idpro+" and pi.idInsumo="+idins+") as cantidad) where idInsumos="+idins);
                    
           int resultado=ps.executeUpdate();
           
@@ -338,8 +336,7 @@ public class RealizarOrden extends javax.swing.JPanel {
        
     }
     private void btnRealizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarActionPerformed
-        //String t = (String) total;
-        
+       
         Connection conexion = null;
         
         try{
