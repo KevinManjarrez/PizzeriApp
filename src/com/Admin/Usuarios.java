@@ -28,7 +28,6 @@ public class Usuarios extends javax.swing.JFrame {
         initComponents();
         
         setLocationRelativeTo(null);
-        
         mostrarUsuarios();
     }
     
@@ -59,6 +58,11 @@ public class Usuarios extends javax.swing.JFrame {
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 102, 102));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
@@ -81,7 +85,6 @@ public class Usuarios extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 96, 1050, 330));
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add-user-group-man-man.png"))); // NOI18N
         jButton1.setText("AGREGAR");
@@ -92,7 +95,6 @@ public class Usuarios extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 430, 230, 90));
 
-        btnEliminar.setBackground(new java.awt.Color(255, 255, 255));
         btnEliminar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-cerrar-ventana-30.png"))); // NOI18N
         btnEliminar.setText("ELIMINAR");
@@ -229,6 +231,10 @@ public class Usuarios extends javax.swing.JFrame {
         
         this.setLocation(x - xMouse, y - yMouse);
     }//GEN-LAST:event_jPanel2MouseDragged
+
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        tblUsuarios.setSelectionMode(0);
+    }//GEN-LAST:event_jPanel1MouseClicked
     
     private void mensaje(String s){
         JOptionPane.showMessageDialog(this,s);
