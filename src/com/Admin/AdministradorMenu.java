@@ -49,7 +49,6 @@ public class AdministradorMenu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("Menú Administrador"); // NOI18N
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1200, 800));
         setResizable(false);
         setSize(new java.awt.Dimension(1200, 800));
 
@@ -303,12 +302,6 @@ public class AdministradorMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnProvActionPerformed
 
-    private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
-        Int_Ventas ventas = new Int_Ventas();
-        ventas.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnVentasActionPerformed
-
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         Login l = new Login();
         l.setVisible(true);
@@ -350,6 +343,12 @@ public class AdministradorMenu extends javax.swing.JFrame {
         xMouse = evt.getX();
         yMouse = evt.getY();
     }//GEN-LAST:event_barraPricMousePressed
+
+    private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
+        Int_Ventas ventas = new Int_Ventas();
+        ventas.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnVentasActionPerformed
 
     /**
      * @param args the command line arguments
