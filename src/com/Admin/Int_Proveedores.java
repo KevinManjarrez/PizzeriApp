@@ -274,13 +274,17 @@ public class Int_Proveedores extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        insertarDatos();
+       /* insertarDatos();
         mostrarProveedores();
-        limpiarEntradas();
+        limpiarEntradas(); */
         
-        /* if(txtNombre.getText().isEmpty() || txtTelefono.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtCodigoPostal.getText().isEmpty()){
+         if(txtNombre.getText().isEmpty() || txtTelefono.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtCodigoPostal.getText().isEmpty()){
            JOptionPane.showMessageDialog(this, "No dejar campos vacíos", "ERROR!", JOptionPane.ERROR_MESSAGE);
-       }*/
+          } else{
+             insertarDatos();
+             mostrarProveedores();
+             limpiarEntradas();
+         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void tblProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProveedoresMouseClicked
