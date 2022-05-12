@@ -34,10 +34,13 @@ public class AgregarEmpleado extends javax.swing.JFrame {
     
     public void limpiarCajas(){
         txtNombre.setText(null);
-        txtDireccion.setText(null);
-        txtCP.setText(null);
         txtAPaterno.setText(null);
         txtAMaterno.setText(null);
+        txtDireccion.setText(null);
+        txtCP.setText(null);
+        txtPass.setText(null);
+        cmbTipo.setSelectedIndex(0);
+        txtUsuarioN.setText(null);
     }
 
     /**
