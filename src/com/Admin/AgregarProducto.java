@@ -159,7 +159,7 @@ public class AgregarProducto extends javax.swing.JFrame {
         });
         jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, -1, 20));
 
-        cmbInsumos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Producto" }));
+        cmbInsumos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Insumos" }));
         cmbInsumos.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbInsumosItemStateChanged(evt);
