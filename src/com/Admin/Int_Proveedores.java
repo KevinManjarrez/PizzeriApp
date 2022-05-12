@@ -110,6 +110,17 @@ public class Int_Proveedores extends javax.swing.JFrame {
 
         lblNombre.setText("Nombre");
 
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
+
         lblTelefono.setText("Telefono");
 
         lblDireccion.setText("Dirección");
@@ -276,7 +287,11 @@ public class Int_Proveedores extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         insertarDatos();
         mostrarProveedores();
-        limpiarEntradas();
+        
+        
+        /* if(txtNombre.getText().isEmpty() || txtTelefono.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtCodigoPostal.getText().isEmpty()){
+           JOptionPane.showMessageDialog(this, "No dejar campos vacíos", "ERROR!", JOptionPane.ERROR_MESSAGE);
+       }*/
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void tblProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProveedoresMouseClicked
@@ -334,6 +349,23 @@ public class Int_Proveedores extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegresarTxtMouseExited
 
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+           int key = evt.getKeyChar();
+
+    boolean mayusculas = key >= 65 && key <= 90;
+    boolean minusculas = key >= 97 && key <= 122;
+    boolean espacio = key == 32;
+            
+     if (!(minusculas || mayusculas || espacio))
+    {
+        evt.consume();
+    }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -377,7 +409,7 @@ public class Int_Proveedores extends javax.swing.JFrame {
         try{
             if(txtNombre.getText().isBlank()||txtDireccion.getText().isBlank()||txtCodigoPostal.getText().isBlank()
                ||txtTelefono.getText().isBlank()){
-                JOptionPane.showMessageDialog(null, "No se admiten registros nulos");
+                JOptionPane.showMessageDialog(null, "No deja campos vacíos");
             }else{
             String SQL="insert into proveedores (NombreProveedores, DireccionProveedores, cpProveedores, telProveedores) values (?,?,?,?)"; 
             PreparedStatement pst = con.prepareStatement(SQL);

@@ -15,6 +15,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -172,6 +173,12 @@ public class AgregarProducto extends javax.swing.JFrame {
 
         combo_eliminarInsumo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona producto" }));
         jPanel1.add(combo_eliminarInsumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, 240, -1));
+
+        txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantidadKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 90, -1));
 
         jLabel4.setText("Busqueda de insumo");
@@ -179,10 +186,32 @@ public class AgregarProducto extends javax.swing.JFrame {
 
         jLabel3.setText("Nombre");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
+
+        txt_Nombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_NombreActionPerformed(evt);
+            }
+        });
+        txt_Nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_NombreKeyTyped(evt);
+            }
+        });
         jPanel1.add(txt_Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 260, -1));
 
         jLabel5.setText("Precio");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+
+        txtPrecio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrecioActionPerformed(evt);
+            }
+        });
+        txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 260, -1));
 
         jLabel6.setText("Tamaño");
@@ -309,8 +338,18 @@ public class AgregarProducto extends javax.swing.JFrame {
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
        Insertar_producto();
        System.err.println(idProducto);
+       
+       if(txt_Nombre.getText().isEmpty() || txtPrecio.getText().isEmpty()){
+           JOptionPane.showMessageDialog(this, "No dejar campos vacíos", "ERROR!", JOptionPane.ERROR_MESSAGE);
+       }
    
-      
+      /* if((txt_Nombre != null) && (!txt_Nombre.equals(""))){
+            JOptionPane.showMessageDialog(this, "Campo de Nombre vacía, ingrese Nombre", "ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
+       
+       else if((txtPrecio != null) && (!txtPrecio.equals(""))){
+            JOptionPane.showMessageDialog(this, "Campo de precio vacía, ingrese precio", "ERROR!", JOptionPane.ERROR_MESSAGE);
+        }*/
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnRegresarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarTxtMouseClicked
@@ -355,6 +394,12 @@ public class AgregarProducto extends javax.swing.JFrame {
         cargar();
         ingrediente.clear();
         
+        if((txtCantidad != null) && (!txtCantidad.equals(""))){
+            JOptionPane.showMessageDialog(this, "Campo de cantidad vacía, ingrese cantidad", "ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
+       
+       
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void combo_InsumosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_InsumosItemStateChanged
@@ -381,6 +426,57 @@ public class AgregarProducto extends javax.swing.JFrame {
         }
         }
     }//GEN-LAST:event_combo_InsumosItemStateChanged
+
+    private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
+        int key = evt.getKeyChar();
+
+    boolean numeros = key >= 48 && key <= 57;
+        
+    if (!numeros)
+    {
+        evt.consume();
+    }
+
+    if (txtCantidad.getText().trim().length() == 10) {
+        evt.consume();
+      }
+    }//GEN-LAST:event_txtCantidadKeyTyped
+
+    private void txt_NombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_NombreKeyTyped
+        int key = evt.getKeyChar();
+
+    boolean mayusculas = key >= 65 && key <= 90;
+    boolean minusculas = key >= 97 && key <= 122;
+    boolean espacio = key == 32;
+            
+     if (!(minusculas || mayusculas || espacio))
+    {
+        evt.consume();
+    }
+    }//GEN-LAST:event_txt_NombreKeyTyped
+
+    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
+          int key = evt.getKeyChar();
+
+    boolean numeros = key >= 48 && key <= 57;
+        
+    if (!numeros)
+    {
+        evt.consume();
+    }
+
+    if (txtPrecio.getText().trim().length() == 10) {
+        evt.consume();
+      }
+    }//GEN-LAST:event_txtPrecioKeyTyped
+
+    private void txt_NombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_NombreActionPerformed
+         
+    }//GEN-LAST:event_txt_NombreActionPerformed
+
+    private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
+         
+    }//GEN-LAST:event_txtPrecioActionPerformed
     
     public void insertarIngredientes(ArrayList<String> ingredientes){
          PreparedStatement ps = null;

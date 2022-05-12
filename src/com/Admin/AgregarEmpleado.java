@@ -101,9 +101,20 @@ public class AgregarEmpleado extends javax.swing.JFrame {
             }
         });
 
+        txtAPaterno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAPaternoKeyTyped(evt);
+            }
+        });
+
         txtAMaterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAMaternoActionPerformed(evt);
+            }
+        });
+        txtAMaterno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAMaternoKeyTyped(evt);
             }
         });
 
@@ -304,6 +315,14 @@ public class AgregarEmpleado extends javax.swing.JFrame {
     
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         agregarUsuario();
+         if(txtNombre.getText().isEmpty() || txtAPaterno.getText().isEmpty() || txtAMaterno.getText().isEmpty() ||
+                 txtDireccion.getText().isEmpty() || txtCP.getText().isEmpty() || txtPass.getText().isEmpty() ||
+                 cmbTipo.getSelectedItem().toString().isEmpty() || txtUsuarioN.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "No dejar campos vacíos", "ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
+         
+ 
+          
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnRegresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseEntered
@@ -321,7 +340,16 @@ public class AgregarEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarMouseClicked
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-       
+       int key = evt.getKeyChar();
+
+    boolean mayusculas = key >= 65 && key <= 90;
+    boolean minusculas = key >= 97 && key <= 122;
+    boolean espacio = key == 32;
+            
+     if (!(minusculas || mayusculas || espacio))
+    {
+        evt.consume();
+    }
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtCPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCPKeyTyped
@@ -335,6 +363,32 @@ public class AgregarEmpleado extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtCPKeyTyped
+
+    private void txtAPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAPaternoKeyTyped
+        int key = evt.getKeyChar();
+
+    boolean mayusculas = key >= 65 && key <= 90;
+    boolean minusculas = key >= 97 && key <= 122;
+    boolean espacio = key == 32;
+            
+     if (!(minusculas || mayusculas || espacio))
+    {
+        evt.consume();
+    }
+    }//GEN-LAST:event_txtAPaternoKeyTyped
+
+    private void txtAMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAMaternoKeyTyped
+        int key = evt.getKeyChar();
+
+    boolean mayusculas = key >= 65 && key <= 90;
+    boolean minusculas = key >= 97 && key <= 122;
+    boolean espacio = key == 32;
+            
+     if (!(minusculas || mayusculas || espacio))
+    {
+        evt.consume();
+    }
+    }//GEN-LAST:event_txtAMaternoKeyTyped
 
     /**
      * @param args the command line arguments
