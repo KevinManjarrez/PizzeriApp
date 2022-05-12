@@ -4,11 +4,7 @@
  */
 package com.Admin;
 
-import static com.Admin.int_Compras.URL;
-import static com.Admin.int_Compras.contraseña;
-import static com.Admin.int_Compras.usuario;
 import com.LogicasAdmin.Conexion;
-import com.sun.jdi.connect.spi.Connection;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
 import java.sql.DriverManager;
@@ -102,7 +98,7 @@ public class AgregarProducto extends javax.swing.JFrame {
 
            while(rs.next()){
            
-               combo_Insumos.addItem(rs.getString("Nombre"));
+               cmbInsumos.addItem(rs.getString("Nombre"));
            }
         }catch(Exception ex){
             System.out.println(ex);
@@ -123,7 +119,7 @@ public class AgregarProducto extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JButton();
-        combo_Insumos = new javax.swing.JComboBox<>();
+        cmbInsumos = new javax.swing.JComboBox<>();
         combo_eliminarInsumo = new javax.swing.JComboBox<>();
         txtCantidad = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -163,13 +159,13 @@ public class AgregarProducto extends javax.swing.JFrame {
         });
         jPanel1.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 310, -1, 20));
 
-        combo_Insumos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Producto" }));
-        combo_Insumos.addItemListener(new java.awt.event.ItemListener() {
+        cmbInsumos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona Producto" }));
+        cmbInsumos.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                combo_InsumosItemStateChanged(evt);
+                cmbInsumosItemStateChanged(evt);
             }
         });
-        jPanel1.add(combo_Insumos, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, 240, -1));
+        jPanel1.add(cmbInsumos, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, 240, -1));
 
         combo_eliminarInsumo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona producto" }));
         jPanel1.add(combo_eliminarInsumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, 240, -1));
@@ -336,11 +332,12 @@ public class AgregarProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-       Insertar_producto();
-       System.err.println(idProducto);
-       
+
        if(txt_Nombre.getText().isBlank() || txtPrecio.getText().isBlank()){
            JOptionPane.showMessageDialog(this, "No dejar campos vacíos", "ERROR!", JOptionPane.ERROR_MESSAGE);
+       }else{
+           Insertar_producto();
+           System.err.println(idProducto);
        }
    
       /* if((txt_Nombre != null) && (!txt_Nombre.equals(""))){
@@ -383,29 +380,25 @@ public class AgregarProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel2MousePressed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-
-
-        ingrediente.add(idProducto);
-        ingrediente.add(idInsumo+"");
-        ingrediente.add(txtCantidad.getText());
-      
-        
-        insertarIngredientes(ingrediente);
-        cargar();
-        ingrediente.clear();
-        
-        if(txtCantidad.getText().isEmpty()){
+        if(txtCantidad.getText().isBlank() || cmbInsumos.getSelectedIndex()==0){
             JOptionPane.showMessageDialog(this, "Campo de cantidad vacía, ingrese cantidad", "ERROR!", JOptionPane.ERROR_MESSAGE);
+        }else{
+            ingrediente.add(idProducto);
+            ingrediente.add(idInsumo+"");
+            ingrediente.add(txtCantidad.getText());
+            insertarIngredientes(ingrediente);
+            cargar();
+            ingrediente.clear();
         }
        
        
         
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-    private void combo_InsumosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_InsumosItemStateChanged
+    private void cmbInsumosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbInsumosItemStateChanged
       if (evt.getStateChange()==ItemEvent.SELECTED) {
             
-        String elemento = (String) combo_Insumos.getSelectedItem();
+        String elemento = (String) cmbInsumos.getSelectedItem();
            
         java.sql.Connection conexion=null;                                   
         PreparedStatement ps=null;
@@ -425,21 +418,10 @@ public class AgregarProducto extends javax.swing.JFrame {
             System.err.println("Error, "+ex);
         }
         }
-    }//GEN-LAST:event_combo_InsumosItemStateChanged
+    }//GEN-LAST:event_cmbInsumosItemStateChanged
 
     private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
-        int key = evt.getKeyChar();
-
-    boolean numeros = key >= 48 && key <= 57;
-        
-    if (!numeros)
-    {
-        evt.consume();
-    }
-
-    if (txtCantidad.getText().trim().length() == 10) {
-        evt.consume();
-      }
+ 
     }//GEN-LAST:event_txtCantidadKeyTyped
 
     private void txt_NombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_NombreKeyTyped
@@ -456,18 +438,18 @@ public class AgregarProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_NombreKeyTyped
 
     private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
-          int key = evt.getKeyChar();
+    int key = evt.getKeyChar();
 
     boolean numeros = key >= 48 && key <= 57;
         
-    if (!numeros)
-    {
-        evt.consume();
-    }
+        if (!numeros)
+        {
+            evt.consume();
+        }
 
-    if (txtPrecio.getText().trim().length() == 10) {
-        evt.consume();
-      }
+        if (txtPrecio.getText().trim().length() == 10) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtPrecioKeyTyped
 
     private void txt_NombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_NombreActionPerformed
@@ -607,7 +589,7 @@ public class AgregarProducto extends javax.swing.JFrame {
     private javax.swing.JCheckBox check_grande;
     private javax.swing.JCheckBox check_mediana;
     private javax.swing.JCheckBox check_mega;
-    private javax.swing.JComboBox<String> combo_Insumos;
+    private javax.swing.JComboBox<String> cmbInsumos;
     private javax.swing.JComboBox<String> combo_eliminarInsumo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
