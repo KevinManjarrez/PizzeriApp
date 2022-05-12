@@ -301,9 +301,9 @@ public class AgregarEmpleado extends javax.swing.JFrame {
     
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         
-         if(txtNombre.getText().isEmpty() || txtAPaterno.getText().isEmpty() || txtAMaterno.getText().isEmpty() ||
-                 txtDireccion.getText().isEmpty() || txtCP.getText().isEmpty() || txtPass.getText().isEmpty() ||
-                 cmbTipo.getSelectedItem().toString().isEmpty() || txtUsuarioN.getText().isEmpty()){
+         if(txtNombre.getText().isBlank() || txtAPaterno.getText().isBlank() || txtAMaterno.getText().isBlank() ||
+                 txtDireccion.getText().isBlank() || txtCP.getText().isBlank() || txtPass.getText().isBlank() ||
+                 cmbTipo.getSelectedIndex()==0 || txtUsuarioN.getText().isBlank()){
             JOptionPane.showMessageDialog(this, "No dejar campos vacíos", "ERROR!", JOptionPane.ERROR_MESSAGE);
         }else {
              agregarUsuario();
@@ -366,7 +366,7 @@ public class AgregarEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_txtAPaternoKeyTyped
 
     private void txtAMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAMaternoKeyTyped
-        int key = evt.getKeyChar();
+    int key = evt.getKeyChar();
 
     boolean mayusculas = key >= 65 && key <= 90;
     boolean minusculas = key >= 97 && key <= 122;
