@@ -208,7 +208,8 @@ public class Login extends javax.swing.JFrame {
                 rs = ps.executeQuery();
             
                 if(rs.next()){
-             
+                    
+                    
                     txtUsuario.setText(rs.getString("UsuarioNombre"));
                     
                     String u = rs.getString("UsuarioNombre");
@@ -234,11 +235,12 @@ public class Login extends javax.swing.JFrame {
                             Rep.setVisible(true);
                             this.dispose();
                         }
+                       
                         
                     } else{
                         showMessageDialog(null, "contraseña incorrecta");
-                    }
-                
+                      }
+                    
                     /*AdministradorMenu menu = new AdministradorMenu();
                     menu.setVisible(true);
                     this.setVisible(false);*/
@@ -247,7 +249,8 @@ public class Login extends javax.swing.JFrame {
                 }else{
                     JOptionPane.showMessageDialog(null, "Usuario incorrecto");
                 
-                }
+                    }
+                
                 conexion.close();
             
             }catch(Exception ex){
